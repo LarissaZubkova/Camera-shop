@@ -7,8 +7,12 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import Pagination from '../../components/pagination/pagination';
+import { useAppSelector } from '../../hooks';
+import { getPromo } from '../../store/product-process/product-process.selectors';
 
 function Catalog(): JSX.Element {
+  const promo = useAppSelector(getPromo);
+
   return (
     <div className="wrapper">
       <Helmet>
@@ -16,7 +20,7 @@ function Catalog(): JSX.Element {
       </Helmet>
       <Header />
       <main>
-        <Banner />
+        {promo.map((card) => <Banner card={card} key={card.id} />)}
         <div className="page-content">
           <Breadcrumbs />
           <section className="catalog">

@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductProcess } from '../../types/state';
 import { NameSpace } from '../../const';
-import { fetchProductsAction } from '../api-actions';
+import { fetchProductsAction, fetchPromoAction } from '../api-actions';
 
 const initialState: ProductProcess = {
   products: [],
+  promo: [],
 };
 
 export const productProcess = createSlice({
@@ -15,6 +16,9 @@ export const productProcess = createSlice({
     builder
       .addCase(fetchProductsAction.fulfilled, (state, action) => {
         state.products = action.payload;
+      })
+      .addCase(fetchPromoAction.fulfilled, (state, action) => {
+        state.promo = action.payload;
       });
   }
 });

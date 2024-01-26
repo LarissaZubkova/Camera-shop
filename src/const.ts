@@ -7,4 +7,5 @@ export enum NameSpace {
 
 export enum APIRout {
     Products = 'cameras',
+    Promo = 'promo',
 }

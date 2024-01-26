@@ -1,9 +1,15 @@
-function Banner(): JSX.Element {
+import { Promo } from '../../types/product';
+
+type BannerProps = {
+  card: Promo;
+}
+
+function Banner({card}: BannerProps): JSX.Element {
   return (
     <div className="banner">
       <picture>
         <source type="image/webp" srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x" />
-        <img src="img/content/banner-bg.jpg" srcSet="img/content/banner-bg@2x.jpg 2x" width={1280} height={280} alt="баннер" />
+        <img src={card.previewImg} srcSet={card.previewImg2x} width={1280} height={280} alt="баннер" />
       </picture>
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>

@@ -1,10 +1,16 @@
-function ProductCard(): JSX.Element {
+import { CameraProduct } from '../../types/product';
+
+type ProductCardProps = {
+  product: CameraProduct;
+}
+
+function ProductCard({product}: ProductCardProps): JSX.Element {
   return (
     <div className="product-card">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet="img/content/das-auge.webp, img/content/das-auge@2x.webp 2x" />
-          <img src="img/content/das-auge.jpg" srcSet="img/content/das-auge@2x.jpg 2x" width={280} height={240} alt="Ретрокамера «Das Auge IV»" />
+          <img src={product?.previewImg} srcSet={product?.previewImg2x} width={280} height={240} alt={product?.name} />
         </picture>
       </div>
       <div className="product-card__info">
@@ -24,7 +30,7 @@ function ProductCard(): JSX.Element {
           <svg width={17} height={16} aria-hidden="true">
             <use xlinkHref="#icon-star"></use>
           </svg>
-          <p className="visually-hidden">Рейтинг: 3</p>
+          <p className="visually-hidden">Рейтинг: {product?.rating}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
         </div>
         <p className="product-card__title">Ретрокамера Das Auge IV</p>

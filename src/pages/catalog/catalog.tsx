@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import CatalorProductCards from '../../components/catalog-product-cards/catalog-product-cards';
+import CatalogProductCards from '../../components/catalog-product-cards/catalog-product-cards';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
@@ -32,7 +32,7 @@ function Catalog(): JSX.Element {
                   <div className="catalog-sort">
                     <CatalogSortForm />
                   </div>
-                  <CatalorProductCards />
+                  <CatalogProductCards />
                   <Pagination />
                 </div>
               </div>

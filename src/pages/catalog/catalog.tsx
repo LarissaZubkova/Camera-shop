@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import CatalogProductCards from '../../components/catalog-product-cards/catalog-product-cards';
-import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
@@ -11,9 +10,9 @@ import { mockProducts } from '../../mock/mock-products';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useSearchParams } from 'react-router-dom';
 import { getCurrentProductsList } from '../../utils';
+import CatalogSwiper from '../../components/catalog-swiper/catalog-swiper';
 
 function Catalog(): JSX.Element {
-  const mockPromo = mockProducts.slice(0,1);
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = getCurrentProductsList(mockProducts, currentPage);
@@ -25,7 +24,7 @@ function Catalog(): JSX.Element {
       </Helmet>
       <Header />
       <main>
-        {mockPromo.map((card) => <Banner card={card} key={card.id} />)}
+        <CatalogSwiper />
         <div className="page-content">
           <Breadcrumbs />
           <section className="catalog">

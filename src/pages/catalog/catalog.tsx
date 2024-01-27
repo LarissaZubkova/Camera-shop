@@ -7,11 +7,16 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import Pagination from '../../components/pagination/pagination';
-import { useAppSelector } from '../../hooks';
-import { getPromo } from '../../store/product-process/product-process.selectors';
+import { mockProducts } from '../../mock/mock-products';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
+import { useSearchParams } from 'react-router-dom';
+import { getCurrentProductsList } from '../../utils';
 
 function Catalog(): JSX.Element {
-  const promo = useAppSelector(getPromo);
+  const mockPromo = mockProducts.slice(0,1);
+  const [searchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
+  const products = getCurrentProductsList(mockProducts, currentPage);
 
   return (
     <div className="wrapper">
@@ -20,7 +25,7 @@ function Catalog(): JSX.Element {
       </Helmet>
       <Header />
       <main>
-        {promo.map((card) => <Banner card={card} key={card.id} />)}
+        {mockPromo.map((card) => <Banner card={card} key={card.id} />)}
         <div className="page-content">
           <Breadcrumbs />
           <section className="catalog">
@@ -36,8 +41,8 @@ function Catalog(): JSX.Element {
                   <div className="catalog-sort">
                     <CatalogSortForm />
                   </div>
-                  <CatalogProductCards />
-                  <Pagination />
+                  <CatalogProductCards products={products} />
+                  {mockProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={mockProducts.length} />}
                 </div>
               </div>
             </div>

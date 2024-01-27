@@ -1,8 +1,10 @@
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks';
 import Catalog from '../../pages/catalog/catalog';
 import { useEffect } from 'react';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -14,7 +16,9 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <Catalog />
+      <Routes>
+        <Route path={AppRoute.Catalog} element={<Catalog />} />
+      </Routes>
     </HelmetProvider>
   );
 }

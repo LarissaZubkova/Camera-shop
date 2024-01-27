@@ -1,4 +1,4 @@
-import { CameraProduct } from '../../types/product';
+import { CameraProduct } from '../types/product';
 
 export const mockProducts: CameraProduct[] = [
   {
@@ -274,7 +274,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 17
   },
   {
-    id: 1,
+    id: 18,
     name: 'Ретрокамера Dus Auge lV',
     vendorCode: 'DA4IU67AD5',
     type: 'Коллекционная',
@@ -290,7 +290,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 75
   },
   {
-    id: 2,
+    id: 19,
     name: 'FastShot MR-5',
     vendorCode: 'JH34KHN895',
     type: 'Моментальная',
@@ -306,7 +306,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 30
   },
   {
-    id: 3,
+    id: 20,
     name: 'Instaprinter P2',
     vendorCode: 'KLU789GH56',
     type: 'Цифровая',
@@ -322,7 +322,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 11
   },
   {
-    id: 4,
+    id: 21,
     name: 'Орлёнок',
     vendorCode: 'O78DFGSD83',
     type: 'Плёночная',
@@ -338,7 +338,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 15
   },
   {
-    id: 5,
+    id: 22,
     name: 'Van Shot',
     vendorCode: 'YU7RT5GH76',
     type: 'Коллекционная',
@@ -370,7 +370,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 12
   },
   {
-    id: 7,
+    id: 23,
     name: 'Look 54',
     vendorCode: 'NB54Y',
     type: 'Цифровая',
@@ -386,7 +386,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 22
   },
   {
-    id: 8,
+    id: 24,
     name: 'Look SF3',
     vendorCode: 'NBSF3',
     type: 'Цифровая',
@@ -402,7 +402,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 20
   },
   {
-    id: 9,
+    id: 25,
     name: 'Van60',
     vendorCode: 'YU7RTVA60',
     type: 'Цифровая',
@@ -418,7 +418,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 21
   },
   {
-    id: 10,
+    id: 26,
     name: 'Van Click',
     vendorCode: 'YU7RTCV72',
     type: 'Моментальная',
@@ -434,7 +434,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 10
   },
   {
-    id: 11,
+    id: 27,
     name: 'SP 520',
     vendorCode: 'JQ756',
     type: 'Коллекционная',
@@ -450,7 +450,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 4
   },
   {
-    id: 12,
+    id: 28,
     name: 'Look Shot',
     vendorCode: 'NB569SH',
     type: 'Цифровая',
@@ -466,7 +466,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 9
   },
   {
-    id: 13,
+    id: 29,
     name: 'Look Shot 5',
     vendorCode: 'NB569SH5',
     type: 'Плёночная',
@@ -482,7 +482,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 14
   },
   {
-    id: 14,
+    id: 30,
     name: 'See Shot',
     vendorCode: 'SS56GH',
     type: 'Цифровая',
@@ -498,7 +498,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 4
   },
   {
-    id: 15,
+    id: 31,
     name: 'SS 54F',
     vendorCode: 'SS54FGH',
     type: 'Цифровая',
@@ -514,7 +514,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 11
   },
   {
-    id: 16,
+    id: 32,
     name: 'Small Shot 4',
     vendorCode: 'SS4CFR9',
     type: 'Цифровая',
@@ -530,7 +530,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 11
   },
   {
-    id: 17,
+    id: 33,
     name: 'Look Identify',
     vendorCode: 'LD2000',
     type: 'Коллекционная',
@@ -546,7 +546,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 17
   },
   {
-    id: 1,
+    id: 34,
     name: 'Ретрокамера Dus Auge lV',
     vendorCode: 'DA4IU67AD5',
     type: 'Коллекционная',
@@ -562,7 +562,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 75
   },
   {
-    id: 2,
+    id: 35,
     name: 'FastShot MR-5',
     vendorCode: 'JH34KHN895',
     type: 'Моментальная',
@@ -578,7 +578,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 30
   },
   {
-    id: 3,
+    id: 36,
     name: 'Instaprinter P2',
     vendorCode: 'KLU789GH56',
     type: 'Цифровая',
@@ -594,7 +594,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 11
   },
   {
-    id: 4,
+    id: 37,
     name: 'Орлёнок',
     vendorCode: 'O78DFGSD83',
     type: 'Плёночная',
@@ -610,7 +610,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 15
   },
   {
-    id: 5,
+    id: 38,
     name: 'Van Shot',
     vendorCode: 'YU7RT5GH76',
     type: 'Коллекционная',
@@ -626,7 +626,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 15
   },
   {
-    id: 6,
+    id: 39,
     name: 'Click Sap',
     vendorCode: 'KLN54H76F5',
     type: 'Плёночная',
@@ -642,7 +642,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 12
   },
   {
-    id: 7,
+    id: 40,
     name: 'Look 54',
     vendorCode: 'NB54Y',
     type: 'Цифровая',
@@ -658,7 +658,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 22
   },
   {
-    id: 8,
+    id: 41,
     name: 'Look SF3',
     vendorCode: 'NBSF3',
     type: 'Цифровая',
@@ -674,7 +674,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 20
   },
   {
-    id: 9,
+    id: 42,
     name: 'Van60',
     vendorCode: 'YU7RTVA60',
     type: 'Цифровая',
@@ -690,7 +690,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 21
   },
   {
-    id: 10,
+    id: 43,
     name: 'Van Click',
     vendorCode: 'YU7RTCV72',
     type: 'Моментальная',
@@ -706,7 +706,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 10
   },
   {
-    id: 11,
+    id: 44,
     name: 'SP 520',
     vendorCode: 'JQ756',
     type: 'Коллекционная',
@@ -722,7 +722,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 4
   },
   {
-    id: 12,
+    id: 45,
     name: 'Look Shot',
     vendorCode: 'NB569SH',
     type: 'Цифровая',
@@ -738,7 +738,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 9
   },
   {
-    id: 13,
+    id: 46,
     name: 'Look Shot 5',
     vendorCode: 'NB569SH5',
     type: 'Плёночная',
@@ -754,7 +754,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 14
   },
   {
-    id: 14,
+    id: 47,
     name: 'See Shot',
     vendorCode: 'SS56GH',
     type: 'Цифровая',
@@ -770,7 +770,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 4
   },
   {
-    id: 15,
+    id: 48,
     name: 'SS 54F',
     vendorCode: 'SS54FGH',
     type: 'Цифровая',
@@ -786,7 +786,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 11
   },
   {
-    id: 16,
+    id: 49,
     name: 'Small Shot 4',
     vendorCode: 'SS4CFR9',
     type: 'Цифровая',
@@ -802,7 +802,7 @@ export const mockProducts: CameraProduct[] = [
     reviewCount: 11
   },
   {
-    id: 17,
+    id: 50,
     name: 'Look Identify',
     vendorCode: 'LD2000',
     type: 'Коллекционная',

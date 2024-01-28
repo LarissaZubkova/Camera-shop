@@ -2,18 +2,19 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { AppRoute, ProductTab } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { mockCameraCard } from '../../mock/mock-camera-card';
 import { setModalActive } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
+import { CameraProduct } from '../../types/product';
 import StarsRating from '../stars-rating/stars-rating';
 
 type ProductCardProps = {
+  product: CameraProduct;
   isActive?: boolean;
 }
 
-function ProductCard({isActive}: ProductCardProps): JSX.Element {
+function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {previewImg, previewImg2x, name, previewImgWebp, previewImgWebp2x, reviewCount, price, rating, id} = mockCameraCard;
+  const {previewImg, previewImg2x, name, previewImgWebp, previewImgWebp2x, reviewCount, price, rating, id} = product;
   return (
     <div className={classNames('product-card', {'is-active' : isActive})}>
       <div className="product-card__img">

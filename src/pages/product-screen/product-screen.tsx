@@ -2,24 +2,27 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchProductCardAction } from '../../store/api-actions';
+import { mockCameraCard } from '../../mock/mock-camera-card';
+import { fetchProductCardAction, fetchSimilarProductsAction } from '../../store/api-actions';
+import { getModalActiveStatus } from '../../store/product-process/product-process.selectors';
+import { mockProducts } from '../../mock/mock-products';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import ProductCard from '../../components/product-card/product-card';
-import { getModalActiveStatus } from '../../store/product-process/product-process.selectors';
-import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
-import { mockCameraCard } from '../../mock/mock-camera-card';
 import ProductDescription from '../../components/product-description/product-description';
+import SimilarList from '../../components/similar-list/similar-list';
+import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
 
 function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const isModalActive = useAppSelector(getModalActiveStatus);
   const productId = useParams().id;
+  const similar = mockProducts.slice(0, 7);
 
   useEffect(() => {
     if (productId) {
       dispatch(fetchProductCardAction(productId));
+      dispatch(fetchSimilarProductsAction(productId));
     }
   }, [productId, dispatch]);
 
@@ -33,28 +36,7 @@ function ProductScreen(): JSX.Element {
         <div className="page-content">
           <Breadcrumbs />
           <ProductDescription/>
-          <div className="page-content__section">
-            <section className="product-similar">
-              <div className="container">
-                <h2 className="title title--h3">Похожие товары</h2>
-                <div className="product-similar__slider">
-                  <div className="product-similar__slider-list">
-                    <ProductCard isActive/>
-                  </div>
-                  <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" disabled>
-                    <svg width={7} height={12} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow"></use>
-                    </svg>
-                  </button>
-                  <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд">
-                    <svg width={7} height={12} aria-hidden="true">
-                      <use xlinkHref="#icon-arrow"></use>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </section>
-          </div>
+          {similar.length && <SimilarList products={similar} />}
           <div className="page-content__section">
             <section className="review-block">
               <div className="container">

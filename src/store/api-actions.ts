@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CameraProduct, Promo } from '../types/product';
+import { CameraProduct, ProductCard, Promo } from '../types/product';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { APIRout } from '../const';
@@ -24,6 +24,18 @@ export const fetchPromoAction = createAsyncThunk<Promo[], undefined, {
   'products/getPromo',
   async(_arg, {extra: api}) => {
     const {data} = await api.get<Promo[]>(APIRout.Promo);
+    return data;
+  }
+);
+
+export const fetchProductCardAction = createAsyncThunk<ProductCard, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'product/fetchProductCard',
+  async(id, {extra: api}) => {
+    const {data} = await api.get<ProductCard>(APIRout.Products.replace(':id', id));
     return data;
   }
 );

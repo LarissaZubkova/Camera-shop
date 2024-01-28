@@ -8,3 +8,7 @@ export function getPaginationCount(count: number): number {
 export function getCurrentProductsList(products: CameraProduct[], page: number) {
   return products.slice(page * DEFAULT_PRODUCTS_COUNT - DEFAULT_PRODUCTS_COUNT, page * DEFAULT_PRODUCTS_COUNT);
 }
+
+export function getMoneyFormat(data: number) {
+  return data.toLocaleString('ru-RU', {style: 'currency', currency: 'RUB', minimumFractionDigits: 0});
+}

@@ -6,7 +6,7 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import Pagination from '../../components/pagination/pagination';
-import CatalogAddItim from '../../popups/catalog-add-item/catalog-add-item';
+import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
 import { mockProducts } from '../../mock/mock-products';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useSearchParams } from 'react-router-dom';
@@ -51,7 +51,7 @@ function CatalogScreen(): JSX.Element {
             </div>
           </section>
         </div>
-        {isModalActive && <CatalogAddItim />}
+        {isModalActive && <CatalogAddItem />}
       </main>
       <Footer />
     </div>

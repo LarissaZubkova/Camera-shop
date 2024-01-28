@@ -1,10 +1,14 @@
 import { CameraProduct } from '../../types/product';
+import { setModalActive } from '../../store/product-process/product-process.slice';
+import { useAppDispatch } from '../../hooks';
 
 type ProductCardProps = {
   product: CameraProduct;
 }
 
 function ProductCard({product}: ProductCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="product-card">
       <div className="product-card__img">
@@ -38,7 +42,11 @@ function ProductCard({product}: ProductCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button
+          className="btn btn--purple product-card__btn"
+          type="button"
+          onClick={() => dispatch(setModalActive(true))}
+        >Купить
         </button>
         <a className="btn btn--transparent" href="#">Подробнее</a>
       </div>

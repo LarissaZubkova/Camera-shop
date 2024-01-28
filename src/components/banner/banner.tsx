@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { Promo } from '../../types/product';
+import { AppRoute } from '../../const';
 
 type BannerProps = {
   card: Promo;
@@ -15,7 +17,7 @@ function Banner({card}: BannerProps): JSX.Element {
         <span className="banner__message">Новинка!</span>
         <span className="title title--h1">Cannonball&nbsp;Pro&nbsp;MX&nbsp;8i</span>
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        <a className="btn" href="#">Подробнее</a>
+        <Link className="btn" to={`${AppRoute.Product}${card.id}`} >Подробнее</Link>
       </p>
     </div>
   );

@@ -7,4 +7,5 @@ export type State = ReturnType<typeof store.getState>;
 export type ProductProcess = {
     products: CameraProduct[];
     promo: Promo[];
+    modalIsActive: boolean;
 }

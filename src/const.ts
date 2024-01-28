@@ -15,4 +15,5 @@ export enum APIRout {
 
 export enum AppRoute {
   Catalog = '/',
+  Product = '/product/',
 }

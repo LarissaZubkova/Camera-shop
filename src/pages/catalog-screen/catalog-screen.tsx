@@ -6,16 +6,20 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import Pagination from '../../components/pagination/pagination';
+import CatalogAddItim from '../../popups/catalog-add-item/catalog-add-item';
 import { mockProducts } from '../../mock/mock-products';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useSearchParams } from 'react-router-dom';
 import { getCurrentProductsList } from '../../utils';
 import CatalogSwiper from '../../components/catalog-swiper/catalog-swiper';
+import { useAppSelector } from '../../hooks';
+import { getModalActiveStatus } from '../../store/product-process/product-process.selectors';
 
-function Catalog(): JSX.Element {
+function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = getCurrentProductsList(mockProducts, currentPage);
+  const isModalActive = useAppSelector(getModalActiveStatus);
 
   return (
     <div className="wrapper">
@@ -47,10 +51,11 @@ function Catalog(): JSX.Element {
             </div>
           </section>
         </div>
+        {isModalActive && <CatalogAddItim />}
       </main>
       <Footer />
     </div>
   );
 }
 
-export default Catalog;
+export default CatalogScreen;

@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css/pagination';
 import 'swiper/css';
+import './catalog-swiper.css';
 import { mockProducts } from '../../mock/mock-products';
 import Banner from '../banner/banner';
 

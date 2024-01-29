@@ -1,19 +1,23 @@
 import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
-import { mockCameraCard } from '../../mock/mock-camera-card';
 import { setModalActive } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { DEFAULT_TAB, ProductTab } from '../../const';
 import StarsRating from '../../components/stars-rating/stars-rating';
+import { CameraCard} from '../../types/product';
 
-function ProductDescription(): JSX.Element {
+type ProductDescriptionProps = {
+  product: CameraCard;
+}
+
+function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const [searchParams] = useSearchParams();
   const checkedTab = searchParams.get('tab') || DEFAULT_TAB;
-  const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, rating, reviewCount, price, vendorCode, category, type, level, description} = mockCameraCard;
+  const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, rating, reviewCount, price, vendorCode, category, type, level, description} = product;
 
   return (
     <div className="page-content__section">
@@ -21,8 +25,8 @@ function ProductDescription(): JSX.Element {
         <div className="container">
           <div className="product__img">
             <picture>
-              <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x} 2x`} />
-              <img src={previewImg} srcSet={`${previewImg2x} 2x`} width={560} height={480} alt="Ретрокамера Das Auge IV" />
+              <source type="image/webp" srcSet={`../${previewImgWebp}, ../${previewImgWebp2x} 2x`} />
+              <img src={`../${previewImg}`} srcSet={`../${previewImg2x} 2x`} width={560} height={480} alt="Ретрокамера Das Auge IV" />
             </picture>
           </div>
           <div className="product__content">

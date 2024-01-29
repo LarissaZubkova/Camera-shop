@@ -1,10 +1,10 @@
-import { CameraProduct } from '../../types/product';
+import { CameraCard } from '../../types/product';
 import { useState } from 'react';
 import { SIMILAR_COUNT_STEP } from '../../const';
 import ProductCard from '../product-card/product-card';
 
 type SimilarListProps = {
-  products: CameraProduct[];
+  products: CameraCard[];
 }
 
 function SimilarList({products}: SimilarListProps): JSX.Element {

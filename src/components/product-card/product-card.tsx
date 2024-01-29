@@ -4,11 +4,11 @@ import { AppRoute, ProductTab } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { setModalActive } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
-import { CameraProduct } from '../../types/product';
+import { CameraCard } from '../../types/product';
 import StarsRating from '../stars-rating/stars-rating';
 
 type ProductCardProps = {
-  product: CameraProduct;
+  product: CameraCard;
   isActive?: boolean;
 }
 
@@ -19,8 +19,8 @@ function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
     <div className={classNames('product-card', {'is-active' : isActive})}>
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x} 2x`} />
-          <img src={previewImg} srcSet={`${previewImg2x} 2x`} width={280} height={240} alt={name} />
+          <source type="image/webp" srcSet={`../${previewImgWebp}, ../${previewImgWebp2x} 2x`} />
+          <img src={`../${previewImg}`} srcSet={`../${previewImg2x} 2x`} width={280} height={240} alt={name} />
         </picture>
       </div>
       <div className="product-card__info">

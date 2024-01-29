@@ -1,4 +1,4 @@
-export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy';
+export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_PRODUCTS_COUNT = 9;
 export const DEFAULT_PAGE_NUMBER = 1;

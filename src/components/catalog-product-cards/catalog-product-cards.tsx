@@ -1,8 +1,8 @@
-import { CameraProduct } from '../../types/product';
+import { CameraCard } from '../../types/product';
 import ProductCard from '../product-card/product-card';
 
 type CatalogProductCardsProps = {
-  products: CameraProduct[];
+  products: CameraCard[];
 }
 
 function CatalogProductCards({products}: CatalogProductCardsProps): JSX.Element {

@@ -1,13 +1,14 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css/pagination';
 import 'swiper/css';
+import 'swiper/css/pagination';
 import './catalog-swiper.css';
-import { mockProducts } from '../../mock/mock-products';
+import { Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { useAppSelector } from '../../hooks';
+import { getPromo } from '../../store/product-process/product-process.selectors';
 import Banner from '../banner/banner';
 
 function CatalogSwiper(): JSX.Element {
-  const mockPromo = mockProducts.slice(0,3);
+  const promoCards = useAppSelector(getPromo);
 
   return (
     <Swiper modules={[Pagination, Autoplay]}
@@ -18,7 +19,7 @@ function CatalogSwiper(): JSX.Element {
         disableOnInteraction: false,
       }}
     >
-      {mockPromo.map((promo) => <SwiperSlide key={promo.id}><Banner card={promo} /></SwiperSlide>)}
+      {promoCards.map((promo) => <SwiperSlide key={promo.id}><Banner card={promo} /></SwiperSlide>)}
     </Swiper>
   );
 }

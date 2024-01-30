@@ -3,6 +3,7 @@ import { CameraCard, Promo } from '../types/product';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { APIRoute } from '../const';
+import { Review } from '../types/review';
 
 export const fetchProductsAction = createAsyncThunk<CameraCard[], undefined, {
   dispatch: AppDispatch;
@@ -48,6 +49,18 @@ export const fetchSimilarProductsAction = createAsyncThunk<CameraCard[], string,
   'product/fetchSimilarProducts',
   async(id, {extra: api}) => {
     const {data} = await api.get<CameraCard[]>(`${APIRoute.Products}/${id}/similar`);
+    return data;
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<Review[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'review/fetchReviews',
+  async(id, {extra: api}) => {
+    const {data} = await api.get<Review[]>(APIRoute.Reviews.replace('id', id));
     return data;
   }
 );

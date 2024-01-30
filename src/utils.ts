@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+//require('dayjs/locale/ru');
+
 import { DEFAULT_PRODUCTS_COUNT } from './const';
 import { CameraCard } from './types/product';
 
@@ -17,4 +20,8 @@ export function getMoneyFormat(data: number) {
   }
 
   return moneyFormat;
+}
+
+export function getDateFormat(date: string, format: string): string {
+  return dayjs(date).locale('ru').format(format);
 }

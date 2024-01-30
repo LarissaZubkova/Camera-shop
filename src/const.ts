@@ -8,11 +8,13 @@ export const SIMILAR_COUNT_STEP = 3;
 
 export enum NameSpace {
     Product = 'PRODUCT',
+    Review = 'REVIEW',
 }
 
 export enum APIRoute {
     Products = 'cameras',
     Promo = 'promo',
+    Reviews = 'cameras/id/reviews'
 }
 
 export enum AppRoute {
@@ -23,4 +25,9 @@ export enum AppRoute {
 export enum ProductTab {
   Property = 'Характеристики',
   Description = 'Описание',
+}
+
+export enum DateFormat {
+  DateTimeFormat = 'YYYY-MM-DD',
+  ReviewDateFormat = 'DD MMMM',
 }

@@ -37,7 +37,7 @@ export const productProcess = createSlice({
       })
       .addCase(fetchSimilarProductsAction.fulfilled, (state, action) => {
         state.similar = action.payload;
-      }) ;
+      });
   }
 });
 

@@ -12,6 +12,7 @@ import SimilarList from '../../components/similar-list/similar-list';
 import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
 import LoadingScreen from '../loading-screen/loading-screen';
 import ReviewBlock from '../../components/review-block/review-block';
+import UpButton from '../../components/upButton/upButton';
 
 function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -52,11 +53,7 @@ function ProductScreen(): JSX.Element {
         </div>
         {isModalActive && <CatalogAddItem />}
       </main>
-      <a className="up-btn" href="#header">
-        <svg width={12} height={18} aria-hidden="true">
-          <use xlinkHref="#icon-arrow2"></use>
-        </svg>
-      </a>
+      <UpButton />
       <Footer />
     </div>
   );

@@ -1,11 +1,11 @@
 import { CameraCard } from '../../types/product';
 import ProductCard from '../product-card/product-card';
 
-type CatalogProductCardsProps = {
+type CatalogProductListProps = {
   products: CameraCard[];
 }
 
-function CatalogProductCards({products}: CatalogProductCardsProps): JSX.Element {
+function CatalogProductList({products}: CatalogProductListProps): JSX.Element {
   return (
     <div className="cards catalog__cards">
       {products.map((product) => <ProductCard product={product} key={product.id} />)}
@@ -13,4 +13,4 @@ function CatalogProductCards({products}: CatalogProductCardsProps): JSX.Element 
   );
 }
 
-export default CatalogProductCards;
+export default CatalogProductList;

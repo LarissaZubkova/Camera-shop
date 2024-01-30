@@ -1,4 +1,3 @@
-import { DateFormat } from '../../const';
 import { Review } from '../../types/review';
 import { getDateFormat } from '../../utils';
 import StarsRating from '../stars-rating/stars-rating';
@@ -9,16 +8,14 @@ type ReviewCardProp = {
 
 function ReviewCard({reviewCard}: ReviewCardProp): JSX.Element {
   const {userName, rating, advantage, disadvantage, createAt, review} = reviewCard;
-  const date = {
-    dateTime: getDateFormat(createAt, DateFormat.DateTimeFormat),
-    date: getDateFormat(createAt, DateFormat.ReviewDateFormat),
-  };
+  const dateTime = getDateFormat(createAt).dateTime;
+  const date = getDateFormat(createAt).reviewDate;
 
   return (
     <li className="review-card">
       <div className="review-card__head">
         <p className="title title--h4">{userName}</p>
-        <time className="review-card__data" dateTime={date.dateTime}>{date.date}</time>
+        <time className="review-card__data" dateTime={dateTime}>{date}</time>
       </div>
       <div className="rate review-card__rate">
         <StarsRating rating={rating} />

@@ -6,7 +6,7 @@ import { getModalActiveStatus, getProducts } from '../../store/product-process/p
 import { getCurrentProductsList } from '../../utils';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
-import CatalogProductCards from '../../components/catalog-product-cards/catalog-product-cards';
+import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import CatalogSwiper from '../../components/catalog-swiper/catalog-swiper';
 import Footer from '../../components/footer/footer';
@@ -44,7 +44,7 @@ function CatalogScreen(): JSX.Element {
                   <div className="catalog-sort">
                     <CatalogSortForm />
                   </div>
-                  <CatalogProductCards products={currentProducts} />
+                  <CatalogProductList products={currentProducts} />
                   {products.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={products.length} />}
                 </div>
               </div>

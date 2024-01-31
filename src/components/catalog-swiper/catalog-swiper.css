@@ -1,0 +1,11 @@
+.swiper-pagination-bullet {
+  background: #ffffff;
+}
+
+.swiper-pagination {
+  text-align: right;
+}
+
+.swiper-pagination-bullet-active {
+  background: #906eee;
+}

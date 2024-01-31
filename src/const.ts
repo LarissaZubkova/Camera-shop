@@ -5,6 +5,7 @@ export const DEFAULT_PAGE_NUMBER = 1;
 export const DEFAULT_TAB = 'Описание';
 export const COUNT_STEP = 3;
 export const SCROLL_MEANING = 50;
+export const STAR_COUNT = 5;
 
 export enum NameSpace {
     Product = 'PRODUCT',
@@ -14,7 +15,8 @@ export enum NameSpace {
 export enum APIRoute {
     Products = 'cameras',
     Promo = 'promo',
-    Reviews = 'cameras/id/reviews'
+    Reviews = 'cameras/id/reviews',
+    Review = 'reviews',
 }
 
 export enum AppRoute {
@@ -35,4 +37,5 @@ export enum DateFormat {
 export enum ModalType {
   CatalogAddModal = 'CatalogAddModal',
   AddReviewModal = 'AddReviewModal',
+  ReviewSuccessModal = 'ReviewSuccessModal',
 }

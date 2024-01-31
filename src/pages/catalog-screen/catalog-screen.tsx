@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getModalActiveProduct, getProducts } from '../../store/product-process/product-process.selectors';
+import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
 import { getCurrentProductsList } from '../../utils';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
@@ -18,7 +18,7 @@ function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
-  const modalProduct = useAppSelector(getModalActiveProduct);
+  const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(products, currentPage);
 
   return (
@@ -51,7 +51,7 @@ function CatalogScreen(): JSX.Element {
             </div>
           </section>
         </div>
-        {modalProduct && <ModalPopup />}
+        {modalType && <ModalPopup />}
       </main>
       <Footer />
     </div>

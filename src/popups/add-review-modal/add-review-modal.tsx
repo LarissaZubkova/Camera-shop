@@ -1,9 +1,35 @@
+import { useAppDispatch } from '../../hooks';
+import { setModalType } from '../../store/product-process/product-process.slice';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { FormReviewData } from '../../types/review';
+import { useParams } from 'react-router-dom';
+import { fetchReviewsAction, fetchSendReviewAction } from '../../store/api-actions';
+import { ModalType, STAR_COUNT } from '../../const';
+
 function AddReviewModal(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {id} = useParams();
+  const {register, handleSubmit} = useForm({mode: 'onChange'});
+
+  const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (id) {
+      const currentData = {...data, cameraId: Number(id), rating: Number(data.rating)} as FormReviewData;
+      dispatch(fetchSendReviewAction(currentData));
+      dispatch(fetchReviewsAction(id));
+      dispatch(setModalType(ModalType.ReviewSuccessModal));
+    }
+  };
+
   return (
     <div className="modal__content">
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
-        <form method="post">
+        <form
+          method="post"
+          onSubmit={(evt) => {
+            handleSubmit(handleFormSubmit)(evt);
+          }}
+        >
           <div className="form-review__rate">
             <fieldset className="rate form-review__item">
               <legend className="rate__caption">Рейтинг
@@ -13,16 +39,23 @@ function AddReviewModal(): JSX.Element {
               </legend>
               <div className="rate__bar">
                 <div className="rate__group">
-                  <input className="visually-hidden" id="star-5" name="rate" type="radio" value="5" />
-                  <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
-                  <input className="visually-hidden" id="star-4" name="rate" type="radio" value="4" />
-                  <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
-                  <input className="visually-hidden" id="star-3" name="rate" type="radio" value="3" />
-                  <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
-                  <input className="visually-hidden" id="star-2" name="rate" type="radio" value="2" />
-                  <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
-                  <input className="visually-hidden" id="star-1" name="rate" type="radio" value="1" />
-                  <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
+                  {Array.from({length: STAR_COUNT}, (_, i) => STAR_COUNT - i).map((star) => (
+                    <>
+                      <input
+                        key={star}
+                        className="visually-hidden"
+                        id={`star-${star}`}
+                        type="radio"
+                        value={star}
+                        {...register('rating',
+                          { required: 'Обязательное поле',
+                          }
+                        )}
+                      />
+                      <label className="rate__label" htmlFor={`star-${star}`} title="Отлично"></label>
+                    </>
+                  )
+                  )}
                 </div>
                 <div className="rate__progress"><span className="rate__stars">0</span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>
@@ -36,7 +69,14 @@ function AddReviewModal(): JSX.Element {
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="text" name="user-name" placeholder="Введите ваше имя" required />
+                <input
+                  type="text"
+                  placeholder="Введите ваше имя"
+                  {...register('userName',
+                    { required: 'Обязательное поле',
+                    }
+                  )}
+                />
               </label>
               <p className="custom-input__error">Нужно указать имя</p>
             </div>
@@ -47,7 +87,14 @@ function AddReviewModal(): JSX.Element {
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="text" name="user-plus" placeholder="Основные преимущества товара" required />
+                <input
+                  type="text"
+                  placeholder="Основные преимущества товара"
+                  {...register('advantage',
+                    { required: 'Обязательное поле',
+                    }
+                  )}
+                />
               </label>
               <p className="custom-input__error">Нужно указать достоинства</p>
             </div>
@@ -58,7 +105,15 @@ function AddReviewModal(): JSX.Element {
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <input type="text" name="user-minus" placeholder="Главные недостатки товара" required />
+                <input
+                  type="text"
+                  placeholder="Главные недостатки товара"
+                  required
+                  {...register('disadvantage',
+                    { required: 'Обязательное поле',
+                    }
+                  )}
+                />
               </label>
               <p className="custom-input__error">Нужно указать недостатки</p>
             </div>
@@ -69,7 +124,15 @@ function AddReviewModal(): JSX.Element {
                     <use xlinkHref="#icon-snowflake"></use>
                   </svg>
                 </span>
-                <textarea name="user-comment" minLength={5} placeholder="Поделитесь своим опытом покупки"></textarea>
+                <textarea
+                  minLength={5}
+                  placeholder="Поделитесь своим опытом покупки"
+                  {...register('review',
+                    { required: 'Обязательное поле',
+                    }
+                  )}
+                >
+                </textarea>
               </label>
               <div className="custom-textarea__error">Нужно добавить комментарий</div>
             </div>
@@ -77,7 +140,12 @@ function AddReviewModal(): JSX.Element {
           <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
         </form>
       </div>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап">
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Закрыть попап"
+        onClick={() => dispatch(setModalType(''))}
+      >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>

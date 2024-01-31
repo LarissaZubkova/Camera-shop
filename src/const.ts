@@ -4,6 +4,7 @@ export const DEFAULT_PRODUCTS_COUNT = 9;
 export const DEFAULT_PAGE_NUMBER = 1;
 export const DEFAULT_TAB = 'Описание';
 export const COUNT_STEP = 3;
+export const SCROLL_MEANING = 50;
 
 export enum NameSpace {
     Product = 'PRODUCT',

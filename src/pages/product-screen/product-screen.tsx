@@ -12,7 +12,7 @@ import SimilarList from '../../components/similar-list/similar-list';
 import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
 import LoadingScreen from '../loading-screen/loading-screen';
 import ReviewBlock from '../../components/review-block/review-block';
-import UpButton from '../../components/upButton/upButton';
+import UpButton from '../../components/up-button/up-button';
 
 function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();

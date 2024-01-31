@@ -1,7 +1,7 @@
 import { useAppDispatch } from '../../hooks';
 import { setModalActive } from '../../store/product-process/product-process.slice';
 
-function CatalogAddItim(): JSX.Element {
+function CatalogAddItem(): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -53,4 +53,4 @@ function CatalogAddItim(): JSX.Element {
   );
 }
 
-export default CatalogAddItim;
+export default CatalogAddItem;

@@ -1,25 +1,25 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import CatalogProductCards from '../../components/catalog-product-cards/catalog-product-cards';
+import { useSearchParams } from 'react-router-dom';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getModalActiveStatus, getProducts } from '../../store/product-process/product-process.selectors';
+import { getCurrentProductsList } from '../../utils';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
+import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
-import Pagination from '../../components/pagination/pagination';
-import CatalogAddItim from '../../popups/catalog-add-item/catalog-add-item';
-import { mockProducts } from '../../mock/mock-products';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
-import { useSearchParams } from 'react-router-dom';
-import { getCurrentProductsList } from '../../utils';
 import CatalogSwiper from '../../components/catalog-swiper/catalog-swiper';
-import { useAppSelector } from '../../hooks';
-import { getModalActiveStatus } from '../../store/product-process/product-process.selectors';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import Pagination from '../../components/pagination/pagination';
+import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
-  const products = getCurrentProductsList(mockProducts, currentPage);
+  const products = useAppSelector(getProducts);
   const isModalActive = useAppSelector(getModalActiveStatus);
+  const currentProducts = getCurrentProductsList(products, currentPage);
 
   return (
     <div className="wrapper">
@@ -44,14 +44,14 @@ function CatalogScreen(): JSX.Element {
                   <div className="catalog-sort">
                     <CatalogSortForm />
                   </div>
-                  <CatalogProductCards products={products} />
-                  {mockProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={mockProducts.length} />}
+                  <CatalogProductList products={currentProducts} />
+                  {products.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={products.length} />}
                 </div>
               </div>
             </div>
           </section>
         </div>
-        {isModalActive && <CatalogAddItim />}
+        {isModalActive && <CatalogAddItem />}
       </main>
       <Footer />
     </div>

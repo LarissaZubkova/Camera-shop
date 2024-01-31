@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { AppRoute, ProductTab } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { setModalActive } from '../../store/product-process/product-process.slice';
+import { setModalActiveProduct } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
 import { CameraCard } from '../../types/product';
 import StarsRating from '../stars-rating/stars-rating';
@@ -37,7 +37,7 @@ function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
         <button
           className="btn btn--purple product-card__btn"
           type="button"
-          onClick={() => dispatch(setModalActive(true))}
+          onClick={() => dispatch(setModalActiveProduct(id))}
         >Купить
         </button>
         <Link className="btn btn--transparent" to={`${AppRoute.Product}${id}?tab=${ProductTab.Description}`} >Подробнее</Link>

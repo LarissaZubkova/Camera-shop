@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getModalActiveStatus, getProducts } from '../../store/product-process/product-process.selectors';
+import { getModalActiveProduct, getProducts } from '../../store/product-process/product-process.selectors';
 import { getCurrentProductsList } from '../../utils';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
@@ -12,13 +12,13 @@ import CatalogSwiper from '../../components/catalog-swiper/catalog-swiper';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
-import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
+import ModalPopup from '../../popups/modal-popup/modal-popup';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
-  const isModalActive = useAppSelector(getModalActiveStatus);
+  const modalProduct = useAppSelector(getModalActiveProduct);
   const currentProducts = getCurrentProductsList(products, currentPage);
 
   return (
@@ -51,7 +51,7 @@ function CatalogScreen(): JSX.Element {
             </div>
           </section>
         </div>
-        {isModalActive && <CatalogAddItem />}
+        {modalProduct && <ModalPopup />}
       </main>
       <Footer />
     </div>

@@ -3,23 +3,23 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchProductCardAction, fetchReviewsAction, fetchSimilarProductsAction } from '../../store/api-actions';
-import { getModalActiveStatus, getProductCard, getProductLoadingStatus, getSimilar } from '../../store/product-process/product-process.selectors';
+import { getModalActiveProduct, getProductCard, getProductLoadingStatus, getSimilar } from '../../store/product-process/product-process.selectors';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import ProductDescription from '../../components/product-description/product-description';
 import SimilarList from '../../components/similar-list/similar-list';
-import CatalogAddItem from '../../popups/catalog-add-item/catalog-add-item';
 import LoadingScreen from '../loading-screen/loading-screen';
 import ReviewBlock from '../../components/review-block/review-block';
 import UpButton from '../../components/up-button/up-button';
+import ModalPopup from '../../popups/modal-popup/modal-popup';
 
 function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const product = useAppSelector(getProductCard);
   const similar = useAppSelector(getSimilar);
   const isProductLoading = useAppSelector(getProductLoadingStatus);
-  const isModalActive = useAppSelector(getModalActiveStatus);
+  const modalProduct = useAppSelector(getModalActiveProduct);
   const productId = useParams().id;
 
   useEffect(() => {
@@ -51,7 +51,7 @@ function ProductScreen(): JSX.Element {
           {similar.length && <SimilarList products={similar} />}
           <ReviewBlock />
         </div>
-        {isModalActive && <CatalogAddItem />}
+        {modalProduct && <ModalPopup />}
       </main>
       <UpButton />
       <Footer />

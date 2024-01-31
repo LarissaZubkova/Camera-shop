@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
-import { setModalActive } from '../../store/product-process/product-process.slice';
+import { setModalActiveProduct } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { DEFAULT_TAB, ProductTab } from '../../const';
@@ -17,7 +17,7 @@ function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
   const {pathname} = useLocation();
   const [searchParams] = useSearchParams();
   const checkedTab = searchParams.get('tab') || DEFAULT_TAB;
-  const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, rating, reviewCount, price, vendorCode, category, type, level, description} = product;
+  const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, rating, reviewCount, price, vendorCode, category, type, level, description, id} = product;
 
   return (
     <div className="page-content__section">
@@ -40,7 +40,7 @@ function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
             <button
               className="btn btn--purple"
               type="button"
-              onClick={() => dispatch(setModalActive(true))}
+              onClick={() => dispatch(setModalActiveProduct(id))}
             >
               <svg width={24} height={16} aria-hidden="true">
                 <use xlinkHref="#icon-add-basket"></use>

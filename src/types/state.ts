@@ -11,7 +11,7 @@ export type ProductProcess = {
     similar: CameraCard[];
     isProductLoading: boolean;
     promo: Promo[];
-    modalIsActive: boolean;
+    modalActiveProduct: CameraCard | undefined;
 }
 
 export type ReviewProcess = {

@@ -9,15 +9,15 @@ const initialState: ProductProcess = {
   similar: [],
   isProductLoading: false,
   promo: [],
-  modalIsActive: false,
+  modalActiveProduct: undefined,
 };
 
 export const productProcess = createSlice({
   name: NameSpace.Product,
   initialState,
   reducers: {
-    setModalActive: (state, action: PayloadAction<boolean>) => {
-      state.modalIsActive = action.payload;
+    setModalActiveProduct: (state, action: PayloadAction<number | boolean>) => {
+      state.modalActiveProduct = state.products.find((product) => product.id === action.payload);
     }
   },
   extraReducers(builder) {
@@ -41,4 +41,4 @@ export const productProcess = createSlice({
   }
 });
 
-export const { setModalActive } = productProcess.actions;
+export const { setModalActiveProduct } = productProcess.actions;

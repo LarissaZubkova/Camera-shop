@@ -1,44 +1,36 @@
-import { CameraProduct } from '../../types/product';
-import { setModalActive } from '../../store/product-process/product-process.slice';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import { AppRoute, ProductTab } from '../../const';
 import { useAppDispatch } from '../../hooks';
+import { setModalActive } from '../../store/product-process/product-process.slice';
+import { getMoneyFormat } from '../../utils';
+import { CameraCard } from '../../types/product';
+import StarsRating from '../stars-rating/stars-rating';
 
 type ProductCardProps = {
-  product: CameraProduct;
+  product: CameraCard;
+  isActive?: boolean;
 }
 
-function ProductCard({product}: ProductCardProps): JSX.Element {
+function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const {previewImg, previewImg2x, name, previewImgWebp, previewImgWebp2x, reviewCount, price, rating, id} = product;
   return (
-    <div className="product-card">
+    <div className={classNames('product-card', {'is-active' : isActive})}>
       <div className="product-card__img">
         <picture>
-          <source type="image/webp" srcSet="img/content/das-auge.webp, img/content/das-auge@2x.webp 2x" />
-          <img src={product?.previewImg} srcSet={product?.previewImg2x} width={280} height={240} alt={product?.name} />
+          <source type="image/webp" srcSet={`../${previewImgWebp}, ../${previewImgWebp2x} 2x`} />
+          <img src={`../${previewImg}`} srcSet={`../${previewImg2x} 2x`} width={280} height={240} alt={name} />
         </picture>
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <svg width={17} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-          <p className="visually-hidden">Рейтинг: {product?.rating}</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
+          <StarsRating rating={rating} />
+          <p className="visually-hidden">Рейтинг: {rating}</p>
+          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewCount}</p>
         </div>
-        <p className="product-card__title">Ретрокамера Das Auge IV</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>73 450 ₽
+        <p className="product-card__title">{name}</p>
+        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{getMoneyFormat(price)}
         </p>
       </div>
       <div className="product-card__buttons">
@@ -48,7 +40,7 @@ function ProductCard({product}: ProductCardProps): JSX.Element {
           onClick={() => dispatch(setModalActive(true))}
         >Купить
         </button>
-        <a className="btn btn--transparent" href="#">Подробнее</a>
+        <Link className="btn btn--transparent" to={`${AppRoute.Product}${id}?tab=${ProductTab.Description}`} >Подробнее</Link>
       </div>
     </div>
   );

@@ -1,4 +1,13 @@
-export type CameraProduct = {
+export type Promo = {
+    id: number;
+    name: string;
+    previewImg: string;
+    previewImg2x: string;
+    previewImgWebp: string;
+    previewImgWebp2x: string;
+}
+
+export type CameraCard = {
     id: number;
     name: string;
     vendorCode: string;
@@ -9,15 +18,6 @@ export type CameraProduct = {
     price: number;
     rating: number;
     reviewCount: number;
-    previewImg: string;
-    previewImg2x: string;
-    previewImgWebp: string;
-    previewImgWebp2x: string;
-}
-
-export type Promo = {
-    id: number;
-    name: string;
     previewImg: string;
     previewImg2x: string;
     previewImgWebp: string;

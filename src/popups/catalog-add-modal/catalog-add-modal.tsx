@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setModalActiveProduct } from '../../store/product-process/product-process.slice';
+import { setModalType } from '../../store/product-process/product-process.slice';
 import { getModalActiveProduct } from '../../store/product-process/product-process.selectors';
 import { getMoneyFormat } from '../../utils';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-function CatalogAddItem(): JSX.Element {
+function CatalogAddModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const product = useAppSelector(getModalActiveProduct);
 
@@ -48,7 +48,7 @@ function CatalogAddItem(): JSX.Element {
         className="cross-btn"
         type="button"
         aria-label="Закрыть попап"
-        onClick={() => dispatch(setModalActiveProduct(false))}
+        onClick={() => dispatch(setModalType(''))}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
@@ -58,4 +58,4 @@ function CatalogAddItem(): JSX.Element {
   );
 }
 
-export default CatalogAddItem;
+export default CatalogAddModal;

@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
-import { setModalActiveProduct } from '../../store/product-process/product-process.slice';
+import { setModalActiveProduct, setModalType } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { DEFAULT_TAB, ProductTab } from '../../const';
-import StarsRating from '../../components/stars-rating/stars-rating';
+import { DEFAULT_TAB, ModalType, ProductTab } from '../../const';
 import { CameraCard} from '../../types/product';
+import StarsRating from '../../components/stars-rating/stars-rating';
 
 type ProductDescriptionProps = {
   product: CameraCard;
@@ -40,7 +40,10 @@ function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
             <button
               className="btn btn--purple"
               type="button"
-              onClick={() => dispatch(setModalActiveProduct(id))}
+              onClick={() => {
+                dispatch(setModalActiveProduct(id));
+                dispatch(setModalType(ModalType.CatalogAddModal));
+              }}
             >
               <svg width={24} height={16} aria-hidden="true">
                 <use xlinkHref="#icon-add-basket"></use>

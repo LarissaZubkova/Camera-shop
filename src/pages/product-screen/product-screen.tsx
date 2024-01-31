@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchProductCardAction, fetchReviewsAction, fetchSimilarProductsAction } from '../../store/api-actions';
-import { getModalActiveProduct, getProductCard, getProductLoadingStatus, getSimilar } from '../../store/product-process/product-process.selectors';
+import { getModalType, getProductCard, getProductLoadingStatus, getSimilar } from '../../store/product-process/product-process.selectors';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -19,7 +19,7 @@ function ProductScreen(): JSX.Element {
   const product = useAppSelector(getProductCard);
   const similar = useAppSelector(getSimilar);
   const isProductLoading = useAppSelector(getProductLoadingStatus);
-  const modalProduct = useAppSelector(getModalActiveProduct);
+  const modalType = useAppSelector(getModalType);
   const productId = useParams().id;
 
   useEffect(() => {
@@ -51,7 +51,7 @@ function ProductScreen(): JSX.Element {
           {similar.length && <SimilarList products={similar} />}
           <ReviewBlock />
         </div>
-        {modalProduct && <ModalPopup />}
+        {modalType && <ModalPopup />}
       </main>
       <UpButton />
       <Footer />

@@ -31,3 +31,8 @@ export enum DateFormat {
   DateTimeFormat = 'YYYY-MM-DD',
   ReviewDateFormat = 'DD MMMM',
 }
+
+export enum ModalType {
+  CatalogAddModal = 'CatalogAddModal',
+  AddReviewModal = 'AddReviewModal',
+}

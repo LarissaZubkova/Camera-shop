@@ -1,11 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { setModalType } from '../../store/product-process/product-process.slice';
 import { AppRoute } from '../../const';
+import { fetchReviewsAction } from '../../store/api-actions';
 
 function ReviewSuccessModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const {id} = useParams();
 
   return (
     <div className="modal__content">
@@ -28,7 +30,12 @@ function ReviewSuccessModal(): JSX.Element {
         className="cross-btn"
         type="button"
         aria-label="Закрыть попап"
-        onClick={() => dispatch(setModalType(''))}
+        onClick={() => {
+          dispatch(setModalType(''));
+          if (id) {
+            dispatch(fetchReviewsAction(id));
+          }
+        }}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close"></use>

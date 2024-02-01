@@ -2,25 +2,32 @@ import './add-review-modal.css';
 import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
 import { setModalType } from '../../store/product-process/product-process.slice';
-import { useForm, SubmitHandler, FieldValues, FieldError, Merge, FieldErrorsImpl } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { FormReviewData } from '../../types/review';
 import { useParams } from 'react-router-dom';
-import { fetchReviewsAction, fetchSendReviewAction } from '../../store/api-actions';
+import { fetchSendReviewAction } from '../../store/api-actions';
 import { ModalType, STAR_COUNT } from '../../const';
 import { validateName, validateReview } from '../../utils';
 import { Fragment } from 'react';
 
+type InputTypes = {
+  rating: string;
+  userName: string;
+  advantage: string;
+  disadvantage: string;
+  review: string;
+}
+
 function AddReviewModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onChange'});
-  const {rating, userName, advantage, disadvantage, review} = errors as FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
+  const {register, handleSubmit, watch, formState: {errors}} = useForm<InputTypes>({mode: 'onChange'});
+  const ratingValue = watch('rating');
 
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
     if (id) {
       const currentData = {...data, cameraId: Number(id), rating: Number(data.rating)} as FormReviewData;
       dispatch(fetchSendReviewAction(currentData));
-      dispatch(fetchReviewsAction(id));
       dispatch(setModalType(ModalType.ReviewSuccessModal));
     }
   };
@@ -52,7 +59,7 @@ function AddReviewModal(): JSX.Element {
                         type="radio"
                         value={star}
                         {...register('rating',
-                          { required: 'Нужно оценить товар' }
+                          {required: 'Нужно оценить товар'}
                         )}
                       />
                       <label className="rate__label" htmlFor={`star-${star}`} title="Отлично"></label>
@@ -60,10 +67,10 @@ function AddReviewModal(): JSX.Element {
                   )
                   )}
                 </div>
-                <div className="rate__progress"><span className="rate__stars">0</span> <span>/</span> <span className="rate__all-stars">5</span>
+                <div className="rate__progress"><span className="rate__stars">{ratingValue}</span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>
               </div>
-              <p className={classNames('rate__message', {'custom-textarea__error-active' : errors.rating})}>{rating?.message}</p>
+              <p className={classNames('rate__message', {'custom-textarea__error-active' : errors.rating})}>{errors.rating?.message}</p>
             </fieldset>
             <div className="custom-input form-review__item">
               <label>

@@ -1,15 +1,20 @@
+import './add-review-modal.css';
+import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
 import { setModalType } from '../../store/product-process/product-process.slice';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues, FieldError, Merge, FieldErrorsImpl } from 'react-hook-form';
 import { FormReviewData } from '../../types/review';
 import { useParams } from 'react-router-dom';
 import { fetchReviewsAction, fetchSendReviewAction } from '../../store/api-actions';
 import { ModalType, STAR_COUNT } from '../../const';
+import { validateName, validateReview } from '../../utils';
+import { Fragment } from 'react';
 
 function AddReviewModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const {register, handleSubmit} = useForm({mode: 'onChange'});
+  const {register, handleSubmit, formState: {errors}} = useForm({mode: 'onChange'});
+  const {rating, userName, advantage, disadvantage, review} = errors as FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
 
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
     if (id) {
@@ -40,27 +45,25 @@ function AddReviewModal(): JSX.Element {
               <div className="rate__bar">
                 <div className="rate__group">
                   {Array.from({length: STAR_COUNT}, (_, i) => STAR_COUNT - i).map((star) => (
-                    <>
+                    <Fragment key={star}>
                       <input
-                        key={star}
                         className="visually-hidden"
                         id={`star-${star}`}
                         type="radio"
                         value={star}
                         {...register('rating',
-                          { required: 'Обязательное поле',
-                          }
+                          { required: 'Нужно оценить товар' }
                         )}
                       />
                       <label className="rate__label" htmlFor={`star-${star}`} title="Отлично"></label>
-                    </>
+                    </Fragment>
                   )
                   )}
                 </div>
                 <div className="rate__progress"><span className="rate__stars">0</span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>
               </div>
-              <p className="rate__message">Нужно оценить товар</p>
+              <p className={classNames('rate__message', {'custom-textarea__error-active' : errors.rating})}>{rating?.message}</p>
             </fieldset>
             <div className="custom-input form-review__item">
               <label>
@@ -73,12 +76,14 @@ function AddReviewModal(): JSX.Element {
                   type="text"
                   placeholder="Введите ваше имя"
                   {...register('userName',
-                    { required: 'Обязательное поле',
+                    {
+                      required: 'Нужно указать имя',
+                      validate: validateName,
                     }
                   )}
                 />
               </label>
-              <p className="custom-input__error">Нужно указать имя</p>
+              <p className={classNames('custom-input__error', {'custom-textarea__error-active' : errors.userName})}>{errors.userName?.message}</p>
             </div>
             <div className="custom-input form-review__item">
               <label>
@@ -91,12 +96,14 @@ function AddReviewModal(): JSX.Element {
                   type="text"
                   placeholder="Основные преимущества товара"
                   {...register('advantage',
-                    { required: 'Обязательное поле',
+                    {
+                      required: 'Нужно указать достоинства',
+                      validate: validateReview,
                     }
                   )}
                 />
               </label>
-              <p className="custom-input__error">Нужно указать достоинства</p>
+              <p className={classNames('custom-input__error', {'custom-textarea__error-active' : errors.advantage})}>{errors.advantage?.message}</p>
             </div>
             <div className="custom-input form-review__item">
               <label>
@@ -108,14 +115,15 @@ function AddReviewModal(): JSX.Element {
                 <input
                   type="text"
                   placeholder="Главные недостатки товара"
-                  required
                   {...register('disadvantage',
-                    { required: 'Обязательное поле',
+                    {
+                      required: 'Нужно указать недостатки',
+                      validate: validateReview,
                     }
                   )}
                 />
               </label>
-              <p className="custom-input__error">Нужно указать недостатки</p>
+              <p className={classNames('custom-input__error', {'custom-textarea__error-active' : errors.disadvantage})}>{errors.disadvantage?.message}</p>
             </div>
             <div className="custom-textarea form-review__item">
               <label>
@@ -128,13 +136,15 @@ function AddReviewModal(): JSX.Element {
                   minLength={5}
                   placeholder="Поделитесь своим опытом покупки"
                   {...register('review',
-                    { required: 'Обязательное поле',
+                    {
+                      required: 'Нужно добавить комментарий',
+                      validate: validateReview,
                     }
                   )}
                 >
                 </textarea>
               </label>
-              <div className="custom-textarea__error">Нужно добавить комментарий</div>
+              <div className={classNames('custom-textarea__error', {'custom-textarea__error-active' : errors.review})}>{errors.review?.message}</div>
             </div>
           </div>
           <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>

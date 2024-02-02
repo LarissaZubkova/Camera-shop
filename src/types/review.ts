@@ -17,3 +17,11 @@ export type FormReviewData = {
     review: string;
     rating: number;
 }
+
+export type InputTypes = {
+    rating: string;
+    userName: string;
+    advantage: string;
+    disadvantage: string;
+    review: string;
+}

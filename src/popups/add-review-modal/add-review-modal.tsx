@@ -8,29 +8,28 @@ import { useParams } from 'react-router-dom';
 import { fetchSendReviewAction } from '../../store/api-actions';
 import { ModalType, STAR_COUNT } from '../../const';
 import { validateName, validateReview } from '../../utils';
-import { Fragment } from 'react';
-
-type InputTypes = {
-  rating: string;
-  userName: string;
-  advantage: string;
-  disadvantage: string;
-  review: string;
-}
+import { Fragment, useEffect } from 'react';
+import { InputTypes } from '../../types/review';
 
 function AddReviewModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const {register, handleSubmit, watch, formState: {errors}} = useForm<InputTypes>({mode: 'onChange'});
+  const {register, handleSubmit, watch, formState: {errors, isSubmitSuccessful}} = useForm<InputTypes>({mode: 'onChange'});
   const ratingValue = watch('rating');
 
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
     if (id) {
       const currentData = {...data, cameraId: Number(id), rating: Number(data.rating)} as FormReviewData;
       dispatch(fetchSendReviewAction(currentData));
-      dispatch(setModalType(ModalType.ReviewSuccessModal));
     }
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      dispatch(setModalType(ModalType.ReviewSuccessModal));
+    }
+  }, [isSubmitSuccessful, dispatch]);
+
 
   return (
     <div className="modal__content">

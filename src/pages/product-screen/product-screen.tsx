@@ -41,7 +41,7 @@ function ProductScreen(): JSX.Element {
       </Helmet>
       <Header />
       <main>
-        <div className="page-content">
+        <div className="page-content" tabIndex={modalType ? -1 : 0}>
           <Breadcrumbs isProduct>
             <li className="breadcrumbs__item">
               <span className="breadcrumbs__link breadcrumbs__link--active">{product.name}</span>

@@ -41,3 +41,8 @@ export enum ModalType {
   ReviewSuccessModal = 'ReviewSuccessModal',
   Default = '',
 }
+
+export enum SortType {
+  Price = 'price',
+  Popular = 'popular',
+}

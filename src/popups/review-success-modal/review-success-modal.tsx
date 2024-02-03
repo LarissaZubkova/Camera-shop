@@ -1,14 +1,13 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { setModalType } from '../../store/product-process/product-process.slice';
-import { AppRoute, ModalType } from '../../const';
+import { ModalType } from '../../const';
 import { fetchReviewsAction } from '../../store/api-actions';
 import { useRef } from 'react';
 import { useOverlayListener } from '../../hooks/use-overlay-listener';
 
 function ReviewSuccessModal(): JSX.Element {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const modalRef = useRef<HTMLDivElement>(null);
   const {id} = useParams();
 
@@ -25,7 +24,6 @@ function ReviewSuccessModal(): JSX.Element {
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
           onClick={() => {
-            navigate(AppRoute.Catalog);
             dispatch(setModalType(ModalType.Default));
           }}
         >Вернуться к покупкам

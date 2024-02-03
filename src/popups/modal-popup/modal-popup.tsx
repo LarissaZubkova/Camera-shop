@@ -38,6 +38,8 @@ function ModalPopup(): JSX.Element {
   return (
     <div className={classNames('modal is-active',
       {'modal--narrow' : modalType === ModalType.ReviewSuccessModal})}
+    role="dialog"
+    tabIndex={0}
     >
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>

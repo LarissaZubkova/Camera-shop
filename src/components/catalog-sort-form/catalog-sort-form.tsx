@@ -1,15 +1,25 @@
+import { useState } from 'react';
+import { SortType } from '../../const';
+
 function CatalogSortForm(): JSX.Element {
+  const [sortType, setSortType] = useState(SortType.Price);
+
   return (
     <form action="#">
       <div className="catalog-sort__inner">
         <p className="title title--h5">Сортировать:</p>
         <div className="catalog-sort__type">
           <div className="catalog-sort__btn-text">
-            <input type="radio" id="sortPrice" name="sort" />
+            <input type="radio"
+              id="sortPrice"
+              name="sort"
+              checked = {sortType === SortType.Price}
+              onChange={() => setSortType(SortType.Price)}
+            />
             <label htmlFor="sortPrice">по цене</label>
           </div>
           <div className="catalog-sort__btn-text">
-            <input type="radio" id="sortPopular" name="sort" />
+            <input type="radio" id="sortPopular" name="sort"/>
             <label htmlFor="sortPopular">по популярности</label>
           </div>
         </div>

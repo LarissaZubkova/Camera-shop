@@ -1,21 +1,27 @@
+import { useRef } from 'react';
+import { ModalType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setModalType } from '../../store/product-process/product-process.slice';
+import { useOverlayListener } from '../../hooks/use-overlay-listener';
 import { getModalActiveProduct } from '../../store/product-process/product-process.selectors';
+import { setModalType } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function CatalogAddModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const product = useAppSelector(getModalActiveProduct);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  if(!product) {
+  useOverlayListener(modalRef);
+
+  if (!product) {
     return <LoadingScreen />;
   }
 
   const {previewImg, previewImgWebp, previewImg2x, previewImgWebp2x, name, vendorCode, type, category, price} = product;
 
   return (
-    <div className="modal__content">
+    <div className="modal__content" ref={modalRef} >
       <p className="title title--h4">Добавить товар в корзину</p>
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
@@ -48,7 +54,7 @@ function CatalogAddModal(): JSX.Element {
         className="cross-btn"
         type="button"
         aria-label="Закрыть попап"
-        onClick={() => dispatch(setModalType(''))}
+        onClick={() => dispatch(setModalType(ModalType.Default))}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close"></use>

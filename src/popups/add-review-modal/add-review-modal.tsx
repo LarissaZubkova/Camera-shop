@@ -1,21 +1,24 @@
-import './add-review-modal.css';
 import classNames from 'classnames';
-import { useAppDispatch } from '../../hooks';
-import { setModalType } from '../../store/product-process/product-process.slice';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { FormReviewData } from '../../types/review';
+import './add-review-modal.css';
+import { Fragment, useEffect, useRef } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { fetchSendReviewAction } from '../../store/api-actions';
 import { ModalType, STAR_COUNT } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { useOverlayListener } from '../../hooks/use-overlay-listener';
+import { fetchSendReviewAction } from '../../store/api-actions';
+import { setModalType } from '../../store/product-process/product-process.slice';
+import { FormReviewData, InputTypes } from '../../types/review';
 import { validateName, validateReview } from '../../utils';
-import { Fragment, useEffect } from 'react';
-import { InputTypes } from '../../types/review';
 
 function AddReviewModal(): JSX.Element {
   const dispatch = useAppDispatch();
+  const modalRef = useRef<HTMLDivElement>(null);
   const {id} = useParams();
   const {register, handleSubmit, watch, formState: {errors, isSubmitSuccessful}} = useForm<InputTypes>({mode: 'onChange'});
   const ratingValue = watch('rating');
+
+  useOverlayListener(modalRef);
 
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
     if (id) {
@@ -32,7 +35,7 @@ function AddReviewModal(): JSX.Element {
 
 
   return (
-    <div className="modal__content">
+    <div className="modal__content" ref={modalRef} >
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review">
         <form
@@ -160,7 +163,7 @@ function AddReviewModal(): JSX.Element {
         className="cross-btn"
         type="button"
         aria-label="Закрыть попап"
-        onClick={() => dispatch(setModalType(''))}
+        onClick={() => dispatch(setModalType(ModalType.Default))}
       >
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close"></use>

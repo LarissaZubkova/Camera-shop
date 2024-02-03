@@ -1,16 +1,21 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { setModalType } from '../../store/product-process/product-process.slice';
-import { AppRoute } from '../../const';
+import { AppRoute, ModalType } from '../../const';
 import { fetchReviewsAction } from '../../store/api-actions';
+import { useRef } from 'react';
+import { useOverlayListener } from '../../hooks/use-overlay-listener';
 
 function ReviewSuccessModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const modalRef = useRef<HTMLDivElement>(null);
   const {id} = useParams();
 
+  useOverlayListener(modalRef);
+
   return (
-    <div className="modal__content">
+    <div className="modal__content" ref={modalRef} >
       <p className="title title--h4">Спасибо за отзыв</p>
       <svg className="modal__icon" width={80} height={78} aria-hidden="true">
         <use xlinkHref="#icon-review-success"></use>
@@ -21,7 +26,7 @@ function ReviewSuccessModal(): JSX.Element {
           type="button"
           onClick={() => {
             navigate(AppRoute.Catalog);
-            dispatch(setModalType(''));
+            dispatch(setModalType(ModalType.Default));
           }}
         >Вернуться к покупкам
         </button>
@@ -31,7 +36,7 @@ function ReviewSuccessModal(): JSX.Element {
         type="button"
         aria-label="Закрыть попап"
         onClick={() => {
-          dispatch(setModalType(''));
+          dispatch(setModalType(ModalType.Default));
           if (id) {
             dispatch(fetchReviewsAction(id));
           }

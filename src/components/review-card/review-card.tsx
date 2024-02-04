@@ -1,5 +1,5 @@
 import { Review } from '../../types/review';
-import { getDateFormat } from '../../utils';
+import { getDateFormat } from '../../utils/utils';
 import StarsRating from '../stars-rating/stars-rating';
 
 type ReviewCardProp = {

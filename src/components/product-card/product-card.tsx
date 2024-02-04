@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, ModalType, ProductTab } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { setModalActiveProduct, setModalType } from '../../store/product-process/product-process.slice';
-import { getMoneyFormat } from '../../utils';
+import { getMoneyFormat } from '../../utils/utils';
 import { CameraCard } from '../../types/product';
 import StarsRating from '../stars-rating/stars-rating';
 

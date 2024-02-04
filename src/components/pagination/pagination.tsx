@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { getPageCount, getPaginationCount } from '../../utils';
+import { getPageCount, getPaginationCount } from '../../utils/utils';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';

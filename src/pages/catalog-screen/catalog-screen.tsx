@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
-import { getCurrentProductsList } from '../../utils';
+import { getCurrentProductsList } from '../../utils/utils';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';

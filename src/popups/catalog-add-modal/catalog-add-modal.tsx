@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useOverlayListener } from '../../hooks/use-overlay-listener';
 import { getModalActiveProduct } from '../../store/product-process/product-process.selectors';
 import { setModalType } from '../../store/product-process/product-process.slice';
-import { getMoneyFormat } from '../../utils';
+import { getMoneyFormat } from '../../utils/utils';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function CatalogAddModal(): JSX.Element {

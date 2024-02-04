@@ -9,7 +9,7 @@ import { useOverlayListener } from '../../hooks/use-overlay-listener';
 import { fetchSendReviewAction } from '../../store/api-actions';
 import { setModalType } from '../../store/product-process/product-process.slice';
 import { FormReviewData, InputTypes } from '../../types/review';
-import { validateName, validateReview } from '../../utils';
+import { validateName, validateReview } from '../../utils/utils';
 
 function AddReviewModal(): JSX.Element {
   const dispatch = useAppDispatch();

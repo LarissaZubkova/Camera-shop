@@ -35,13 +35,13 @@ function ProductScreen(): JSX.Element {
   }
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" >
       <Helmet>
         <title>{`${product.name} - Фотошоп`}</title>
       </Helmet>
       <Header />
       <main>
-        <div className="page-content" tabIndex={modalType ? -1 : 0}>
+        <div className="page-content" >
           <Breadcrumbs isProduct>
             <li className="breadcrumbs__item">
               <span className="breadcrumbs__link breadcrumbs__link--active">{product.name}</span>

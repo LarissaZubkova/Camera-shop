@@ -9,4 +9,3 @@ export const getSortedReviews = createSelector(
   getReviews,
   (reviews) => sortByDate(reviews)
 );
-export const getSendReviewErrorStatus = (state: Pick<State, NameSpace.Review>): boolean => state[NameSpace.Review].hasSendReviewError;

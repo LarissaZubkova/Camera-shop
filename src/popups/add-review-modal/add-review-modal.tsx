@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import './add-review-modal.css';
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { ModalType, STAR_COUNT } from '../../const';
@@ -15,7 +15,7 @@ function AddReviewModal(): JSX.Element {
   const dispatch = useAppDispatch();
   const modalRef = useRef<HTMLDivElement>(null);
   const {id} = useParams();
-  const {register, handleSubmit, watch, formState: {errors, isSubmitSuccessful}} = useForm<InputTypes>({mode: 'onChange'});
+  const {register, handleSubmit, watch, formState: {errors, isSubmitting}} = useForm<InputTypes>({mode: 'onChange'});
   const ratingValue = watch('rating');
 
   useOverlayListener(modalRef);
@@ -26,13 +26,6 @@ function AddReviewModal(): JSX.Element {
       dispatch(fetchSendReviewAction(currentData));
     }
   };
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      dispatch(setModalType(ModalType.ReviewSuccessModal));
-    }
-  }, [isSubmitSuccessful, dispatch]);
-
 
   return (
     <div className="modal__content" ref={modalRef} >
@@ -60,6 +53,7 @@ function AddReviewModal(): JSX.Element {
                         id={`star-${star}`}
                         type="radio"
                         value={star}
+                        disabled={isSubmitting}
                         {...register('rating',
                           {required: 'Нужно оценить товар'}
                         )}
@@ -84,6 +78,7 @@ function AddReviewModal(): JSX.Element {
                 <input
                   type="text"
                   placeholder="Введите ваше имя"
+                  disabled={isSubmitting}
                   {...register('userName',
                     {
                       required: 'Нужно указать имя',
@@ -104,6 +99,7 @@ function AddReviewModal(): JSX.Element {
                 <input
                   type="text"
                   placeholder="Основные преимущества товара"
+                  disabled={isSubmitting}
                   {...register('advantage',
                     {
                       required: 'Нужно указать достоинства',
@@ -124,6 +120,7 @@ function AddReviewModal(): JSX.Element {
                 <input
                   type="text"
                   placeholder="Главные недостатки товара"
+                  disabled={isSubmitting}
                   {...register('disadvantage',
                     {
                       required: 'Нужно указать недостатки',
@@ -144,6 +141,7 @@ function AddReviewModal(): JSX.Element {
                 <textarea
                   minLength={5}
                   placeholder="Поделитесь своим опытом покупки"
+                  disabled={isSubmitting}
                   {...register('review',
                     {
                       required: 'Нужно добавить комментарий',
@@ -163,6 +161,7 @@ function AddReviewModal(): JSX.Element {
         className="cross-btn"
         type="button"
         aria-label="Закрыть попап"
+        disabled={isSubmitting}
         onClick={() => dispatch(setModalType(ModalType.Default))}
       >
         <svg width={10} height={10} aria-hidden="true">

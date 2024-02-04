@@ -18,5 +18,4 @@ export type ProductProcess = {
 
 export type ReviewProcess = {
     reviews: Review[];
-    hasSendReviewError: boolean;
 }

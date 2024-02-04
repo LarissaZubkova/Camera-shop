@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
-import { setModalActive } from '../../store/product-process/product-process.slice';
+import { setModalActiveProduct, setModalType } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { DEFAULT_TAB, ProductTab } from '../../const';
-import StarsRating from '../../components/stars-rating/stars-rating';
+import { DEFAULT_TAB, ModalType, ProductTab } from '../../const';
 import { CameraCard} from '../../types/product';
+import StarsRating from '../../components/stars-rating/stars-rating';
 
 type ProductDescriptionProps = {
   product: CameraCard;
@@ -17,7 +17,7 @@ function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
   const {pathname} = useLocation();
   const [searchParams] = useSearchParams();
   const checkedTab = searchParams.get('tab') || DEFAULT_TAB;
-  const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, rating, reviewCount, price, vendorCode, category, type, level, description} = product;
+  const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, rating, reviewCount, price, vendorCode, category, type, level, description, id} = product;
 
   return (
     <div className="page-content__section">
@@ -26,7 +26,7 @@ function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
           <div className="product__img">
             <picture>
               <source type="image/webp" srcSet={`../${previewImgWebp}, ../${previewImgWebp2x} 2x`} />
-              <img src={`../${previewImg}`} srcSet={`../${previewImg2x} 2x`} width={560} height={480} alt="Ретрокамера Das Auge IV" />
+              <img src={`../${previewImg}`} srcSet={`../${previewImg2x} 2x`} width={560} height={480} alt={name} />
             </picture>
           </div>
           <div className="product__content">
@@ -40,7 +40,10 @@ function ProductDescription({product}: ProductDescriptionProps): JSX.Element {
             <button
               className="btn btn--purple"
               type="button"
-              onClick={() => dispatch(setModalActive(true))}
+              onClick={() => {
+                dispatch(setModalActiveProduct(id));
+                dispatch(setModalType(ModalType.CatalogAddModal));
+              }}
             >
               <svg width={24} height={16} aria-hidden="true">
                 <use xlinkHref="#icon-add-basket"></use>

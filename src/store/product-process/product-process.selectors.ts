@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { ModalType, NameSpace } from '../../const';
 import { CameraCard, Promo } from '../../types/product';
 import { State } from '../../types/state';
 
@@ -7,4 +7,5 @@ export const getProductCard = (state: Pick<State, NameSpace.Product>): CameraCar
 export const getSimilar = (state: Pick<State, NameSpace.Product>): CameraCard[] => state[NameSpace.Product].similar;
 export const getProductLoadingStatus = (state: Pick<State, NameSpace.Product>): boolean => state[NameSpace.Product].isProductLoading;
 export const getPromo = (state: Pick<State, NameSpace.Product>): Promo[] => state[NameSpace.Product].promo;
-export const getModalActiveStatus = (state: Pick<State, NameSpace.Product>): boolean => state[NameSpace.Product].modalIsActive;
+export const getModalActiveProduct = (state: Pick<State, NameSpace.Product>): CameraCard | undefined => state[NameSpace.Product].modalActiveProduct;
+export const getModalType = (state: Pick<State, NameSpace.Product>): ModalType => state[NameSpace.Product].modalType;

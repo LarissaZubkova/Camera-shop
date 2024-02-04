@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { COUNT_STEP, SCROLL_MEANING } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { COUNT_STEP, SCROLL_MEANING, ModalType } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getSortedReviews } from '../../store/review-process/review-process.selectors';
+import { setModalType } from '../../store/product-process/product-process.slice';
 import ReviewList from '../review-list/review-list';
 
 function ReviewBlock(): JSX.Element {
+  const dispatch = useAppDispatch();
   const reviews = useAppSelector(getSortedReviews);
   const [reviewsCount, setReviewsCount] = useState(COUNT_STEP);
   const currentReviews = reviews.slice(0, reviewsCount);
@@ -28,7 +30,14 @@ function ReviewBlock(): JSX.Element {
         <div className="container">
           <div className="page-content__headed">
             <h2 className="title title--h3">Отзывы</h2>
-            <button className="btn" type="button">Оставить свой отзыв</button>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => {
+                dispatch(setModalType(ModalType.AddReviewModal));
+              }}
+            >Оставить свой отзыв
+            </button>
           </div>
           <ReviewList reviews={currentReviews} />
           <div className="review-block__buttons">

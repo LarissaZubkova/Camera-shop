@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { CameraCard, Promo } from '../types/product';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
-import { APIRoute } from '../const';
-import { Review } from '../types/review';
+import { APIRoute, ModalType } from '../const';
+import { FormReviewData, Review } from '../types/review';
+import { setModalType } from './product-process/product-process.slice';
 
 export const fetchProductsAction = createAsyncThunk<CameraCard[], undefined, {
   dispatch: AppDispatch;
@@ -62,5 +63,17 @@ export const fetchReviewsAction = createAsyncThunk<Review[], string, {
   async(id, {extra: api}) => {
     const {data} = await api.get<Review[]>(APIRoute.Reviews.replace('id', id));
     return data;
+  }
+);
+
+export const fetchSendReviewAction = createAsyncThunk<void, FormReviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'review/sendReview',
+  async(data, {dispatch, extra: api}) => {
+    await api.post<void>(APIRoute.Review, data);
+    dispatch(setModalType(ModalType.ReviewSuccessModal));
   }
 );

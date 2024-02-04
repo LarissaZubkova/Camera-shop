@@ -42,3 +42,25 @@ export function getPageCount(pagination: number, page: number): number {
   }
   return COUNT_STEP;
 }
+
+export function validateName(value: string) {
+  if (
+    !value ||
+      !/[А-Яа-яЁёA-Za-z]{2,15}/.test(value) ||
+      false || value.length > 15
+  ) {
+    return 'Не меньше 2 и не больше 15 символов';
+  }
+
+  return true;
+}
+
+export function validateReview(value: string) {
+  if (
+    !value || false || value.length > 160 || value.length < 10
+  ) {
+    return 'Больше 10 и меньше 160 символов';
+  }
+
+  return true;
+}

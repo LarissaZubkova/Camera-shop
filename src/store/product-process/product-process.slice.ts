@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProductProcess } from '../../types/state';
-import { NameSpace } from '../../const';
+import { ModalType, NameSpace } from '../../const';
 import { fetchProductsAction, fetchPromoAction, fetchProductCardAction, fetchSimilarProductsAction } from '../api-actions';
 
 const initialState: ProductProcess = {
@@ -9,15 +9,19 @@ const initialState: ProductProcess = {
   similar: [],
   isProductLoading: false,
   promo: [],
-  modalIsActive: false,
+  modalActiveProduct: undefined,
+  modalType: '',
 };
 
 export const productProcess = createSlice({
   name: NameSpace.Product,
   initialState,
   reducers: {
-    setModalActive: (state, action: PayloadAction<boolean>) => {
-      state.modalIsActive = action.payload;
+    setModalActiveProduct: (state, action: PayloadAction<number>) => {
+      state.modalActiveProduct = state.products.find((product) => product.id === action.payload);
+    },
+    setModalType: (state, action: PayloadAction<ModalType | ''>) => {
+      state.modalType = action.payload;
     }
   },
   extraReducers(builder) {
@@ -41,4 +45,4 @@ export const productProcess = createSlice({
   }
 });
 
-export const { setModalActive } = productProcess.actions;
+export const { setModalActiveProduct, setModalType } = productProcess.actions;

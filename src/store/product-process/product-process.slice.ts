@@ -10,7 +10,7 @@ const initialState: ProductProcess = {
   isProductLoading: false,
   promo: [],
   modalActiveProduct: undefined,
-  modalType: '',
+  modalType: ModalType.Default,
 };
 
 export const productProcess = createSlice({
@@ -20,7 +20,7 @@ export const productProcess = createSlice({
     setModalActiveProduct: (state, action: PayloadAction<number>) => {
       state.modalActiveProduct = state.products.find((product) => product.id === action.payload);
     },
-    setModalType: (state, action: PayloadAction<ModalType | ''>) => {
+    setModalType: (state, action: PayloadAction<ModalType>) => {
       state.modalType = action.payload;
     }
   },

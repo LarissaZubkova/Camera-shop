@@ -13,7 +13,7 @@ export type ProductProcess = {
     isProductLoading: boolean;
     promo: Promo[];
     modalActiveProduct: CameraCard | undefined;
-    modalType: ModalType | '';
+    modalType: ModalType;
 }
 
 export type ReviewProcess = {

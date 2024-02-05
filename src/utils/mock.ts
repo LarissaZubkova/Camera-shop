@@ -1,4 +1,4 @@
-import { CameraCard } from '../types/product';
+import { CameraCard, Promo } from '../types/product';
 import { random, system, datatype, date, name } from 'faker';
 import { Review } from '../types/review';
 
@@ -42,3 +42,14 @@ export const makeFakeReview = (): Review => ({
 });
 
 export const makeFakeReviews = (): Review[] => Array.from({length: 10}, makeFakeReview);
+
+const makeFakePromoCard = (): Promo => ({
+  id: datatype.number(),
+  name: random.words(),
+  previewImg: system.filePath(),
+  previewImg2x: system.filePath(),
+  previewImgWebp: system.filePath(),
+  previewImgWebp2x: system.filePath(),
+});
+
+export const makeFakePromo = (): Promo[] => Array.from({length: 10}, makeFakePromoCard);

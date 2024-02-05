@@ -51,7 +51,7 @@ export const makeFakeReview = (): Review => ({
 
 export const makeFakeReviews = (): Review[] => Array.from({length: 10}, makeFakeReview);
 
-const makeFakePromoCard = (): Promo => ({
+export const makeFakePromoCard = (): Promo => ({
   id: datatype.number(),
   name: random.words(),
   previewImg: system.filePath(),

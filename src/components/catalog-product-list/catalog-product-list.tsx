@@ -7,7 +7,7 @@ type CatalogProductListProps = {
 
 function CatalogProductList({products}: CatalogProductListProps): JSX.Element {
   return (
-    <div className="cards catalog__cards">
+    <div className="cards catalog__cards" data-testid="product-item">
       {products.map((product) => <ProductCard product={product} key={product.id} />)}
     </div>
   );

@@ -6,11 +6,11 @@ describe('Component: Catalog Filter Form', () => {
     const expectedText = 'Фильтр';
 
     render(<CatalogFilterForm />);
-    const filterText = screen.getByTestId(expectedText);
-    const form = screen.getByRole('form');
+    const filterText = screen.getByText(expectedText);
+    const button = screen.getByRole('button');
 
     expect(filterText).toBeInTheDocument();
-    expect(form).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
 
   it('disables checkbox', () => {

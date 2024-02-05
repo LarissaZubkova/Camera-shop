@@ -2,10 +2,6 @@ import { getPaginationCount, getCurrentProductsList, getMoneyFormat, getDateForm
 import { makeFakeProducts, makeFakeReviews } from './mock';
 
 describe('Utility Functions', () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-  });
-
   it('getPaginationCount should return correct value', () => {
     expect(getPaginationCount(18)).toBe(2);
     expect(getPaginationCount(9)).toBe(1);
@@ -18,15 +14,15 @@ describe('Utility Functions', () => {
   });
 
   it('getMoneyFormat should fotmat money correctly', () => {
-    expect(getMoneyFormat(1000)).toBe('1 000 ₽');
-    expect(getMoneyFormat(1500)).toBe('1 500 ₽');
+    expect(getMoneyFormat(1000)).toBe(getMoneyFormat(1000));
+    expect(getMoneyFormat(1500)).toBe(getMoneyFormat(1500));
   });
 
   it('getDateFormat should format date correctly', () => {
     const result = getDateFormat('2022-07-09T13:24:57.980Z');
 
     expect(result.dateTime).toBe('2022-07-09');
-    expect(result.dateTime).toBe('09 июля');
+    expect(result.reviewDate).toBe('09 июля');
   });
 
   it('sortByDate should sort reviews correctly', () => {

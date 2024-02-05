@@ -9,6 +9,6 @@ describe('Component: Star Rating', () => {
     render(<StarsRating rating={expectedCount} />);
     const starItem = screen.getAllByTestId(starItemTestId);
 
-    expect(starItem).toBe(expectedCount);
+    expect(starItem.length).toBe(expectedCount);
   });
 });

@@ -41,9 +41,9 @@ describe('redirect middleware', () => {
     expect(browserHistory.location.pathname).not.toBe(AppRoute.Catalog);
   });
 
-  it('should not redirect to "/" with with redirectToRoute action', () => {
+  it('should redirect to "/product/" with redirectToRoute action', () => {
     const redirectAction = redirectToRoute(AppRoute.Product);
     store.dispatch(redirectAction);
-    expect(browserHistory.location.pathname).not.toBe(AppRoute.Product);
+    expect(browserHistory.location.pathname).toBe(AppRoute.Product);
   });
 });

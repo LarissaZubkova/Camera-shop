@@ -29,7 +29,7 @@ function CatalogScreen(): JSX.Element {
       <Header />
       <main>
         <CatalogSwiper />
-        <div className="page-content">
+        <div className="page-content" data-testid="pageContentElement">
           <Breadcrumbs />
           <section className="catalog">
             <div className="container">

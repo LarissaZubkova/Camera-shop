@@ -35,7 +35,7 @@ function ProductScreen(): JSX.Element {
   }
 
   return (
-    <div className="wrapper" >
+    <div className="wrapper" data-testid="product-container">
       <Helmet>
         <title>{`${product.name} - Фотошоп`}</title>
       </Helmet>

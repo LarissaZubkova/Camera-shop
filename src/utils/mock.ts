@@ -5,6 +5,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { State } from '../types/state';
 import { Action } from 'redux';
 import { createAPI } from '../services/api';
+import { ModalType } from '../const';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -61,3 +62,17 @@ export const makeFakePromoCard = (): Promo => ({
 });
 
 export const makeFakePromo = (): Promo[] => Array.from({length: 10}, makeFakePromoCard);
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  PRODUCT: {
+    products: [],
+    product: null,
+    similar: [],
+    isProductLoading: false,
+    promo: [],
+    modalActiveProduct: undefined,
+    modalType: ModalType.Default,
+  },
+  REVIEW: {reviews: []},
+  ...initialState ?? {},
+});

@@ -44,7 +44,7 @@ function AddReviewModal(): JSX.Element {
                   <use xlinkHref="#icon-snowflake"></use>
                 </svg>
               </legend>
-              <div className="rate__bar">
+              <div className="rate__bar" data-testid='rate-bar'>
                 <div className="rate__group">
                   {Array.from({length: STAR_COUNT}, (_, i) => STAR_COUNT - i).map((star) => (
                     <Fragment key={star}>
@@ -79,6 +79,7 @@ function AddReviewModal(): JSX.Element {
                   type="text"
                   placeholder="Введите ваше имя"
                   disabled={isSubmitting}
+                  data-testid="name"
                   {...register('userName',
                     {
                       required: 'Нужно указать имя',
@@ -99,6 +100,7 @@ function AddReviewModal(): JSX.Element {
                 <input
                   type="text"
                   placeholder="Основные преимущества товара"
+                  data-testid="advantage"
                   disabled={isSubmitting}
                   {...register('advantage',
                     {
@@ -121,6 +123,7 @@ function AddReviewModal(): JSX.Element {
                   type="text"
                   placeholder="Главные недостатки товара"
                   disabled={isSubmitting}
+                  data-testid="disadvantage"
                   {...register('disadvantage',
                     {
                       required: 'Нужно указать недостатки',
@@ -142,6 +145,7 @@ function AddReviewModal(): JSX.Element {
                   minLength={5}
                   placeholder="Поделитесь своим опытом покупки"
                   disabled={isSubmitting}
+                  data-testid="comment"
                   {...register('review',
                     {
                       required: 'Нужно добавить комментарий',

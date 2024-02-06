@@ -1,4 +1,4 @@
-import { withHistory } from '../../utils/mock-componets';
+import { withHistory } from '../../utils/mock-components';
 import { render, screen } from '@testing-library/react';
 import Breadcrumbs from './breadcrumbs';
 

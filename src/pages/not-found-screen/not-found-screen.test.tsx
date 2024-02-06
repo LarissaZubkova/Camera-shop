@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory } from '../../utils/mock-componets';
+import { withHistory } from '../../utils/mock-components';
 import NotFoundScreen from './not-found-screen';
 
 describe('Component: Logo', () => {

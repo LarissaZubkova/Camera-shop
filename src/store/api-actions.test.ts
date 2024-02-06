@@ -7,6 +7,7 @@ import { createAPI } from '../services/api';
 import { State } from '../types/state';
 import { AppThunkDispatch, extractActionsTypes, makeFakeProduct, makeFakeProducts, makeFakePromo, makeFakeReview, makeFakeReviews } from '../utils/mock';
 import { fetchProductCardAction, fetchProductsAction, fetchPromoAction, fetchReviewsAction, fetchSendReviewAction, fetchSimilarProductsAction } from './api-actions';
+import { setModalType } from './product-process/product-process.slice';
 
 describe('Async axtions', () => {
   const axios = createAPI();
@@ -196,6 +197,7 @@ describe('Async axtions', () => {
 
       expect(extractedActionsTypes).toEqual([
         fetchSendReviewAction.pending.type,
+        setModalType.type,
         fetchSendReviewAction.fulfilled.type,
       ]);
     });

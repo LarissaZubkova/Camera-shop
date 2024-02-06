@@ -25,7 +25,7 @@ function CatalogSortForm(): JSX.Element {
         </div>
         <div className="catalog-sort__order">
           <div className="catalog-sort__btn catalog-sort__btn--up">
-            <input type="radio" id="up" name="sort-icon" aria-label="По возрастанию" />
+            <input type="radio" id="up" name="sort-icon" aria-label="По возрастанию" data-testid="up-sort"/>
             <label htmlFor="up">
               <svg width={16} height={14} aria-hidden="true">
                 <use xlinkHref="#icon-sort"></use>
@@ -33,7 +33,7 @@ function CatalogSortForm(): JSX.Element {
             </label>
           </div>
           <div className="catalog-sort__btn catalog-sort__btn--down">
-            <input type="radio" id="down" name="sort-icon" aria-label="По убыванию" />
+            <input type="radio" id="down" name="sort-icon" aria-label="По убыванию" data-testid="down-sort"/>
             <label htmlFor="down">
               <svg width={16} height={14} aria-hidden="true">
                 <use xlinkHref="#icon-sort"></use>

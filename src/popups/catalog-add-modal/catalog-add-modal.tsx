@@ -53,6 +53,7 @@ function CatalogAddModal(): JSX.Element {
       <button
         className="cross-btn"
         type="button"
+        data-testid="close-button"
         aria-label="Закрыть попап"
         onClick={() => dispatch(setModalType(ModalType.Default))}
       >

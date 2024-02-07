@@ -12,6 +12,7 @@ function CatalogSwiper(): JSX.Element {
 
   return (
     <Swiper modules={[Pagination, Autoplay]}
+      data-testid="swiper-container"
       slidesPerView={1}
       pagination={{ clickable: true }}
       autoplay={{
@@ -19,7 +20,7 @@ function CatalogSwiper(): JSX.Element {
         disableOnInteraction: false,
       }}
     >
-      {promoCards.map((promo) => <SwiperSlide key={promo.id}><Banner card={promo} /></SwiperSlide>)}
+      {promoCards.map((promo) => <SwiperSlide key={promo.id} data-testid="swiper-slider"><Banner card={promo} /></SwiperSlide>)}
     </Swiper>
   );
 }

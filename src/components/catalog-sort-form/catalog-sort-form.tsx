@@ -11,6 +11,7 @@ function CatalogSortForm(): JSX.Element {
         <div className="catalog-sort__type">
           <div className="catalog-sort__btn-text">
             <input type="radio"
+              data-testid="sort-price"
               id="sortPrice"
               name="sort"
               checked = {sortType === SortType.Price}

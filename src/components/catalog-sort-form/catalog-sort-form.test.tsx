@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import CatalogSortForm from './catalog-sort-form';
 
 describe('Component: Catalog Sort Form', () => {
@@ -17,5 +17,14 @@ describe('Component: Catalog Sort Form', () => {
     expect(screen.getByTestId(upSortTestId)).toBeInTheDocument();
     expect(screen.getByTestId(downSortTestId)).toBeInTheDocument();
   });
+  
+  it('should change sort type on radio button change', async () => {
+    const {getByTestId} = render(<CatalogSortForm />);
+    const sortPriceRadio = getByTestId('sort-price') as HTMLInputElement;
+
+    fireEvent.change(sortPriceRadio, {target: {checked: true}});
+
+    expect(sortPriceRadio.checked).toBe(true);
+  })
 });
 

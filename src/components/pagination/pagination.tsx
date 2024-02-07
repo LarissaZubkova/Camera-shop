@@ -35,7 +35,7 @@ function Pagination({generalCount}: PaginationProps): JSX.Element {
           )
         )}
         {isNextButton &&
-        <li className="pagination__item" data-testid="back-button" onClick={() => setPages((prev) => prev + COUNT_STEP)}>
+        <li className="pagination__item" data-testid="forward-button" onClick={() => setPages((prev) => prev + COUNT_STEP)}>
           <Link className="pagination__link pagination__link--text" to={`${pathname}?page=${page + COUNT_STEP}`} ></Link>
         </li>}
       </ul>

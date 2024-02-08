@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import FocusTrap from 'focus-trap-react';
 import { useEffect } from 'react';
 import { KEY_ESCAPE, ModalType } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.tsx';
@@ -36,17 +37,19 @@ function ModalPopup(): JSX.Element {
   }, [modalType]);
 
   return (
-    <div className={classNames('modal is-active',
-      {'modal--narrow' : modalType === ModalType.ReviewSuccessModal})}
-    data-testid="modal"
-    >
-      <div className="modal__wrapper">
-        <div className="modal__overlay"></div>
-        {modalType === ModalType.CatalogAddModal && <CatalogAddModal data-testid='catalog-add-modal'/>}
-        {modalType === ModalType.AddReviewModal && <AddReviewModal />}
-        {modalType === ModalType.ReviewSuccessModal && <ReviewSuccessModal />}
+    <FocusTrap active={modalType !== ModalType.Default}>
+      <div className={classNames('modal is-active',
+        {'modal--narrow' : modalType === ModalType.ReviewSuccessModal})}
+      data-testid="modal"
+      >
+        <div className="modal__wrapper">
+          <div className="modal__overlay"></div>
+          {modalType === ModalType.CatalogAddModal && <CatalogAddModal data-testid='catalog-add-modal'/>}
+          {modalType === ModalType.AddReviewModal && <AddReviewModal />}
+          {modalType === ModalType.ReviewSuccessModal && <ReviewSuccessModal />}
+        </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 }
 

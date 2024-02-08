@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
-import { getCurrentProductsList } from '../../utils';
+import { getCurrentProductsList } from '../../utils/utils';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';
@@ -29,13 +29,13 @@ function CatalogScreen(): JSX.Element {
       <Header />
       <main>
         <CatalogSwiper />
-        <div className="page-content">
+        <div className="page-content" data-testid="pageContentElement">
           <Breadcrumbs />
           <section className="catalog">
             <div className="container">
               <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
               <div className="page-content__columns">
-                <div className="catalog__aside">
+                <div className="catalog__aside" data-testid="sorting">
                   <div className="catalog-filter">
                     <CatalogFilterForm />
                   </div>

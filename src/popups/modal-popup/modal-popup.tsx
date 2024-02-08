@@ -38,12 +38,11 @@ function ModalPopup(): JSX.Element {
   return (
     <div className={classNames('modal is-active',
       {'modal--narrow' : modalType === ModalType.ReviewSuccessModal})}
-    role="dialog"
-    tabIndex={1}
+    data-testid="modal"
     >
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
-        {modalType === ModalType.CatalogAddModal && <CatalogAddModal />}
+        {modalType === ModalType.CatalogAddModal && <CatalogAddModal data-testid='catalog-add-modal'/>}
         {modalType === ModalType.AddReviewModal && <AddReviewModal />}
         {modalType === ModalType.ReviewSuccessModal && <ReviewSuccessModal />}
       </div>

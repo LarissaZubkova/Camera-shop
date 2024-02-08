@@ -21,7 +21,7 @@ function SimilarList({products}: SimilarListProps): JSX.Element {
           <h2 className="title title--h3">Похожие товары</h2>
           <div className="product-similar__slider">
             <div className="product-similar__slider-list">
-              {currentSimilar.map((product) => <ProductCard key={product.id} product={product} isActive/>)}
+              {currentSimilar.map((product) => <ProductCard key={product.id} product={product} isActive data-testid="product-card" />)}
             </div>
             <button
               className="controls slider-controls--prev"

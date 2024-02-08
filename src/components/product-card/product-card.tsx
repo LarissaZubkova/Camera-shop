@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, ModalType, ProductTab } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { setModalActiveProduct, setModalType } from '../../store/product-process/product-process.slice';
-import { getMoneyFormat } from '../../utils';
+import { getMoneyFormat } from '../../utils/utils';
 import { CameraCard } from '../../types/product';
 import StarsRating from '../stars-rating/stars-rating';
 
@@ -15,8 +15,9 @@ type ProductCardProps = {
 function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const {previewImg, previewImg2x, name, previewImgWebp, previewImgWebp2x, reviewCount, price, rating, id} = product;
+
   return (
-    <div className={classNames('product-card', {'is-active' : isActive})}>
+    <div className={classNames('product-card', {'is-active' : isActive})} data-testid="product-container">
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`../${previewImgWebp}, ../${previewImgWebp2x} 2x`} />

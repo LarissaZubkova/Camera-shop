@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import { DEFAULT_PRODUCTS_COUNT, DateFormat, COUNT_STEP } from './const';
-import { CameraCard } from './types/product';
-import { Review } from './types/review';
+import { DEFAULT_PRODUCTS_COUNT, DateFormat, COUNT_STEP } from '../const';
+import { CameraCard } from '../types/product';
+import { Review } from '../types/review';
 
 export function getPaginationCount(count: number): number {
   return Math.ceil(count / DEFAULT_PRODUCTS_COUNT);

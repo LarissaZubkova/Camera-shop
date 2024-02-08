@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-
-import { getPageCount, getPaginationCount } from '../../utils';
+import { getPageCount, getPaginationCount } from '../../utils/utils';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -22,10 +21,10 @@ function Pagination({generalCount}: PaginationProps): JSX.Element {
   const isNextButton = page + COUNT_STEP < pagination && page + COUNT_STEP !== pagination;
 
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid="pagination-container">
       <ul className="pagination__list">
         {isBackButton &&
-        <li className="pagination__item" onClick={() => setPages((prev) => prev - COUNT_STEP)}>
+        <li className="pagination__item" data-testid="back-button" onClick={() => setPages((prev) => prev - COUNT_STEP)}>
           <Link className="pagination__link" to={`${pathname}?page=${page - 1}`} >Назад</Link>
         </li>}
         {Array.from({length: pageCount}, (_,i) => page + i).map((item) =>
@@ -36,8 +35,8 @@ function Pagination({generalCount}: PaginationProps): JSX.Element {
           )
         )}
         {isNextButton &&
-        <li className="pagination__item" onClick={() => setPages((prev) => prev + COUNT_STEP)}>
-          <Link className="pagination__link pagination__link--text" to={`${pathname}?page=${page + COUNT_STEP}`} >Далее</Link>
+        <li className="pagination__item" data-testid="forward-button" onClick={() => setPages((prev) => prev + COUNT_STEP)}>
+          <Link className="pagination__link pagination__link--text" to={`${pathname}?page=${page + COUNT_STEP}`} ></Link>
         </li>}
       </ul>
     </div>

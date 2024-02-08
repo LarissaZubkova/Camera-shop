@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useAppDispatch } from '../../hooks';
 import { setModalActiveProduct, setModalType } from '../../store/product-process/product-process.slice';
-import { getMoneyFormat } from '../../utils';
+import { getMoneyFormat } from '../../utils/utils';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { DEFAULT_TAB, ModalType, ProductTab } from '../../const';
 import { CameraCard} from '../../types/product';

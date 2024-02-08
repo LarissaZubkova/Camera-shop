@@ -14,7 +14,7 @@ function ReviewSuccessModal(): JSX.Element {
   useOverlayListener(modalRef);
 
   return (
-    <div className="modal__content" ref={modalRef} >
+    <div className="modal__content" ref={modalRef} data-testid="review-success-modal" >
       <p className="title title--h4">Спасибо за отзыв</p>
       <svg className="modal__icon" width={80} height={78} aria-hidden="true">
         <use xlinkHref="#icon-review-success"></use>

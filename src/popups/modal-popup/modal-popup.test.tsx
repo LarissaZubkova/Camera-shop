@@ -21,7 +21,6 @@ describe('Component: Modal Popup', () => {
     const expectedTestId = 'moodal';
 
     const {withStoreComponent} = withStore(<ModalPopup />, fakeStore);
-
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

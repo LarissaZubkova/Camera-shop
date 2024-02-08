@@ -37,10 +37,14 @@ function ModalPopup(): JSX.Element {
   }, [modalType]);
 
   return (
-    <FocusTrap active={modalType !== ModalType.Default}>
+    <FocusTrap
+      active={modalType !== ModalType.Default}
+      tabIndex={-1}
+    >
       <div className={classNames('modal is-active',
         {'modal--narrow' : modalType === ModalType.ReviewSuccessModal})}
       data-testid="modal"
+      tabIndex={-1}
       >
         <div className="modal__wrapper">
           <div className="modal__overlay"></div>

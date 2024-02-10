@@ -4,6 +4,9 @@ import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
 import { getCurrentProductsList } from '../../utils/utils';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';
@@ -20,6 +23,12 @@ function CatalogScreen(): JSX.Element {
   const products = useAppSelector(getProducts);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(products, currentPage);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProductsAction());
+    dispatch(fetchPromoAction());
+  }, [dispatch]);
 
   return (
     <div className="wrapper">

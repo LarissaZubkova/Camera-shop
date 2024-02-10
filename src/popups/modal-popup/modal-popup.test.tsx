@@ -4,6 +4,8 @@ import { makeFakeStore } from '../../utils/mock';
 import { ModalType } from '../../const';
 import ModalPopup from './modal-popup';
 
+vi.mock('focus-trap-react');
+
 describe('Component: Modal Popup', () => {
   const fakeStore = makeFakeStore({
     PRODUCT: {
@@ -24,7 +26,6 @@ describe('Component: Modal Popup', () => {
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
-
     waitFor(() => {
       expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
     });

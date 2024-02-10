@@ -9,7 +9,7 @@ const initialState: ProductProcess = {
   similar: [],
   isProductLoading: false,
   promo: [],
-  modalActiveProduct: undefined,
+  modalActiveProduct: null,
   modalType: ModalType.Default,
 };
 

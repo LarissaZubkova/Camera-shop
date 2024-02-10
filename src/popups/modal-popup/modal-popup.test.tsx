@@ -18,7 +18,7 @@ describe('Component: Modal Popup', () => {
   });
 
   it('should render correctly', () => {
-    const expectedTestId = 'moodal';
+    const expectedTestId = 'modal';
 
     const {withStoreComponent} = withStore(<ModalPopup />, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
@@ -42,7 +42,7 @@ describe('Component: Modal Popup', () => {
     fireEvent.keyDown(document, {key: 'Escape'});
 
     waitFor(() => {
-      expect(expectedTestId).not.toBeInTheDocument();
+      expect(screen.getByTestId(expectedTestId)).not.toBeInTheDocument();
     });
   });
 });

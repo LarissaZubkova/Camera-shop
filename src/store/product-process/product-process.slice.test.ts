@@ -29,7 +29,7 @@ describe('product process slice', () => {
       similar: [],
       isProductLoading: false,
       promo: [],
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
@@ -46,7 +46,7 @@ describe('product process slice', () => {
       similar: [],
       isProductLoading: false,
       promo: [],
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
@@ -62,7 +62,7 @@ describe('product process slice', () => {
       similar: [],
       isProductLoading: true,
       promo: [],
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
@@ -79,7 +79,7 @@ describe('product process slice', () => {
       similar: [],
       isProductLoading: false,
       promo: [],
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
@@ -96,7 +96,7 @@ describe('product process slice', () => {
       similar: [],
       isProductLoading: false,
       promo,
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
@@ -114,7 +114,7 @@ describe('product process slice', () => {
       similar,
       isProductLoading: false,
       promo: [],
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
@@ -148,7 +148,7 @@ describe('product process slice', () => {
       similar: [],
       isProductLoading: false,
       promo: [],
-      modalActiveProduct: undefined,
+      modalActiveProduct: null,
       modalType: ModalType.AddReviewModal,
     };
 

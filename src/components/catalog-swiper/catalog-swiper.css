@@ -1,5 +1,21 @@
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet:not(:last-child) {
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 7px);
+  bottom: 22px;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin-right: 40px;
+}
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: var(--swiper-pagination-bottom, 22px);
+}
+
 .swiper-pagination-bullet {
-  background: #ffffff;
+  background: #F4F4FC;
+  margin-right: 14px;
+  width: 16px;
+  height: 16px;
 }
 
 .swiper-pagination {
@@ -7,5 +23,5 @@
 }
 
 .swiper-pagination-bullet-active {
-  background: #906eee;
+  background: #7575E2;
 }

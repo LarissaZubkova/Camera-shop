@@ -31,6 +31,7 @@ describe('Application Routing', () => {
         product,
         similar: [],
         isProductLoading: false,
+        isProductError: false,
         promo: [],
         modalActiveProduct: undefined,
         modalType: ModalType.Default,

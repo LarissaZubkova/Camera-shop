@@ -12,6 +12,7 @@ describe('Component: Catalog Swiper', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo,
       modalActiveProduct: undefined,
       modalType: ModalType.Default,

@@ -69,6 +69,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     product: null,
     similar: [],
     isProductLoading: false,
+    isProductError: false,
     promo: [],
     modalActiveProduct: undefined,
     modalType: ModalType.Default,

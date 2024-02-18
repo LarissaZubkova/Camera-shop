@@ -12,6 +12,7 @@ describe('Component: Catalog Screen', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.Default,

@@ -25,6 +25,7 @@ describe('Component: Product Description', () => {
         product: null,
         similar: [],
         isProductLoading: false,
+        isProductError: false,
         promo: [],
         modalActiveProduct: product,
         modalType: ModalType.CatalogAddModal,

@@ -12,6 +12,7 @@ describe('Component: Product Card', () => {
       product,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.Default,

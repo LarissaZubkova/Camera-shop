@@ -13,6 +13,7 @@ describe('Component: Catalog Add Modal', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.CatalogAddModal,

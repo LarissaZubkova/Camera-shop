@@ -9,6 +9,7 @@ describe('product-process selectors', () => {
       product: makeFakeProduct(),
       similar: makeFakeProducts(),
       isProductLoading: false,
+      isProductError: false,
       promo: makeFakePromo(),
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.AddReviewModal,
@@ -49,6 +50,12 @@ describe('product-process selectors', () => {
     const {isProductLoading} = state[NameSpace.Product];
     const result = getProductLoadingStatus(state);
     expect(result).toBe(isProductLoading);
+  });
+
+  it('should return product data error status', () => {
+    const {isProductError} = state[NameSpace.Product];
+    const result = getProductLoadingStatus(state);
+    expect(result).toBe(isProductError);
   });
 
   it('should return modal type from state', () => {

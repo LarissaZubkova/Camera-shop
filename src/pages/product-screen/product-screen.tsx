@@ -13,6 +13,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import ReviewBlock from '../../components/review-block/review-block';
 import UpButton from '../../components/up-button/up-button';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function ProductScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,8 +31,12 @@ function ProductScreen(): JSX.Element {
     }
   }, [productId, dispatch]);
 
-  if (isProductLoading || !product) {
+  if (isProductLoading) {
     return <LoadingScreen />;
+  }
+
+  if (!product) {
+    return <NotFoundScreen />;
   }
 
   return (

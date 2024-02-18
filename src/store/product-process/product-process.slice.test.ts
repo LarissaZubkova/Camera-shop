@@ -11,6 +11,7 @@ describe('product process slice', () => {
       product: makeFakeProduct(),
       similar: makeFakeProducts(),
       isProductLoading: false,
+      isProductError: false,
       promo: makeFakePromo(),
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.Default,
@@ -28,6 +29,7 @@ describe('product process slice', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: null,
       modalType: ModalType.Default,
@@ -45,6 +47,7 @@ describe('product process slice', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: null,
       modalType: ModalType.Default,
@@ -55,12 +58,13 @@ describe('product process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isProductLoading" to true with "fetchProductCardAction.pending"', () => {
+  it('should set "isProductLoading" to true, "isProductErroe" to false with "fetchProductCardAction.pending"', () => {
     const expectedState = {
       products: [],
       product: null,
       similar: [],
       isProductLoading: true,
+      isProductError: false,
       promo: [],
       modalActiveProduct: null,
       modalType: ModalType.Default,
@@ -71,19 +75,37 @@ describe('product process slice', () => {
     expect(result).toEqual(expectedState);
   });
 
-  it('should set "isProductLoading" to false, "product" to product with "fetchProductCardAction.fulfilled"', () => {
+  it('should set "isProductLoading" to false, , "isProductErroe" to false, "product" to product with "fetchProductCardAction.fulfilled"', () => {
     const product = makeFakeProduct();
     const expectedState = {
       products: [],
       product,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: null,
       modalType: ModalType.Default,
     };
 
     const result = productProcess.reducer(undefined, fetchProductCardAction.fulfilled(product, '', String(product.id)));
+
+    expect(result).toEqual(expectedState);
+  });
+
+  it('should set "isProductLoading" to false, , "isProductErroe" to true, "product" to product with "fetchProductCardAction.rejected"', () => {
+    const expectedState = {
+      products: [],
+      product: null,
+      similar: [],
+      isProductLoading: false,
+      isProductError: true,
+      promo: [],
+      modalActiveProduct: null,
+      modalType: ModalType.Default,
+    };
+
+    const result = productProcess.reducer(undefined, fetchProductCardAction.rejected);
 
     expect(result).toEqual(expectedState);
   });
@@ -95,6 +117,7 @@ describe('product process slice', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo,
       modalActiveProduct: null,
       modalType: ModalType.Default,
@@ -113,6 +136,7 @@ describe('product process slice', () => {
       product: null,
       similar,
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: null,
       modalType: ModalType.Default,
@@ -131,6 +155,7 @@ describe('product process slice', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct,
       modalType: ModalType.Default,
@@ -147,6 +172,7 @@ describe('product process slice', () => {
       product: null,
       similar: [],
       isProductLoading: false,
+      isProductError: false,
       promo: [],
       modalActiveProduct: null,
       modalType: ModalType.AddReviewModal,

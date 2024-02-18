@@ -11,6 +11,7 @@ export type ProductProcess = {
     product: CameraCard | null;
     similar: CameraCard[];
     isProductLoading: boolean;
+    isProductError: boolean;
     promo: Promo[];
     modalActiveProduct?: CameraCard | null;
     modalType: ModalType;

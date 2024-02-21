@@ -64,3 +64,11 @@ export function validateReview(value: string) {
 
   return true;
 }
+
+export function getFilteredProducts(cameras: CameraCard[], value: string) {
+  return cameras.filter((product) => {
+    if (value.length >= 3) {
+      return product.name.toLowerCase().includes(value.toLocaleLowerCase());
+    }
+  });
+}

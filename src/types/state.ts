@@ -2,6 +2,7 @@ import { ModalType } from '../const';
 import { store } from '../store/index';
 import { Promo, CameraCard } from './product';
 import { Review } from './review';
+import { TypeSort } from './sort-type';
 
 export type AppDispatch = typeof store.dispatch;
 export type State = ReturnType<typeof store.getState>;
@@ -19,4 +20,8 @@ export type ProductProcess = {
 
 export type ReviewProcess = {
     reviews: Review[];
+}
+
+export type FilterSortProcess = {
+  sortType: TypeSort;
 }

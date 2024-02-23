@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
-import { getCurrentProductsList } from '../../utils/utils';
+import { getCurrentProductsList, getSortedProducts } from '../../utils/utils';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
@@ -16,13 +16,16 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
+import { getSortType } from '../../store/filter-sort-process/filter-sort-process.selectors';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
+  const sortType = useAppSelector(getSortType);
+  const sortedProducts = getSortedProducts(products, sortType);
   const modalType = useAppSelector(getModalType);
-  const currentProducts = getCurrentProductsList(products, currentPage);
+  const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -54,7 +57,7 @@ function CatalogScreen(): JSX.Element {
                     <CatalogSortForm />
                   </div>
                   <CatalogProductList products={currentProducts} />
-                  {products.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={products.length} />}
+                  {sortedProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={sortedProducts.length} />}
                 </div>
               </div>
             </div>

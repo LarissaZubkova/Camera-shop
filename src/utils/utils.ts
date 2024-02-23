@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import { DEFAULT_PRODUCTS_COUNT, DateFormat, COUNT_STEP } from '../const';
+import { DEFAULT_PRODUCTS_COUNT, DateFormat, COUNT_STEP, SortDirection, SortType } from '../const';
 import { CameraCard } from '../types/product';
 import { Review } from '../types/review';
+import { TypeSort } from '../types/sort-type';
 
 export function getPaginationCount(count: number): number {
   return Math.ceil(count / DEFAULT_PRODUCTS_COUNT);
@@ -71,4 +72,26 @@ export function getFilteredProducts(cameras: CameraCard[], value: string) {
       return product.name.toLowerCase().includes(value.toLocaleLowerCase());
     }
   });
+}
+
+const sortByPrice = {
+  [SortDirection.Default]: (products: CameraCard[]) => products,
+  [SortDirection.Up]: (products: CameraCard[]) => [...products].sort((a, b) => a.price - b.price),
+  [SortDirection.Down]: (products: CameraCard[]) => [...products].sort((a,b) => b.price - a.price),
+};
+
+const sortByRating = {
+  [SortDirection.Default]: (products: CameraCard[]) => products,
+  [SortDirection.Up]: (products: CameraCard[]) => [...products].sort((a, b) => a.rating - b.rating),
+  [SortDirection.Down]: (products: CameraCard[]) => [...products].sort((a,b) => b.rating - a.rating),
+};
+
+export function getSortedProducts(products: CameraCard[], sortType: TypeSort) {
+  if (sortType.type === SortType.Price) {
+    return sortByPrice[sortType.direction](products);
+  }
+  if (sortType.type === SortType.Popular) {
+    return sortByRating[sortType.direction](products);
+  }
+  return products;
 }

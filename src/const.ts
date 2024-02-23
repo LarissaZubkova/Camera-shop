@@ -11,6 +11,7 @@ export const STAR_COUNT = 5;
 export enum NameSpace {
     Product = 'PRODUCT',
     Review = 'REVIEW',
+    FilterSort = 'FILTER_SORT',
 }
 
 export enum APIRoute {
@@ -43,6 +44,13 @@ export enum ModalType {
 }
 
 export enum SortType {
+  Default ='',
   Price = 'price',
   Popular = 'popular',
+}
+
+export enum SortDirection {
+  Default = '',
+  Up = 'up',
+  Down = 'down'
 }

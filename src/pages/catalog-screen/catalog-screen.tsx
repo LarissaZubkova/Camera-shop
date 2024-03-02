@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
+import { CategoryFilterType, DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT, FilterType, LevelFilterType, SortDirection } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
-import { getCurrentProductsList, getSortedProducts } from '../../utils/utils';
+import { getCurrentProductsList, getProductsByFilters, getSortedProducts } from '../../utils/utils';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
@@ -21,8 +21,16 @@ function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
-  const sortType = {type: searchParams.get('sort'), direction: searchParams.get('sort-icon')};
-  const sortedProducts = getSortedProducts(products, sortType);
+
+  const sortType = {type: searchParams.get('sort'), direction: searchParams.get('sort-icon')} as {
+    type: string;
+    direction: SortDirection;
+  };
+  const category = searchParams.get('category') as CategoryFilterType;
+  const type = searchParams.get('type')?.split(',') as FilterType[];
+  const level = searchParams.get('level')?.split(',') as LevelFilterType[];
+  const filteredProducts = getProductsByFilters(products, category, type, level);
+  const sortedProducts = getSortedProducts(filteredProducts, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
   const dispatch = useAppDispatch();
@@ -56,7 +64,7 @@ function CatalogScreen(): JSX.Element {
                     <CatalogSortForm />
                   </div>
                   <CatalogProductList products={currentProducts} />
-                  {sortedProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={sortedProducts.length} />}
+                  {currentProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={currentProducts.length} />}
                 </div>
               </div>
             </div>

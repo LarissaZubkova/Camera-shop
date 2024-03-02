@@ -76,3 +76,33 @@ export enum LevelFilterType {
   NonProfessional = 'non-professional',
   Professional = 'professional',
 }
+
+export enum Filter {
+  Category = 'category',
+  Type = 'type',
+  Level = 'level',
+}
+
+export const FILTER_NAME = {
+  photocamera: 'Фотокамера',
+  videocamera: 'Видеокамера',
+  digital: 'Цифровая',
+  film: 'Плёночная',
+  snapshot: 'Моментальная',
+  collection: 'Коллекционная',
+  zero: 'Нулевой',
+  ['non-professional']: 'Любительский',
+  professional: 'Профессиональный',
+};
+
+export const PRODUCT_FILTER_NAME = {
+  photocamera: 'Фотоаппарат',
+  videocamera: 'Видеокамера',
+  digital: 'Цифровая',
+  film: 'Плёночная',
+  snapshot: 'Моментальная',
+  collection: 'Коллекционная',
+  zero: 'Нулевой',
+  ['non-professional']: 'Любительский',
+  professional: 'Профессиональный',
+};

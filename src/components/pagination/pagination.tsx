@@ -30,7 +30,11 @@ function Pagination({generalCount}: PaginationProps): JSX.Element {
         {Array.from({length: pageCount}, (_,i) => page + i).map((item) =>
           (
             <li key={item} className="pagination__item">
-              <Link className={classNames('pagination__link', {'pagination__link--active' : currentPage === item})} to={`${pathname}?page=${item}`} >{item}</Link>
+              <Link
+                className={classNames('pagination__link', {'pagination__link--active' : currentPage === item})}
+                to={`${pathname}?page=${item}`}
+              >{item}
+              </Link>
             </li>
           )
         )}

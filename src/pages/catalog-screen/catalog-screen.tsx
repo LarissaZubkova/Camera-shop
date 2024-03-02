@@ -16,13 +16,12 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
-import { getSortType } from '../../store/filter-sort-process/filter-sort-process.selectors';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
-  const sortType = useAppSelector(getSortType);
+  const sortType = {type: searchParams.get('sort'), direction: searchParams.get('sort-icon')};
   const sortedProducts = getSortedProducts(products, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);

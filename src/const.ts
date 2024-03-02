@@ -11,7 +11,6 @@ export const STAR_COUNT = 5;
 export enum NameSpace {
     Product = 'PRODUCT',
     Review = 'REVIEW',
-    FilterSort = 'FILTER_SORT',
 }
 
 export enum APIRoute {
@@ -45,12 +44,35 @@ export enum ModalType {
 
 export enum SortType {
   Default ='',
-  Price = 'price',
-  Popular = 'popular',
+  Price = 'sortPrice',
+  Popular = 'sortPopular',
 }
 
 export enum SortDirection {
   Default = '',
   Up = 'up',
   Down = 'down'
+}
+
+export enum PriceFilterType {
+  Price = 'price',
+  PriceUp = 'priceUp',
+}
+
+export enum CategoryFilterType {
+  Photocamera = 'photocamera',
+  Videocamera = 'videocamera',
+}
+
+export enum FilterType {
+  Digital = 'digital',
+  Film = 'film',
+  Snapshot = 'snapshot',
+  Collection = 'collection',
+}
+
+export enum LevelFilterType {
+  Zero = 'zero',
+  NonProfessional = 'non-professional',
+  Professional = 'professional',
 }

@@ -1,6 +1,4 @@
-import { SortDirection, SortType } from '../const';
-
 export type TypeSort = {
-  type: SortType;
-  direction: SortDirection;
+  type: string | null;
+  direction: string | null;
 }

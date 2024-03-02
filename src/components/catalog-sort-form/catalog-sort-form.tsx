@@ -1,11 +1,26 @@
+import { useSearchParams } from 'react-router-dom';
 import { SortDirection, SortType } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getSortType } from '../../store/filter-sort-process/filter-sort-process.selectors';
-import { setSortType } from '../../store/filter-sort-process/filter-sort-process.slice';
+import { ChangeEvent } from 'react';
+
+type Params = {
+  sort: string;
+  'sort-icon': string;
+  [key: string] : string;
+}
 
 function CatalogSortForm(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const sortType = useAppSelector(getSortType);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleInputClick = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.id;
+    const name = evt.target.name;
+    const sort = searchParams.get('sort') || SortType.Price;
+    const sortIcon = searchParams.get('sort-icon') || SortDirection.Up;
+    const params: Params = {sort, ['sort-icon']: sortIcon};
+    params[name] = value;
+
+    setSearchParams(params);
+  };
 
   return (
     <form action="#">
@@ -17,14 +32,8 @@ function CatalogSortForm(): JSX.Element {
               data-testid="sort-price"
               id="sortPrice"
               name="sort"
-              checked = {sortType.type === SortType.Price}
-              onChange={() => {
-                if (sortType.direction === SortDirection.Default) {
-                  dispatch(setSortType({direction: SortDirection.Up, type: SortType.Price}));
-                } else {
-                  dispatch(setSortType({...sortType, type: SortType.Price}));
-                }
-              }}
+              checked = {searchParams.get('sort') === SortType.Price}
+              onChange={handleInputClick}
             />
             <label htmlFor="sortPrice">по цене</label>
           </div>
@@ -33,14 +42,8 @@ function CatalogSortForm(): JSX.Element {
               type="radio"
               id="sortPopular"
               name="sort"
-              checked = {sortType.type === SortType.Popular}
-              onChange={() => {
-                if (sortType.direction === SortDirection.Default) {
-                  dispatch(setSortType({direction: SortDirection.Up, type: SortType.Popular}));
-                } else {
-                  dispatch(setSortType({...sortType, type: SortType.Popular}));
-                }
-              }}
+              checked = {searchParams.get('sort') === SortType.Popular}
+              onChange={handleInputClick}
             />
             <label htmlFor="sortPopular">по популярности</label>
           </div>
@@ -53,14 +56,8 @@ function CatalogSortForm(): JSX.Element {
               name="sort-icon"
               aria-label="По возрастанию"
               data-testid="up-sort"
-              checked = {sortType.direction === SortDirection.Up}
-              onChange={() => {
-                if (sortType.type === SortType.Default) {
-                  dispatch(setSortType({type: SortType.Price, direction: SortDirection.Up}));
-                } else {
-                  dispatch(setSortType({...sortType, direction: SortDirection.Up}));
-                }
-              }}
+              checked = {searchParams.get('sort-icon') === SortDirection.Up}
+              onChange={handleInputClick}
             />
             <label htmlFor="up">
               <svg width={16} height={14} aria-hidden="true">
@@ -75,14 +72,8 @@ function CatalogSortForm(): JSX.Element {
               name="sort-icon"
               aria-label="По убыванию"
               data-testid="down-sort"
-              checked = {sortType.direction === SortDirection.Down}
-              onChange={() => {
-                if (sortType.type === SortType.Default) {
-                  dispatch(setSortType({type: SortType.Price, direction: SortDirection.Down}));
-                } else {
-                  dispatch(setSortType({...sortType, direction: SortDirection.Down}));
-                }
-              }}
+              checked = {searchParams.get('sort-icon') === SortDirection.Down}
+              onChange={handleInputClick}
             />
             <label htmlFor="down">
               <svg width={16} height={14} aria-hidden="true">

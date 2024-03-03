@@ -16,6 +16,7 @@ describe('Component: Review Success Modal', () => {
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.ReviewSuccessModal,
+      filteredProducts: [],
     }
   });
 

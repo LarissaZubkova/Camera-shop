@@ -16,6 +16,7 @@ describe('Component: Catalog Product List', () => {
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.Default,
+      filteredProducts: [],
     }
   });
 

@@ -17,6 +17,7 @@ describe('Component: Catalog Add Modal', () => {
       promo: [],
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.CatalogAddModal,
+      filteredProducts: [],
     }
   });
 

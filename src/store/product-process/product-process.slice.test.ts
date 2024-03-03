@@ -15,6 +15,7 @@ describe('product process slice', () => {
       promo: makeFakePromo(),
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.Default,
+      filteredProducts: [],
     };
 
     const result = productProcess.reducer(expectedState, emptyAction);
@@ -159,6 +160,7 @@ describe('product process slice', () => {
       promo: [],
       modalActiveProduct,
       modalType: ModalType.Default,
+      filteredProducts: [],
     };
 
     const result = productProcess.reducer(expectedState, setModalActiveProduct(modalActiveProduct.id));

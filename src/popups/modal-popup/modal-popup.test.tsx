@@ -17,6 +17,7 @@ describe('Component: Modal Popup', () => {
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.CatalogAddModal,
+      filteredProducts: [],
     }
   });
 

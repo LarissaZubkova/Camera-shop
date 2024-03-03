@@ -16,6 +16,7 @@ describe('Component: Catalog Swiper', () => {
       promo,
       modalActiveProduct: undefined,
       modalType: ModalType.Default,
+      filteredProducts: [],
     }
   });
 

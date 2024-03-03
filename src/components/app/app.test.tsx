@@ -35,6 +35,7 @@ describe('Application Routing', () => {
         promo: [],
         modalActiveProduct: undefined,
         modalType: ModalType.Default,
+        filteredProducts: [],
       }
     }));
 

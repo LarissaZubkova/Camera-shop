@@ -16,6 +16,7 @@ describe('Component: Similar List', () => {
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.CatalogAddModal,
+      filteredProducts: [],
     }
   });
   it('should render correctly', () => {

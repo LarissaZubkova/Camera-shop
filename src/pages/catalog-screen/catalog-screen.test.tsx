@@ -16,6 +16,7 @@ describe('Component: Catalog Screen', () => {
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.Default,
+      filteredProducts: [],
     }
   });
   it('should render correctly', () => {

@@ -29,6 +29,7 @@ describe('Component: Product Description', () => {
         promo: [],
         modalActiveProduct: product,
         modalType: ModalType.CatalogAddModal,
+        filteredProducts: [],
       }
     });
 

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProductProcess } from '../../types/state';
 import { ModalType, NameSpace } from '../../const';
 import { fetchProductsAction, fetchPromoAction, fetchProductCardAction, fetchSimilarProductsAction } from '../api-actions';
+import { CameraCard } from '../../types/product';
 
 const initialState: ProductProcess = {
   products: [],
@@ -12,6 +13,7 @@ const initialState: ProductProcess = {
   promo: [],
   modalActiveProduct: null,
   modalType: ModalType.Default,
+  filteredProducts: [],
 };
 
 export const productProcess = createSlice({
@@ -23,6 +25,9 @@ export const productProcess = createSlice({
     },
     setModalType: (state, action: PayloadAction<ModalType>) => {
       state.modalType = action.payload;
+    },
+    setFilteredProducts: (state, action: PayloadAction<CameraCard[]>) => {
+      state.filteredProducts = action.payload;
     }
   },
   extraReducers(builder) {
@@ -52,4 +57,4 @@ export const productProcess = createSlice({
   }
 });
 
-export const { setModalActiveProduct, setModalType } = productProcess.actions;
+export const { setModalActiveProduct, setModalType, setFilteredProducts } = productProcess.actions;

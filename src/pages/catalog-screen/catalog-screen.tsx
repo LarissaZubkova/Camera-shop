@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
-import { DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT } from '../../const';
+import { CategoryFilterType, DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT, FilterType, LevelFilterType, SortDirection } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
-import { getCurrentProductsList, getSortedProducts } from '../../utils/utils';
+import { getCurrentProductsList, getProductsByFilters, getSortedProducts } from '../../utils/utils';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
@@ -16,17 +16,27 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
-import { getSortType } from '../../store/filter-sort-process/filter-sort-process.selectors';
+import { setFilteredProducts } from '../../store/product-process/product-process.slice';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
-  const sortType = useAppSelector(getSortType);
-  const sortedProducts = getSortedProducts(products, sortType);
+  const dispatch = useAppDispatch();
+  const sortType = {type: searchParams.get('sort'), direction: searchParams.get('sort-icon')} as {
+    type: string;
+    direction: SortDirection;
+  };
+  const category = searchParams.get('category') as CategoryFilterType;
+  const type = searchParams.get('type')?.split(',') as FilterType[];
+  const level = searchParams.get('level')?.split(',') as LevelFilterType[];
+  const minPrice = Number(searchParams.get('_start'));
+  const maxPrice = Number(searchParams.get('_end'));
+  const filteredProducts = getProductsByFilters(products, category, type, level, minPrice, maxPrice);
+  dispatch(setFilteredProducts(filteredProducts));
+  const sortedProducts = getSortedProducts(filteredProducts, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchProductsAction());
@@ -56,8 +66,9 @@ function CatalogScreen(): JSX.Element {
                   <div className="catalog-sort">
                     <CatalogSortForm />
                   </div>
-                  <CatalogProductList products={currentProducts} />
-                  {sortedProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={sortedProducts.length} />}
+                  {!currentProducts.length && <p>по вашему запросу ничего не найдено</p>}
+                  {currentProducts.length && <CatalogProductList products={currentProducts} />}
+                  {currentProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={currentProducts.length} />}
                 </div>
               </div>
             </div>

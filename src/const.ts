@@ -11,7 +11,6 @@ export const STAR_COUNT = 5;
 export enum NameSpace {
     Product = 'PRODUCT',
     Review = 'REVIEW',
-    FilterSort = 'FILTER_SORT',
 }
 
 export enum APIRoute {
@@ -45,8 +44,8 @@ export enum ModalType {
 
 export enum SortType {
   Default ='',
-  Price = 'price',
-  Popular = 'popular',
+  Price = 'sortPrice',
+  Popular = 'sortPopular',
 }
 
 export enum SortDirection {
@@ -54,3 +53,61 @@ export enum SortDirection {
   Up = 'up',
   Down = 'down'
 }
+
+export enum PriceFilterType {
+  Price = 'price',
+  PriceUp = 'priceUp',
+}
+
+export enum CategoryFilterType {
+  Photocamera = 'photocamera',
+  Videocamera = 'videocamera',
+}
+
+export enum FilterType {
+  Digital = 'digital',
+  Film = 'film',
+  Snapshot = 'snapshot',
+  Collection = 'collection',
+}
+
+export enum LevelFilterType {
+  Zero = 'zero',
+  NonProfessional = 'non-professional',
+  Professional = 'professional',
+}
+
+export enum Filter {
+  Category = 'category',
+  Type = 'type',
+  Level = 'level',
+}
+
+export enum PriceFilter {
+  Price = 'price',
+  PriceUp = 'priceUp',
+}
+
+export const FILTER_NAME = {
+  photocamera: 'Фотокамера',
+  videocamera: 'Видеокамера',
+  digital: 'Цифровая',
+  film: 'Плёночная',
+  snapshot: 'Моментальная',
+  collection: 'Коллекционная',
+  zero: 'Нулевой',
+  ['non-professional']: 'Любительский',
+  professional: 'Профессиональный',
+};
+
+export const PRODUCT_FILTER_NAME = {
+  photocamera: 'Фотоаппарат',
+  videocamera: 'Видеокамера',
+  digital: 'Цифровая',
+  film: 'Плёночная',
+  snapshot: 'Моментальная',
+  collection: 'Коллекционная',
+  zero: 'Нулевой',
+  ['non-professional']: 'Любительский',
+  professional: 'Профессиональный',
+};

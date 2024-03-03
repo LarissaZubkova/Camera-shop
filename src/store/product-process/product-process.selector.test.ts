@@ -13,6 +13,7 @@ describe('product-process selectors', () => {
       promo: makeFakePromo(),
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.AddReviewModal,
+      filteredProducts: makeFakeProducts(),
     }
   };
 

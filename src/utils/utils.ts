@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import { DEFAULT_PRODUCTS_COUNT, DateFormat, COUNT_STEP, SortDirection, SortType } from '../const';
+import { DEFAULT_PRODUCTS_COUNT, DateFormat, COUNT_STEP, SortDirection, SortType, CategoryFilterType, FILTER_NAME, FilterType, LevelFilterType, PRODUCT_FILTER_NAME } from '../const';
 import { CameraCard } from '../types/product';
 import { Review } from '../types/review';
-import { TypeSort } from '../types/sort-type';
 
 export function getPaginationCount(count: number): number {
   return Math.ceil(count / DEFAULT_PRODUCTS_COUNT);
@@ -86,12 +85,62 @@ const sortByRating = {
   [SortDirection.Down]: (products: CameraCard[]) => [...products].sort((a,b) => b.rating - a.rating),
 };
 
-export function getSortedProducts(products: CameraCard[], sortType: TypeSort) {
+export function getSortedProducts(products: CameraCard[], sortType: {
+  type: string;
+  direction: SortDirection;
+}): CameraCard[] {
   if (sortType.type === SortType.Price) {
     return sortByPrice[sortType.direction](products);
   }
-  if (sortType.type === SortType.Popular) {
+  if (sortType.direction && sortType.type === SortType.Popular) {
     return sortByRating[sortType.direction](products);
   }
   return products;
+}
+
+const categoryFilter = {
+  [CategoryFilterType.Photocamera]: (products: CameraCard[]) => products.filter((product) => product.category === PRODUCT_FILTER_NAME.photocamera),
+  [CategoryFilterType.Videocamera]: (products: CameraCard[]) => products.filter((product) => product.category === FILTER_NAME.videocamera),
+};
+
+const typeFilter = {
+  [FilterType.Digital]: (products: CameraCard[]) => products.filter((product) => product.type === FILTER_NAME.digital),
+  [FilterType.Film]: (products: CameraCard[]) => products.filter((product) => product.type === FILTER_NAME.film),
+  [FilterType.Snapshot]: (products: CameraCard[]) => products.filter((product) => product.type === FILTER_NAME.snapshot),
+  [FilterType.Collection]: (products: CameraCard[]) => products.filter((product) => product.type === FILTER_NAME.collection),
+};
+
+const levelFilter = {
+  [LevelFilterType.Zero]: (products: CameraCard[]) => products.filter((product) => product.level === FILTER_NAME.zero),
+  [LevelFilterType.NonProfessional]: (products: CameraCard[]) => products.filter((product) => product.level === FILTER_NAME['non-professional']),
+  [LevelFilterType.Professional]: (products: CameraCard[]) => products.filter((product) => product.level === FILTER_NAME.professional),
+};
+
+export function getProductsByFilters(
+  products: CameraCard[],
+  category: CategoryFilterType | null,
+  types: FilterType[],
+  levels: LevelFilterType[],
+  minPrice: number,
+  maxPrice: number,
+) {
+  let filteredProducts = products;
+
+  if (category) {
+    filteredProducts = categoryFilter[category](filteredProducts);
+  }
+
+  if (types && types.length) {
+    filteredProducts = types.map((type) => typeFilter[type](filteredProducts)).flat();
+  }
+
+  if (levels && levels.length) {
+    filteredProducts = levels.map((level) => levelFilter[level](filteredProducts)).flat();
+  }
+
+  if (minPrice && maxPrice) {
+    filteredProducts = filteredProducts.filter((product) => product.price >= minPrice && product.price <= maxPrice);
+  }
+
+  return filteredProducts;
 }

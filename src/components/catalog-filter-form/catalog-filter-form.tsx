@@ -1,9 +1,17 @@
 import useCatalogFilter from '../../hooks/useCatalogFilter/use-catalog-filter';
-import { CategoryFilterType, FILTER_NAME, Filter, FilterType, LevelFilterType } from '../../const';
-
+import { CategoryFilterType, FILTER_NAME, Filter, FilterType, LevelFilterType, PriceFilter } from '../../const';
 
 function CatalogFilterForm(): JSX.Element {
-  const {category, cameraType, level, handleInputClick} = useCatalogFilter();
+  const {
+    category,
+    cameraType,
+    level,
+    minPrice,
+    maxPrice,
+    handleInputClick,
+    resetFilters,
+    handleInputChange
+  } = useCatalogFilter();
 
   return (
     <form action="#">
@@ -17,6 +25,8 @@ function CatalogFilterForm(): JSX.Element {
                 type="number"
                 name="price"
                 placeholder="от"
+                value={minPrice || ''}
+                onChange={(evt) => handleInputChange(evt, PriceFilter.Price)}
                 id="coast"
               />
             </label>
@@ -27,6 +37,8 @@ function CatalogFilterForm(): JSX.Element {
                 type="number"
                 name="priceUp"
                 placeholder="до"
+                onChange={(evt) => handleInputClick(evt, PriceFilter.PriceUp)}
+                value={maxPrice || ''}
                 id="coast"
               />
             </label>
@@ -88,7 +100,11 @@ function CatalogFilterForm(): JSX.Element {
           </div>
         ))}
       </fieldset>
-      <button className="btn catalog-filter__reset-btn" type="reset">Сбросить фильтры
+      <button
+        className="btn catalog-filter__reset-btn"
+        type="reset"
+        onClick={resetFilters}
+      >Сбросить фильтры
       </button>
     </form>
   );

@@ -83,6 +83,11 @@ export enum Filter {
   Level = 'level',
 }
 
+export enum PriceFilter {
+  Price = 'price',
+  PriceUp = 'priceUp',
+}
+
 export const FILTER_NAME = {
   photocamera: 'Фотокамера',
   videocamera: 'Видеокамера',

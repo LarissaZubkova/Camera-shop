@@ -116,7 +116,14 @@ const levelFilter = {
   [LevelFilterType.Professional]: (products: CameraCard[]) => products.filter((product) => product.level === FILTER_NAME.professional),
 };
 
-export function getProductsByFilters(products: CameraCard[], category: CategoryFilterType | null, types: FilterType[], levels: LevelFilterType[]) {
+export function getProductsByFilters(
+  products: CameraCard[],
+  category: CategoryFilterType | null,
+  types: FilterType[],
+  levels: LevelFilterType[],
+  minPrice: number,
+  maxPrice: number,
+) {
   let filteredProducts = products;
 
   if (category) {
@@ -129,6 +136,10 @@ export function getProductsByFilters(products: CameraCard[], category: CategoryF
 
   if (levels && levels.length) {
     filteredProducts = levels.map((level) => levelFilter[level](filteredProducts)).flat();
+  }
+
+  if (minPrice && maxPrice) {
+    filteredProducts = filteredProducts.filter((product) => product.price >= minPrice && product.price <= maxPrice);
   }
 
   return filteredProducts;

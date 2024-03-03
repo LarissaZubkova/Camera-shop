@@ -15,6 +15,7 @@ export type ProductProcess = {
     promo: Promo[];
     modalActiveProduct?: CameraCard | null;
     modalType: ModalType;
+    filteredProducts: CameraCard[];
 }
 
 export type ReviewProcess = {

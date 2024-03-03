@@ -16,12 +16,13 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
+import { setFilteredProducts } from '../../store/product-process/product-process.slice';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
-
+  const dispatch = useAppDispatch();
   const sortType = {type: searchParams.get('sort'), direction: searchParams.get('sort-icon')} as {
     type: string;
     direction: SortDirection;
@@ -29,11 +30,13 @@ function CatalogScreen(): JSX.Element {
   const category = searchParams.get('category') as CategoryFilterType;
   const type = searchParams.get('type')?.split(',') as FilterType[];
   const level = searchParams.get('level')?.split(',') as LevelFilterType[];
-  const filteredProducts = getProductsByFilters(products, category, type, level);
+  const minPrice = Number(searchParams.get('_start'));
+  const maxPrice = Number(searchParams.get('_end'));
+  const filteredProducts = getProductsByFilters(products, category, type, level, minPrice, maxPrice);
+  dispatch(setFilteredProducts(filteredProducts));
   const sortedProducts = getSortedProducts(filteredProducts, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchProductsAction());
@@ -63,7 +66,8 @@ function CatalogScreen(): JSX.Element {
                   <div className="catalog-sort">
                     <CatalogSortForm />
                   </div>
-                  <CatalogProductList products={currentProducts} />
+                  {!currentProducts.length && <p>по вашему запросу ничего не найдено</p>}
+                  {currentProducts.length && <CatalogProductList products={currentProducts} />}
                   {currentProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={currentProducts.length} />}
                 </div>
               </div>

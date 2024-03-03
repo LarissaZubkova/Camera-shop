@@ -10,3 +10,4 @@ export const getProductErrorStatus = (state: Pick<State, NameSpace.Product>): bo
 export const getPromo = (state: Pick<State, NameSpace.Product>): Promo[] => state[NameSpace.Product].promo;
 export const getModalActiveProduct = (state: Pick<State, NameSpace.Product>): CameraCard | null | undefined => state[NameSpace.Product].modalActiveProduct;
 export const getModalType = (state: Pick<State, NameSpace.Product>): ModalType => state[NameSpace.Product].modalType;
+export const getProductsAfterFilter = (state: Pick<State, NameSpace.Product>): CameraCard[] => state[NameSpace.Product].filteredProducts;

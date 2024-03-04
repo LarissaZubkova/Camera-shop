@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { SortDirection, SortType } from '../../const';
 import { ChangeEvent } from 'react';
+import { getAllSearchParams } from '../../utils/utils';
 
 type Params = {
   sort: string;
@@ -10,7 +11,6 @@ type Params = {
 
 function CatalogSortForm(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const handleInputClick = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.id;
     const name = evt.target.name;
@@ -19,7 +19,7 @@ function CatalogSortForm(): JSX.Element {
     const params: Params = {sort, ['sort-icon']: sortIcon};
     params[name] = value;
 
-    setSearchParams(params);
+    setSearchParams({...getAllSearchParams(searchParams), ...params});
   };
 
   return (

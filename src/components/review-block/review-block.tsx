@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { COUNT_STEP, SCROLL_MEANING, ModalType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getSortedReviews } from '../../store/review-process/review-process.selectors';
+import { getReviewsLoadingStatus, getSortedReviews } from '../../store/review-process/review-process.selectors';
 import { setModalType } from '../../store/product-process/product-process.slice';
 import ReviewList from '../review-list/review-list';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function ReviewBlock(): JSX.Element {
   const dispatch = useAppDispatch();
   const reviews = useAppSelector(getSortedReviews);
   const [reviewsCount, setReviewsCount] = useState(COUNT_STEP);
   const currentReviews = reviews.slice(0, reviewsCount);
+  const isLoading = useAppSelector(getReviewsLoadingStatus);
 
   const scrollHandler = (e: Event) => {
     e.preventDefault();
@@ -23,6 +25,10 @@ function ReviewBlock(): JSX.Element {
     window.addEventListener('scroll', scrollHandler);
     return () => window.removeEventListener('scroll', scrollHandler);
   }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page-content__section">

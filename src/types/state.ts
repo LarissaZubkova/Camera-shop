@@ -8,8 +8,10 @@ export type State = ReturnType<typeof store.getState>;
 
 export type ProductProcess = {
     products: CameraCard[];
+    isProductsLoading: boolean;
     product: CameraCard | null;
     similar: CameraCard[];
+    isSimilarLoading: boolean;
     isProductLoading: boolean;
     isProductError: boolean;
     promo: Promo[];
@@ -20,5 +22,6 @@ export type ProductProcess = {
 
 export type ReviewProcess = {
     reviews: Review[];
+    isReviewsLoading: boolean;
 }
 

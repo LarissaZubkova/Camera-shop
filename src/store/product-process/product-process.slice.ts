@@ -3,11 +3,14 @@ import { ProductProcess } from '../../types/state';
 import { ModalType, NameSpace } from '../../const';
 import { fetchProductsAction, fetchPromoAction, fetchProductCardAction, fetchSimilarProductsAction } from '../api-actions';
 import { CameraCard } from '../../types/product';
+import { toast } from 'react-toastify';
 
 const initialState: ProductProcess = {
   products: [],
+  isProductsLoading: false,
   product: null,
   similar: [],
+  isSimilarLoading: false,
   isProductLoading: false,
   isProductError: false,
   promo: [],
@@ -32,8 +35,16 @@ export const productProcess = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchProductsAction.pending, (state) => {
+        state.isProductLoading = true;
+      })
       .addCase(fetchProductsAction.fulfilled, (state, action) => {
         state.products = action.payload;
+        state.isProductLoading = false;
+      })
+      .addCase(fetchProductsAction.rejected, (state) => {
+        state.isProductLoading = false;
+        toast.error('Не удалось загрузить товары');
       })
       .addCase(fetchPromoAction.fulfilled, (state, action) => {
         state.promo = action.payload;
@@ -51,8 +62,16 @@ export const productProcess = createSlice({
         state.isProductLoading = false;
         state.isProductError = true;
       })
+      .addCase(fetchSimilarProductsAction.pending, (state) => {
+        state.isSimilarLoading = true;
+      })
       .addCase(fetchSimilarProductsAction.fulfilled, (state, action) => {
         state.similar = action.payload;
+        state.isSimilarLoading = false;
+      })
+      .addCase(fetchSimilarProductsAction.fulfilled, (state) => {
+        state.isSimilarLoading = false;
+        toast.error('Не удалось загрузить похожие товары');
       });
   }
 });

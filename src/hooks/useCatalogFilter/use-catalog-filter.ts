@@ -4,6 +4,7 @@ import { CategoryFilterType, Filter, FilterType, PriceFilter } from '../../const
 import { useAppSelector } from '..';
 import { CameraCard } from '../../types/product';
 import { getProductsAfterFilter } from '../../store/product-process/product-process.selectors';
+import { getAllSearchParams } from '../../utils/utils';
 
 type Params = {
   category: string;
@@ -39,13 +40,27 @@ const useCatalogFilter = () => {
   }, [category, cameraType, level, maxPrice, minPrice]);
 
   useEffect(() => {
-    setSearchParams(params);
-  }, [category, cameraType, level, params, setSearchParams]);
+    setSearchParams({...params, ...getAllSearchParams(searchParams)});
+  }, [category, cameraType, level, params, setSearchParams, searchParams]);
 
   const resetFilters = () => {
+    setSearchParams((prev) => {
+      const newSearchPararm = new URLSearchParams(prev);
+
+      newSearchPararm.delete(Filter.Category);
+      newSearchPararm.delete(Filter.Type);
+      newSearchPararm.delete(Filter.Level);
+      newSearchPararm.delete('_start');
+      newSearchPararm.delete('_end');
+
+      return newSearchPararm;
+    });
+
     setCategory('');
     setCameraType([]);
     setLevel([]);
+    setMinPrice('');
+    setMaxPrice('');
   };
 
   useEffect(() => {

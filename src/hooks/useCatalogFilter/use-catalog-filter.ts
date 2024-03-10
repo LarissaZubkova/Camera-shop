@@ -1,10 +1,11 @@
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CategoryFilterType, Filter, FilterType, PriceFilter } from '../../const';
-import { useAppSelector } from '..';
-import { CameraCard } from '../../types/product';
-import { getProductsAfterFilter } from '../../store/product-process/product-process.selectors';
+import { useAppDispatch, useAppSelector } from '..';
+import { getFilters } from '../../store/filter-process/filter-process.selectors';
 import { getAllSearchParams } from '../../utils/utils';
+import { fetchProductsAction } from '../../store/api-actions';
+import { setFilters } from '../../store/filter-process/filter-process.slice';
 
 type Params = {
   category: string;
@@ -16,96 +17,109 @@ type Params = {
 }
 
 const useCatalogFilter = () => {
-  const products = useAppSelector(getProductsAfterFilter);
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [category, setCategory] = useState(searchParams.get(Filter.Category) || '');
-  const [cameraType, setCameraType] = useState(searchParams.get(Filter.Type)?.split(',') || []);
-  const [level, setLevel] = useState(searchParams.get(Filter.Level)?.split(',') || []);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-
-  useEffect(() => {
-    if (products.length) {
-      const prices = products.map((product: CameraCard) => product.price);
-      setMinPrice(String(prices.reduce((a, b) => Math.min(a,b))));
-      setMaxPrice(String(prices.reduce((a, b) => Math.max(a,b))));
-    }
-  }, [products]);
+  const filters = useAppSelector(getFilters);
+  const {category, type, level, minPrice, maxPrice} = filters;
 
   const params = useMemo(() => {
-    const updatedParams: Params = {category, type: cameraType.join(','), level: level.join(','), _start: minPrice, _end: maxPrice};
+    const updatedParams: Params = {
+      category,
+      type: type ? type.join(',') : '',
+      level: level ? level.join(',') : '',
+      _start: minPrice,
+      _end: maxPrice,
+    };
     return Object.fromEntries(
       Object.entries(updatedParams).filter(([, value]) => value)
     );
-  }, [category, cameraType, level, maxPrice, minPrice]);
-
-  useEffect(() => {
-    setSearchParams({...params, ...getAllSearchParams(searchParams)});
-  }, [category, cameraType, level, params, setSearchParams, searchParams]);
-
+  }, [category, type, level, maxPrice, minPrice]);
   const resetFilters = () => {
-    setSearchParams((prev) => {
-      const newSearchPararm = new URLSearchParams(prev);
+    setSearchParams(new URLSearchParams());
 
-      newSearchPararm.delete(Filter.Category);
-      newSearchPararm.delete(Filter.Type);
-      newSearchPararm.delete(Filter.Level);
-      newSearchPararm.delete('_start');
-      newSearchPararm.delete('_end');
+    dispatch(setFilters({
+      category: '',
+      type: [],
+      level: [],
+      minPrice: '',
+      maxPrice: '',
+    }));
 
-      return newSearchPararm;
-    });
-
-    setCategory('');
-    setCameraType([]);
-    setLevel([]);
-    setMinPrice('');
-    setMaxPrice('');
+    dispatch(fetchProductsAction());
   };
 
   useEffect(() => {
-    resetFilters();
-  }, []);
+    setSearchParams({...getAllSearchParams(searchParams), ...params});
+  }, [params, searchParams, setSearchParams]);
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>, type: PriceFilter) => {
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>, filter: PriceFilter) => {
     const value = evt.target.value;
-    if (type === PriceFilter.Price) {
-      if (value < maxPrice) {
-        setMinPrice(value);
+    if (filter === PriceFilter.Price) {
+      if (Number(value) < Number(maxPrice)) {
+        dispatch(setFilters({
+          ...filters,
+          minPrice: value,
+        }));
       } else {
-        setMinPrice(maxPrice);
+        dispatch(setFilters({
+          ...filters,
+          minPrice: maxPrice,
+        }));
       }
     } else {
-      if (value > minPrice) {
-        setMaxPrice(value);
+      if (Number(value) > Number(minPrice)) {
+        dispatch(setFilters({
+          ...filters,
+          maxPrice: value,
+        }));
       } else {
-        setMaxPrice(minPrice);
+        dispatch(setFilters({
+          ...filters,
+          maxPrice: minPrice,
+        }));
       }
     }
+
   };
 
-  const handleInputClick = (evt: ChangeEvent<HTMLInputElement>, type: string) => {
+  const handleInputClick = (evt: ChangeEvent<HTMLInputElement>, filter: string) => {
     const name = evt.target.name;
 
-    switch(type) {
+    switch(filter) {
       case Filter.Category:
-        setCategory((prev) => prev === name ? '' : name);
         if (name === CategoryFilterType.Videocamera) {
-          setCameraType((prev) => prev.filter((camera) => camera !== FilterType.Film && camera !== FilterType.Snapshot));
+          dispatch(setFilters({
+            ...filters,
+            category: category === name ? '' : name,
+            type: type.filter((camera) => camera !== FilterType.Film && camera !== FilterType.Snapshot),
+          }));
+        } else {
+          dispatch(setFilters({
+            ...filters,
+            category: category === name ? '' : name,
+          }));
         }
         break;
       case Filter.Type:
-        setCameraType((prev) => prev.includes(name) ? prev.filter((camera) => camera !== name) : [...prev, name]);
+        dispatch(setFilters({
+          ...filters,
+          type: type.includes(name) ? type.filter((camera) => camera !== name) : [...type, name]
+        }));
         break;
       case Filter.Level:
-        setLevel((prev) => prev.includes(name) ? prev.filter((camera) => camera !== name) : [...prev, name]);
+        dispatch(setFilters({
+          ...filters,
+          level: level.includes(name) ? level.filter((camera) => camera !== name) : [...level, name]
+        }));
         break;
     }
+
+    dispatch(fetchProductsAction());
   };
 
   return {
     category,
-    cameraType,
+    type,
     level,
     minPrice,
     maxPrice,

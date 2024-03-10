@@ -4,7 +4,7 @@ import { CategoryFilterType, FILTER_NAME, Filter, FilterType, LevelFilterType, P
 function CatalogFilterForm(): JSX.Element {
   const {
     category,
-    cameraType,
+    type,
     level,
     minPrice,
     maxPrice,
@@ -47,18 +47,18 @@ function CatalogFilterForm(): JSX.Element {
       </fieldset>
       <fieldset className="catalog-filter__block">
         <legend className="title title--h5">Категория</legend>
-        {Object.values(CategoryFilterType).map((type) => (
-          <div className="custom-checkbox catalog-filter__item" key={type}>
+        {Object.values(CategoryFilterType).map((camera) => (
+          <div className="custom-checkbox catalog-filter__item" key={camera}>
             <label >
               <input
                 type="checkbox"
-                name={type}
+                name={camera}
                 id={Filter.Category}
-                checked={category === type}
+                checked={category === camera}
                 onChange={(evt) => handleInputClick(evt, Filter.Category)}
               />
               <span className="custom-checkbox__icon"></span>
-              <span className="custom-checkbox__label">{FILTER_NAME[type]}</span>
+              <span className="custom-checkbox__label">{FILTER_NAME[camera]}</span>
             </label>
           </div>
         ))}
@@ -73,7 +73,7 @@ function CatalogFilterForm(): JSX.Element {
                 name={filter}
                 id={Filter.Type}
                 disabled={category === CategoryFilterType.Videocamera && (filter === FilterType.Film || filter === FilterType.Snapshot)}
-                checked = {Boolean(cameraType.find((type) => type === filter))}
+                checked = {type && Boolean(type.find((camera) => camera === filter))}
                 onChange={(evt) => handleInputClick(evt, Filter.Type)}
               />
               <span className="custom-checkbox__icon"></span>
@@ -92,7 +92,7 @@ function CatalogFilterForm(): JSX.Element {
                 name={filter}
                 id={Filter.Level}
                 onChange={(evt) => handleInputClick(evt, Filter.Level)}
-                checked = {Boolean(level.find((type) => type === filter))}
+                checked = {level && Boolean(level.find((camera) => camera === filter))}
               />
               <span className="custom-checkbox__icon"></span>
               <span className="custom-checkbox__label">{FILTER_NAME[filter]}</span>

@@ -1,5 +1,6 @@
 import { ModalType } from '../const';
 import { store } from '../store/index';
+import { Filters } from './filters';
 import { Promo, CameraCard } from './product';
 import { Review } from './review';
 
@@ -17,7 +18,6 @@ export type ProductProcess = {
     promo: Promo[];
     modalActiveProduct?: CameraCard | null;
     modalType: ModalType;
-    filteredProducts: CameraCard[];
 }
 
 export type ReviewProcess = {
@@ -25,3 +25,7 @@ export type ReviewProcess = {
     isReviewsLoading: boolean;
 }
 
+export type FilterProcess = {
+    filteredProducts: CameraCard[];
+    filters: Filters;
+}

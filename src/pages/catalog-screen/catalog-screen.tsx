@@ -7,7 +7,7 @@ import { getCurrentProductsList, getProductsByFilters, getSortedProducts } from 
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
-import { setFilteredProducts } from '../../store/product-process/product-process.slice';
+import { setFilteredProducts, setFilters } from '../../store/filter-process/filter-process.slice';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';
@@ -18,23 +18,22 @@ import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { getFilters } from '../../store/filter-process/filter-process.selectors';
+import { CameraCard } from '../../types/product';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
   const isLoading = useAppSelector(getProductsLoadingStatus);
+  const filters = useAppSelector(getFilters);
   const dispatch = useAppDispatch();
   const sortType = {type: searchParams.get('sort'), direction: searchParams.get('sort-icon')} as {
     type: string;
     direction: SortDirection;
   };
-  const category = searchParams.get('category') as CategoryFilterType;
-  const type = searchParams.get('type')?.split(',') as FilterType[];
-  const level = searchParams.get('level')?.split(',') as LevelFilterType[];
-  const minPrice = Number(searchParams.get('_start'));
-  const maxPrice = Number(searchParams.get('_end'));
-  const filteredProducts = getProductsByFilters(products, category, type, level, minPrice, maxPrice);
+
+  const filteredProducts = getProductsByFilters(products, filters.category, filters.type, filters.level, filters.minPrice, filters.maxPrice);
   const sortedProducts = getSortedProducts(filteredProducts, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
@@ -42,11 +41,24 @@ function CatalogScreen(): JSX.Element {
   useEffect(() => {
     dispatch(fetchProductsAction());
     dispatch(fetchPromoAction());
+
+    return () => {
+      dispatch(fetchProductsAction());
+      dispatch(fetchPromoAction());
+    };
   }, [dispatch]);
 
+
   useEffect(() => {
-    dispatch(setFilteredProducts(filteredProducts));
-  }, [dispatch, filteredProducts]);
+    if (products.length) {
+      const prices = products.map((product: CameraCard) => product.price);
+      dispatch(setFilters({
+        ...filters,
+        minPrice: String(prices.reduce((a, b) => Math.min(a,b))),
+        maxPrice: String(prices.reduce((a, b) => Math.max(a,b))),
+      }));
+    }
+  }, []);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -76,7 +88,7 @@ function CatalogScreen(): JSX.Element {
                     <CatalogSortForm />
                   </div>
                   {!currentProducts.length && <p>по вашему запросу ничего не найдено</p>}
-                  {currentProducts.length && <CatalogProductList products={currentProducts} />}
+                  {currentProducts.length > 0 && <CatalogProductList products={currentProducts} />}
                   {sortedProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={sortedProducts.length} />}
                 </div>
               </div>

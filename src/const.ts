@@ -11,6 +11,7 @@ export const STAR_COUNT = 5;
 export enum NameSpace {
     Product = 'PRODUCT',
     Review = 'REVIEW',
+    Filter = 'FILTER',
 }
 
 export enum APIRoute {

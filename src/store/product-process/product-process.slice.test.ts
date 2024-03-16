@@ -8,14 +8,15 @@ describe('product process slice', () => {
     const emptyAction = {type: ''};
     const expectedState = {
       products: makeFakeProducts(),
+      isProductsLoading: false,
       product: makeFakeProduct(),
       similar: makeFakeProducts(),
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: makeFakePromo(),
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.Default,
-      filteredProducts: [],
     };
 
     const result = productProcess.reducer(expectedState, emptyAction);
@@ -27,6 +28,8 @@ describe('product process slice', () => {
     const emptyAction = {type: ''};
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: false,
@@ -45,6 +48,8 @@ describe('product process slice', () => {
     const products = makeFakeProducts();
     const expectedState = {
       products,
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: false,
@@ -62,6 +67,8 @@ describe('product process slice', () => {
   it('should set "isProductLoading" to true, "isProductErroe" to false with "fetchProductCardAction.pending"', () => {
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: true,
@@ -80,6 +87,8 @@ describe('product process slice', () => {
     const product = makeFakeProduct();
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product,
       similar: [],
       isProductLoading: false,
@@ -97,6 +106,8 @@ describe('product process slice', () => {
   it('should set "isProductLoading" to false, , "isProductErroe" to true, "product" to product with "fetchProductCardAction.rejected"', () => {
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: false,
@@ -115,6 +126,8 @@ describe('product process slice', () => {
     const promo = makeFakePromo();
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: false,
@@ -134,6 +147,8 @@ describe('product process slice', () => {
     const id = makeFakeProduct().id;
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar,
       isProductLoading: false,
@@ -154,13 +169,14 @@ describe('product process slice', () => {
     const expectedState = {
       products,
       product: null,
+      isProductsLoading: false,
       similar: [],
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: [],
       modalActiveProduct,
       modalType: ModalType.Default,
-      filteredProducts: [],
     };
 
     const result = productProcess.reducer(expectedState, setModalActiveProduct(modalActiveProduct.id));
@@ -171,6 +187,8 @@ describe('product process slice', () => {
   it('should return "modalType" to modalType with "setModalType" action', () => {
     const expectedState = {
       products: [],
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: false,

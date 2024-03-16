@@ -1,27 +1,28 @@
 import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-components';
-import NotFoundScreen from './not-found-screen';
+import FormSearch from './form-search';
 import { ModalType } from '../../const';
-import { makeFakeStore, makeFakeProducts } from '../../utils/mock';
+import { makeFakePromo, makeFakeStore } from '../../utils/mock';
 
-describe('Component: Logo', () => {
+describe('Component: FormSearch', () => {
+  const promo = makeFakePromo();
   const fakeStore = makeFakeStore({
     PRODUCT: {
-      products: makeFakeProducts(),
+      products: [],
       isProductsLoading: false,
       product: null,
       similar: [],
       isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
-      promo: [],
+      promo,
       modalActiveProduct: undefined,
       modalType: ModalType.Default,
-    },
+    }
   });
   it('should render correctly', () => {
-    const expectedText = '404 Not Found';
-    const {withStoreComponent} = withStore(<NotFoundScreen />, fakeStore);
+    const expectedText = 'Сбросить поиск';
+    const {withStoreComponent} = withStore(<FormSearch />, fakeStore);
     const prepearedComponent = withHistory(withStoreComponent);
 
     render(prepearedComponent);

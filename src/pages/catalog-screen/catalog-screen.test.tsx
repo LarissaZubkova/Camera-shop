@@ -9,6 +9,8 @@ describe('Component: Catalog Screen', () => {
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products,
+      isProductsLoading: false,
+      isSimilarLoading: false,
       product: null,
       similar: [],
       isProductLoading: false,
@@ -16,7 +18,6 @@ describe('Component: Catalog Screen', () => {
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.Default,
-      filteredProducts: [],
     }
   });
   it('should render correctly', () => {

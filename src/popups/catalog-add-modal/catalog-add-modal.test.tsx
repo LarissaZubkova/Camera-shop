@@ -10,14 +10,15 @@ describe('Component: Catalog Add Modal', () => {
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products: [],
+      isProductsLoading: false,
       product: null,
       similar: [],
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: [],
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.CatalogAddModal,
-      filteredProducts: [],
     }
   });
 

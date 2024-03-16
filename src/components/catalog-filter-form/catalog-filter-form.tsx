@@ -1,4 +1,4 @@
-import useCatalogFilter from '../../hooks/useCatalogFilter/use-catalog-filter';
+import useCatalogFilter from '../../hooks/use-catalog-filter';
 import { CategoryFilterType, FILTER_NAME, Filter, FilterType, LevelFilterType, PriceFilter } from '../../const';
 
 function CatalogFilterForm(): JSX.Element {

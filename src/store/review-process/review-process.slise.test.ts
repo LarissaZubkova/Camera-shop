@@ -7,6 +7,7 @@ describe('review process slice', () => {
     const emptyAction = {type: ''};
     const expectedState = {
       reviews: makeFakeReviews(),
+      isReviewsLoading: false,
     };
 
     const result = reviewProcess.reducer(expectedState, emptyAction);
@@ -18,6 +19,7 @@ describe('review process slice', () => {
     const emptyAction = {type: ''};
     const expectedState = {
       reviews: [],
+      isReviewsLoading: false,
     };
 
     const result = reviewProcess.reducer(undefined, emptyAction);
@@ -30,6 +32,7 @@ describe('review process slice', () => {
     const id = makeFakeProduct().id;
     const expectedState = {
       reviews,
+      isReviewsLoading: false,
     };
 
     const result = reviewProcess.reducer(undefined, fetchReviewsAction.fulfilled(reviews, '', String(id)));

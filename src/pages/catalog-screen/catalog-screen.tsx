@@ -1,13 +1,14 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { CategoryFilterType, DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT, FilterType, LevelFilterType, SortDirection } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getModalType, getProducts, getProductsLoadingStatus } from '../../store/product-process/product-process.selectors';
-import { getCurrentProductsList, getProductsByFilters, getSortedProducts } from '../../utils/utils';
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
-import { setFilteredProducts, setFilters } from '../../store/filter-process/filter-process.slice';
+import { getFilters } from '../../store/filter-process/filter-process.selectors';
+import { setFilters } from '../../store/filter-process/filter-process.slice';
+import { getModalType, getProducts, getProductsLoadingStatus } from '../../store/product-process/product-process.selectors';
+import { CameraCard } from '../../types/product';
+import { getCurrentProductsList, getProductsByFilters, getSortedProducts } from '../../utils/utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
 import CatalogProductList from '../../components/catalog-product-list/catalog-product-list';
@@ -18,8 +19,6 @@ import Header from '../../components/header/header';
 import Pagination from '../../components/pagination/pagination';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getFilters } from '../../store/filter-process/filter-process.selectors';
-import { CameraCard } from '../../types/product';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
@@ -33,7 +32,14 @@ function CatalogScreen(): JSX.Element {
     direction: SortDirection;
   };
 
-  const filteredProducts = getProductsByFilters(products, filters.category, filters.type, filters.level, filters.minPrice, filters.maxPrice);
+  const filteredProducts = getProductsByFilters(
+    products,
+    filters.category as CategoryFilterType,
+    filters.type as FilterType[],
+    filters.level as LevelFilterType[],
+    Number(filters.minPrice),
+    Number(filters.maxPrice),
+  );
   const sortedProducts = getSortedProducts(filteredProducts, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
@@ -58,7 +64,7 @@ function CatalogScreen(): JSX.Element {
         maxPrice: String(prices.reduce((a, b) => Math.max(a,b))),
       }));
     }
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -89,7 +95,7 @@ function CatalogScreen(): JSX.Element {
                   </div>
                   {!currentProducts.length && <p>по вашему запросу ничего не найдено</p>}
                   {currentProducts.length > 0 && <CatalogProductList products={currentProducts} />}
-                  {sortedProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={sortedProducts.length} />}
+                  {filteredProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={filteredProducts.length} />}
                 </div>
               </div>
             </div>

@@ -9,14 +9,15 @@ describe('Component: Similar List', () => {
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products,
+      isProductsLoading: false,
       product: null,
       similar: [],
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.CatalogAddModal,
-      filteredProducts: [],
     }
   });
   it('should render correctly', () => {

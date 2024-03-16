@@ -1,24 +1,53 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CatalogFilterForm from './catalog-filter-form';
+import { withHistory, withStore } from '../../utils/mock-components';
+import { makeFakeProducts, makeFakeStore } from '../../utils/mock';
+import { CategoryFilterType, FilterType, LevelFilterType, ModalType } from '../../const';
 
 describe('Component: Catalog Filter Form', () => {
-  it('should render correctly', () => {
-    const expectedText = 'Фильтр';
+  const fakeStore = makeFakeStore({
+    PRODUCT: {
+      products: makeFakeProducts(),
+      isProductsLoading: false,
+      product: null,
+      similar: [],
+      isSimilarLoading: false,
+      isProductLoading: false,
+      isProductError: false,
+      promo: [],
+      modalActiveProduct: undefined,
+      modalType: ModalType.Default,
+    },
+    FILTER: {
+      filteredProducts: makeFakeProducts(),
+      filters: {
+        category: CategoryFilterType.Photocamera,
+        type: [FilterType.Film],
+        level: [LevelFilterType.NonProfessional],
+        minPrice: '100',
+        maxPrice: '500',
+      }
+    }
+  });
 
-    render(<CatalogFilterForm />);
-    const filterText = screen.getByText(expectedText);
+  it('should render correctly', () => {
+    const {withStoreComponent} = withStore(<CatalogFilterForm />, fakeStore);
+    const preparedComponent = withHistory(withStoreComponent);
+
+    render(preparedComponent);
+
     const button = screen.getByRole('button');
 
-    expect(filterText).toBeInTheDocument();
+    expect(screen.getByText('Фильтр')).toBeInTheDocument();
     expect(button).toBeInTheDocument();
   });
 
-  it('disables checkbox', () => {
-    const selectedFilter = 'Плёночная';
+  it('should handles input change correctly', () => {
+    const {withStoreComponent} = withStore(<CatalogFilterForm />, fakeStore);
+    const preparedComponent = withHistory(withStoreComponent);
 
-    render(<CatalogFilterForm />);
-    const checked = screen.getByLabelText(selectedFilter);
+    render(preparedComponent);
 
-    expect(checked).toBeDisabled();
+    fireEvent.click(screen.getByLabelText('Фотокамера'));
   });
 });

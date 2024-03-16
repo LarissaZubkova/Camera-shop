@@ -10,14 +10,15 @@ describe('Component: Modal Popup', () => {
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products: [],
+      isProductsLoading: false,
       product: null,
       similar: [],
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.CatalogAddModal,
-      filteredProducts: [],
     }
   });
 

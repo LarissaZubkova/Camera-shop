@@ -6,14 +6,15 @@ describe('product-process selectors', () => {
   const state = {
     [NameSpace.Product]: {
       products: makeFakeProducts(),
+      isProductsLoading: false,
       product: makeFakeProduct(),
       similar: makeFakeProducts(),
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: makeFakePromo(),
       modalActiveProduct: makeFakeProduct(),
       modalType: ModalType.AddReviewModal,
-      filteredProducts: makeFakeProducts(),
     }
   };
 

@@ -28,6 +28,8 @@ describe('Application Routing', () => {
     const {withStoreComponent} = withStore(withHistoryComponent, makeFakeStore({
       PRODUCT: {
         products: [],
+        isProductsLoading: false,
+        isSimilarLoading: false,
         product,
         similar: [],
         isProductLoading: false,
@@ -35,7 +37,6 @@ describe('Application Routing', () => {
         promo: [],
         modalActiveProduct: undefined,
         modalType: ModalType.Default,
-        filteredProducts: [],
       }
     }));
 

@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import CatalogSortForm from './catalog-sort-form';
+import { withHistory } from '../../utils/mock-components';
 
 describe('Component: Catalog Sort Form', () => {
   it('should render correctly', () => {
@@ -9,7 +10,8 @@ describe('Component: Catalog Sort Form', () => {
     const upSortTestId = 'up-sort';
     const downSortTestId = 'down-sort';
 
-    render(<CatalogSortForm />);
+    const prepearedComponent = withHistory(<CatalogSortForm />);
+    render(prepearedComponent);
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
     expect(screen.getByLabelText(labelPriceText)).toBeInTheDocument();
@@ -19,7 +21,8 @@ describe('Component: Catalog Sort Form', () => {
   });
 
   it('should change sort type on radio button change', () => {
-    const {getByTestId} = render(<CatalogSortForm />);
+    const prepearedComponent = withHistory(<CatalogSortForm />);
+    const {getByTestId} = render(prepearedComponent);
     const sortPriceRadio = getByTestId('sort-price') as HTMLInputElement;
 
     fireEvent.change(sortPriceRadio, {target: {checked: true}});

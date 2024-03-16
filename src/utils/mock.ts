@@ -66,15 +66,26 @@ export const makeFakePromo = (): Promo[] => Array.from({length: 10}, makeFakePro
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
   PRODUCT: {
     products: [],
+    isProductsLoading: false,
     product: null,
     similar: [],
+    isSimilarLoading: false,
     isProductLoading: false,
     isProductError: false,
     promo: [],
     modalActiveProduct: undefined,
     modalType: ModalType.Default,
-    filteredProducts: [],
   },
-  REVIEW: {reviews: []},
+  REVIEW: {reviews: [], isReviewsLoading: false},
+  FILTER: {
+    filteredProducts: [],
+    filters: {
+      category: '',
+      type: [],
+      level: [],
+      minPrice: '',
+      maxPrice: '',
+    }
+  },
   ...initialState ?? {},
 });

@@ -37,6 +37,9 @@ export function sortByDate(reviews: Review[]) {
 }
 
 export function getPageCount(pagination: number, page: number): number {
+  if (pagination === COUNT_STEP) {
+    return COUNT_STEP;
+  }
   if ((pagination - page) < COUNT_STEP) {
     return pagination % COUNT_STEP;
   }

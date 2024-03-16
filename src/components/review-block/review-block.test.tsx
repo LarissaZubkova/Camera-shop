@@ -9,7 +9,8 @@ import ReviewBlock from './review-block';
 describe('Component: Review Block', () => {
   const fakeStore = makeFakeStore({
     REVIEW: {
-      reviews: makeFakeReviews()
+      reviews: makeFakeReviews(),
+      isReviewsLoading: false,
     }
   });
   it('should render correctly', () => {

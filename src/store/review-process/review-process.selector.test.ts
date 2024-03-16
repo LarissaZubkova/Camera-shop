@@ -7,6 +7,7 @@ describe('product-process selectors', () => {
   const state = {
     [NameSpace.Review]: {
       reviews: makeFakeReviews(),
+      isReviewsLoading: false,
     }
   };
 

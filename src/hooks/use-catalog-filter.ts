@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { CategoryFilterType, Filter, FilterType, PriceFilter } from '../../const';
-import { useAppDispatch, useAppSelector } from '..';
-import { getFilters } from '../../store/filter-process/filter-process.selectors';
-import { getAllSearchParams } from '../../utils/utils';
-import { fetchProductsAction } from '../../store/api-actions';
-import { setFilters } from '../../store/filter-process/filter-process.slice';
+import { CategoryFilterType, Filter, FilterType, PriceFilter } from '../const';
+import { useAppDispatch, useAppSelector } from '.';
+import { getFilters } from '../store/filter-process/filter-process.selectors';
+import { getAllSearchParams } from '../utils/utils';
+import { fetchProductsAction } from '../store/api-actions';
+import { setFilters } from '../store/filter-process/filter-process.slice';
 
 type Params = {
   category: string;
@@ -25,15 +25,14 @@ const useCatalogFilter = () => {
   const params = useMemo(() => {
     const updatedParams: Params = {
       category,
-      type: type ? type.join(',') : '',
-      level: level ? level.join(',') : '',
+      type: type.length ? type.join(',') : '',
+      level: level.length ? level.join(',') : '',
       _start: minPrice,
       _end: maxPrice,
     };
-    return Object.fromEntries(
-      Object.entries(updatedParams).filter(([, value]) => value)
-    );
+    return updatedParams;
   }, [category, type, level, maxPrice, minPrice]);
+
   const resetFilters = () => {
     setSearchParams(new URLSearchParams());
 
@@ -49,7 +48,10 @@ const useCatalogFilter = () => {
   };
 
   useEffect(() => {
-    setSearchParams({...getAllSearchParams(searchParams), ...params});
+    const filteredParams = Object.fromEntries(
+      Object.entries({...getAllSearchParams(searchParams), ...params}).filter(([, value]) => value)
+    );
+    setSearchParams(filteredParams);
   }, [params, searchParams, setSearchParams]);
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>, filter: PriceFilter) => {

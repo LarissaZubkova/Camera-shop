@@ -9,14 +9,15 @@ describe('Component: Review Success Modal', () => {
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products: [],
+      isProductsLoading: false,
       product: null,
       similar: [],
+      isSimilarLoading: false,
       isProductLoading: false,
       isProductError: false,
       promo: [],
       modalActiveProduct: undefined,
       modalType: ModalType.ReviewSuccessModal,
-      filteredProducts: [],
     }
   });
 

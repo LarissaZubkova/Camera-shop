@@ -22,14 +22,15 @@ describe('Component: Product Description', () => {
     const fakeStore = makeFakeStore({
       PRODUCT: {
         products: [],
+        isProductsLoading: false,
         product: null,
         similar: [],
+        isSimilarLoading: false,
         isProductLoading: false,
         isProductError: false,
         promo: [],
         modalActiveProduct: product,
         modalType: ModalType.CatalogAddModal,
-        filteredProducts: [],
       }
     });
 

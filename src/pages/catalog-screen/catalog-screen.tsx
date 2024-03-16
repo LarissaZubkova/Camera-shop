@@ -64,7 +64,7 @@ function CatalogScreen(): JSX.Element {
         maxPrice: String(prices.reduce((a, b) => Math.max(a,b))),
       }));
     }
-  }, [dispatch]);
+  }, [dispatch, products]);
 
   if (isLoading) {
     return <LoadingScreen />;

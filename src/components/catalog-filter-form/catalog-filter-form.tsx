@@ -37,7 +37,7 @@ function CatalogFilterForm(): JSX.Element {
                 type="number"
                 name="priceUp"
                 placeholder="до"
-                onChange={(evt) => handleInputClick(evt, PriceFilter.PriceUp)}
+                onChange={(evt) => handleInputChange(evt, PriceFilter.PriceUp)}
                 value={maxPrice || ''}
                 id="coast"
               />

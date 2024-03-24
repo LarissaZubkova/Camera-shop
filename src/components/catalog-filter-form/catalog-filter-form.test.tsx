@@ -5,6 +5,11 @@ import { makeFakeProducts, makeFakeStore } from '../../utils/mock';
 import { CategoryFilterType, FilterType, LevelFilterType, ModalType } from '../../const';
 
 describe('Component: Catalog Filter Form', () => {
+  const prices = {
+    minPrice: '',
+    maxPrice: '',
+  };
+
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products: makeFakeProducts(),
@@ -31,7 +36,7 @@ describe('Component: Catalog Filter Form', () => {
   });
 
   it('should render correctly', () => {
-    const {withStoreComponent} = withStore(<CatalogFilterForm />, fakeStore);
+    const {withStoreComponent} = withStore(<CatalogFilterForm prices={prices} />, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
@@ -43,7 +48,7 @@ describe('Component: Catalog Filter Form', () => {
   });
 
   it('should handles input change correctly', () => {
-    const {withStoreComponent} = withStore(<CatalogFilterForm />, fakeStore);
+    const {withStoreComponent} = withStore(<CatalogFilterForm prices={prices}/>, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

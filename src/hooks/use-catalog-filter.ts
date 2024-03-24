@@ -16,7 +16,12 @@ type Params = {
   [key: string]: string;
 }
 
-const useCatalogFilter = () => {
+type Prices = {
+  minPrice: string;
+  maxPrice: string;
+}
+
+const useCatalogFilter = (prices: Prices) => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const filters = useAppSelector(getFilters);
@@ -56,28 +61,34 @@ const useCatalogFilter = () => {
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>, filter: PriceFilter) => {
     const value = evt.target.value;
+
     if (filter === PriceFilter.Price) {
-      if (Number(value) < Number(maxPrice)) {
-        dispatch(setFilters({
-          ...filters,
-          minPrice: value,
-        }));
-      } else {
+      if (value.length >= 4 && maxPrice && Number(value) > Number(maxPrice)) {
         dispatch(setFilters({
           ...filters,
           minPrice: maxPrice,
         }));
-      }
-    } else {
-      if (Number(value) > Number(minPrice)) {
+      } else {
         dispatch(setFilters({
           ...filters,
-          maxPrice: value,
+          minPrice: value,
+        }));
+      }
+    } else {
+      if (value.length >= 4 && minPrice && Number(value) < Number(minPrice)) {
+        dispatch(setFilters({
+          ...filters,
+          maxPrice: minPrice,
+        }));
+      } else if (value.length >= 6 && Number(value) > Number(prices.maxPrice)) {
+        dispatch(setFilters({
+          ...filters,
+          maxPrice: prices.maxPrice,
         }));
       } else {
         dispatch(setFilters({
           ...filters,
-          maxPrice: minPrice,
+          maxPrice: value,
         }));
       }
     }

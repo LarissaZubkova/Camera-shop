@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import FocusTrap from 'focus-trap-react';
+import { KeyboardEvent, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getProducts } from '../../store/product-process/product-process.selectors';
 import { CameraCard } from '../../types/product';
-import classNames from 'classnames';
-import FocusTrap from 'focus-trap-react';
-import './form-search.css';
 import { getFilteredProducts } from '../../utils/utils';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import './form-search.css';
 
 function FormSearch(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
@@ -39,7 +39,24 @@ function FormSearch(): JSX.Element {
               onChange={(evt) => setSearchValue(evt.currentTarget.value)}
             />
           </label>
-          <ul className="form-search__select-list">
+          <ul
+            className="form-search__select-list"
+            onKeyDown={(evt: KeyboardEvent<HTMLUListElement>) => {
+              const target = evt.target as HTMLLIElement;
+              if (evt.key === 'ArrowDown' && target.nextElementSibling) {
+                const prev = target.nextElementSibling as HTMLLIElement;
+                prev.focus();
+              }
+              if (evt.code === 'ArrowUp' && target.previousElementSibling) {
+                const next = target.previousElementSibling as HTMLLIElement;
+                next.focus();
+              }
+              if(evt.code === 'Enter' && target.firstChild) {
+                const link = target.firstChild as HTMLAnchorElement;
+                link.click();
+              }
+            }}
+          >
             {searchedProducts &&
           searchedProducts.map((product: CameraCard) => (
             <li
@@ -47,7 +64,13 @@ function FormSearch(): JSX.Element {
               className="form-search__select-item"
               tabIndex={0}
               onClick={() => navigate(`${AppRoute.Product}${product.id}`)}
-            >{product.name}
+            >
+              <Link
+                to={`${AppRoute.Product}/${product.id}`}
+                tabIndex={-1}
+              >
+                {product.name}
+              </Link>
             </li>))}
           </ul>
         </form>

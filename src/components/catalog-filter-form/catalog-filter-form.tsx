@@ -1,7 +1,17 @@
 import useCatalogFilter from '../../hooks/use-catalog-filter';
 import { CategoryFilterType, FILTER_NAME, Filter, FilterType, LevelFilterType, PriceFilter } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setFilters } from '../../store/filter-process/filter-process.slice';
+import { getFilters } from '../../store/filter-process/filter-process.selectors';
 
-function CatalogFilterForm(): JSX.Element {
+type CatalogFilterFormProps = {
+  prices: {
+    minPrice: string;
+    maxPrice: string;
+  };
+}
+
+function CatalogFilterForm({prices}: CatalogFilterFormProps): JSX.Element {
   const {
     category,
     type,
@@ -11,7 +21,9 @@ function CatalogFilterForm(): JSX.Element {
     handleInputClick,
     resetFilters,
     handleInputChange
-  } = useCatalogFilter();
+  } = useCatalogFilter(prices);
+  const dispatch = useAppDispatch();
+  const filters = useAppSelector(getFilters);
 
   return (
     <form action="#">
@@ -24,9 +36,17 @@ function CatalogFilterForm(): JSX.Element {
               <input
                 type="number"
                 name="price"
-                placeholder="от"
+                placeholder={prices.minPrice}
                 value={minPrice || ''}
                 onChange={(evt) => handleInputChange(evt, PriceFilter.Price)}
+                onBlur={() => {
+                  if (Number(minPrice) < Number(prices.minPrice)) {
+                    dispatch(setFilters({
+                      ...filters,
+                      minPrice: prices.minPrice,
+                    }));
+                  }
+                }}
                 id="coast"
               />
             </label>
@@ -36,9 +56,17 @@ function CatalogFilterForm(): JSX.Element {
               <input
                 type="number"
                 name="priceUp"
-                placeholder="до"
+                placeholder={prices.maxPrice}
                 onChange={(evt) => handleInputChange(evt, PriceFilter.PriceUp)}
                 value={maxPrice || ''}
+                onBlur={() => {
+                  if (Number(maxPrice) < Number(minPrice)) {
+                    dispatch(setFilters({
+                      ...filters,
+                      maxPrice: prices.minPrice,
+                    }));
+                  }
+                }}
                 id="coast"
               />
             </label>

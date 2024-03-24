@@ -124,8 +124,6 @@ export function getProductsByFilters(
   category: CategoryFilterType | null,
   types: FilterType[],
   levels: LevelFilterType[],
-  minPrice: number,
-  maxPrice: number,
 ) {
   let filteredProducts = products;
 
@@ -141,10 +139,22 @@ export function getProductsByFilters(
     filteredProducts = levels.map((level) => levelFilter[level](filteredProducts)).flat();
   }
 
-  if (minPrice && maxPrice) {
-    filteredProducts = filteredProducts.filter((product) => product.price >= minPrice && product.price <= maxPrice);
+  return filteredProducts;
+}
+
+export function getProductsByPrice(
+  products: CameraCard[],
+  minPrice: number,
+  maxPrice: number,
+) {
+  let filteredProducts = products;
+  if (minPrice) {
+    filteredProducts = filteredProducts.filter((product) => product.price >= minPrice);
   }
 
+  if (maxPrice) {
+    filteredProducts = filteredProducts.filter((product) => product.price <= maxPrice);
+  }
   return filteredProducts;
 }
 

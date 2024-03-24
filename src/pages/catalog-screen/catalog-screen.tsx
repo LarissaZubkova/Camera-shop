@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useSearchParams } from 'react-router-dom';
 import { CategoryFilterType, DEFAULT_PAGE_NUMBER, DEFAULT_PRODUCTS_COUNT, FilterType, LevelFilterType, SortDirection } from '../../const';
 import { fetchProductsAction, fetchPromoAction } from '../../store/api-actions';
 import { getFilters } from '../../store/filter-process/filter-process.selectors';
-import { setFilters } from '../../store/filter-process/filter-process.slice';
 import { getModalType, getProducts, getProductsLoadingStatus } from '../../store/product-process/product-process.selectors';
 import { CameraCard } from '../../types/product';
-import { getCurrentProductsList, getProductsByFilters, getSortedProducts } from '../../utils/utils';
+import { getCurrentProductsList, getProductsByFilters, getProductsByPrice, getSortedProducts } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogFilterForm from '../../components/catalog-filter-form/catalog-filter-form';
@@ -22,6 +21,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 function CatalogScreen(): JSX.Element {
   const [searchParams] = useSearchParams();
+  const [placeholderPrices, setPlaceholderPrices] = useState({minPrice: 'от', maxPrice: 'до'});
   const currentPage = Number(searchParams.get('page')) || DEFAULT_PAGE_NUMBER;
   const products = useAppSelector(getProducts);
   const isLoading = useAppSelector(getProductsLoadingStatus);
@@ -37,10 +37,16 @@ function CatalogScreen(): JSX.Element {
     filters.category as CategoryFilterType,
     filters.type as FilterType[],
     filters.level as LevelFilterType[],
+  );
+  const prices = filteredProducts.map((product: CameraCard) => product.price);
+
+  const productsByPrice = getProductsByPrice(
+    filteredProducts,
     Number(filters.minPrice),
     Number(filters.maxPrice),
   );
-  const sortedProducts = getSortedProducts(filteredProducts, sortType);
+
+  const sortedProducts = getSortedProducts(productsByPrice, sortType);
   const modalType = useAppSelector(getModalType);
   const currentProducts = getCurrentProductsList(sortedProducts, currentPage);
 
@@ -56,15 +62,18 @@ function CatalogScreen(): JSX.Element {
 
 
   useEffect(() => {
-    if (products.length) {
-      const prices = products.map((product: CameraCard) => product.price);
-      dispatch(setFilters({
-        ...filters,
+    if (filteredProducts.length) {
+      setPlaceholderPrices({
         minPrice: String(prices.reduce((a, b) => Math.min(a,b))),
         maxPrice: String(prices.reduce((a, b) => Math.max(a,b))),
-      }));
+      });
+    } else {
+      setPlaceholderPrices({
+        minPrice: 'от',
+        maxPrice: 'до',
+      });
     }
-  }, [dispatch, products]);
+  }, [filteredProducts.length]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -86,7 +95,7 @@ function CatalogScreen(): JSX.Element {
               <div className="page-content__columns">
                 <div className="catalog__aside" data-testid="sorting">
                   <div className="catalog-filter">
-                    <CatalogFilterForm />
+                    <CatalogFilterForm prices={placeholderPrices} />
                   </div>
                 </div>
                 <div className="catalog__content">
@@ -95,7 +104,7 @@ function CatalogScreen(): JSX.Element {
                   </div>
                   {!currentProducts.length && <p>по вашему запросу ничего не найдено</p>}
                   {currentProducts.length > 0 && <CatalogProductList products={currentProducts} />}
-                  {filteredProducts.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={filteredProducts.length} />}
+                  {productsByPrice.length > DEFAULT_PRODUCTS_COUNT && <Pagination generalCount={productsByPrice.length} />}
                 </div>
               </div>
             </div>

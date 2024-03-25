@@ -75,12 +75,7 @@ const useCatalogFilter = (prices: Prices) => {
         }));
       }
     } else {
-      if (value.length >= 4 && minPrice && Number(value) < Number(minPrice)) {
-        dispatch(setFilters({
-          ...filters,
-          maxPrice: minPrice,
-        }));
-      } else if (value.length >= 6 && Number(value) > Number(prices.maxPrice)) {
+      if (value.length >= 6 && Number(value) > Number(prices.maxPrice)) {
         dispatch(setFilters({
           ...filters,
           maxPrice: prices.maxPrice,

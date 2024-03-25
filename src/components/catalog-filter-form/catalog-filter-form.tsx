@@ -25,6 +25,31 @@ function CatalogFilterForm({prices}: CatalogFilterFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const filters = useAppSelector(getFilters);
 
+  const handleMinPriceChange = () => {
+    if (minPrice && (Number(minPrice) < Number(prices.minPrice))) {
+      dispatch(setFilters({
+        ...filters,
+        minPrice: prices.minPrice,
+      }));
+    }
+  };
+
+  const handleMaxPriceChange = () => {
+    if (maxPrice) {
+      if (!minPrice && (Number(maxPrice) < Number(prices.minPrice))) {
+        dispatch(setFilters({
+          ...filters,
+          maxPrice: prices.minPrice,
+        }));
+      } else if (minPrice && (Number(maxPrice) < Number(minPrice))) {
+        dispatch(setFilters({
+          ...filters,
+          maxPrice: minPrice,
+        }));
+      }
+    }
+  };
+
   return (
     <form action="#">
       <h2 className="visually-hidden">Фильтр</h2>
@@ -39,12 +64,10 @@ function CatalogFilterForm({prices}: CatalogFilterFormProps): JSX.Element {
                 placeholder={prices.minPrice}
                 value={minPrice || ''}
                 onChange={(evt) => handleInputChange(evt, PriceFilter.Price)}
-                onBlur={() => {
-                  if (Number(minPrice) < Number(prices.minPrice)) {
-                    dispatch(setFilters({
-                      ...filters,
-                      minPrice: prices.minPrice,
-                    }));
+                onBlur={handleMinPriceChange}
+                onKeyDown={(evt) => {
+                  if(evt.code === 'Enter') {
+                    handleMinPriceChange();
                   }
                 }}
                 id="coast"
@@ -59,12 +82,10 @@ function CatalogFilterForm({prices}: CatalogFilterFormProps): JSX.Element {
                 placeholder={prices.maxPrice}
                 onChange={(evt) => handleInputChange(evt, PriceFilter.PriceUp)}
                 value={maxPrice || ''}
-                onBlur={() => {
-                  if (Number(maxPrice) < Number(minPrice)) {
-                    dispatch(setFilters({
-                      ...filters,
-                      maxPrice: prices.minPrice,
-                    }));
+                onBlur={handleMaxPriceChange}
+                onKeyDown={(evt) => {
+                  if(evt.code === 'Enter') {
+                    handleMaxPriceChange();
                   }
                 }}
                 id="coast"

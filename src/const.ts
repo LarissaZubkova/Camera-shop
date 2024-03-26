@@ -24,6 +24,7 @@ export enum APIRoute {
 export enum AppRoute {
   Catalog = '/',
   Product = '/product/',
+  Bascet = '/busket',
 }
 
 export enum ProductTab {
@@ -38,6 +39,7 @@ export enum DateFormat {
 
 export enum ModalType {
   CatalogAddModal = 'CatalogAddModal',
+  CatalogAddSuccessModal = 'CatalogAddSuccessModal',
   AddReviewModal = 'AddReviewModal',
   ReviewSuccessModal = 'ReviewSuccessModal',
   Default = '',

@@ -29,3 +29,7 @@ export type FilterProcess = {
     filteredProducts: CameraCard[];
     filters: Filters;
 }
+
+export type BascetProcess = {
+  camerasIds: number[];
+}

@@ -6,6 +6,7 @@ import { getModalActiveProduct } from '../../store/product-process/product-proce
 import { setModalType } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils/utils';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { setBascetProduct } from '../../store/bascet-process/bascet-process.slice';
 
 function CatalogAddModal(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -49,6 +50,7 @@ function CatalogAddModal(): JSX.Element {
         modal__btn--fit-width" type="button"
           onClick={() => {
             dispatch(setModalType(ModalType.CatalogAddSuccessModal));
+            dispatch(setBascetProduct(product.id));
           }}
         >
           <svg width={24} height={16} aria-hidden="true">

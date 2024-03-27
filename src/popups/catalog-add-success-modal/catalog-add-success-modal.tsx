@@ -20,6 +20,7 @@ function CatalogAddSuccessModal(): JSX.Element {
           onClick={(evt) => {
             evt.preventDefault();
             dispatch(setModalType(ModalType.Default));
+            navigate(AppRoute.Catalog);
           }}
         >
           Продолжить покупки
@@ -27,12 +28,21 @@ function CatalogAddSuccessModal(): JSX.Element {
         <button
           className="btn btn--purplemodal__btn modal__btn--fit-width"
           onClick={() => {
+            dispatch(setModalType(ModalType.Default));
             navigate(AppRoute.Bascet);
           }}
         >Перейти в корзину
         </button>
       </div>
-      <button className="cross-btn" type="button" aria-label="Закрыть попап">
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Закрыть попап"
+        onClick={(evt) => {
+          evt.preventDefault();
+          dispatch(setModalType(ModalType.Default));
+        }}
+      >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>

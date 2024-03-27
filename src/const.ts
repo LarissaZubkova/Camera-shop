@@ -12,6 +12,7 @@ export enum NameSpace {
     Product = 'PRODUCT',
     Review = 'REVIEW',
     Filter = 'FILTER',
+    Bascet = 'BASCET',
 }
 
 export enum APIRoute {

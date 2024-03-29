@@ -15,9 +15,9 @@ type ProductCardProps = {
 
 function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const bascet = useAppSelector(getBascetProducts);
+  const basket = useAppSelector(getBascetProducts);
   const {previewImg, previewImg2x, name, previewImgWebp, previewImgWebp2x, reviewCount, price, rating, id} = product;
-  const isInBascet = bascet.find((item) => item === id);
+  const isInBascet = Object.keys(basket).find((item) => Number(item) === id);
 
   return (
     <div className={classNames('product-card', {'is-active' : isActive})} data-testid="product-container">

@@ -15,7 +15,7 @@ export function getCurrentProductsList(products: CameraCard[], page: number) {
 export function getMoneyFormat(data: number) {
   let moneyFormat;
 
-  if (data) {
+  if (data || data === 0) {
     moneyFormat = data.toLocaleString('ru-RU', {style: 'currency', currency: 'RUB', minimumFractionDigits: 0});
   }
 

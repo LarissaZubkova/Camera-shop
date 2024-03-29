@@ -31,5 +31,7 @@ export type FilterProcess = {
 }
 
 export type BascetProcess = {
-  camerasIds: number[];
+  basketCameras: {
+    [key: number]: number;
+  };
 }

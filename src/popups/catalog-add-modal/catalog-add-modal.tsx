@@ -19,7 +19,7 @@ function CatalogAddModal(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  const {previewImg, previewImgWebp, previewImg2x, previewImgWebp2x, name, vendorCode, type, category, price} = product;
+  const {previewImg, previewImgWebp, previewImg2x, previewImgWebp2x, name, vendorCode, type, category, price, id} = product;
 
   return (
     <div className="modal__content" ref={modalRef} >
@@ -50,7 +50,7 @@ function CatalogAddModal(): JSX.Element {
         modal__btn--fit-width" type="button"
           onClick={() => {
             dispatch(setModalType(ModalType.CatalogAddSuccessModal));
-            dispatch(setBascetProduct(product.id));
+            dispatch(setBascetProduct({id, count: 1}));
           }}
         >
           <svg width={24} height={16} aria-hidden="true">

@@ -1,20 +1,23 @@
+import { ModalType } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { setBascetProduct } from '../../store/bascet-process/bascet-process.slice';
+import { setBasketProduct } from '../../store/basket-process/basket-process.slice';
+import { setModalType } from '../../store/product-process/product-process.slice';
 import { CameraCard } from '../../types/product';
 import { getMoneyFormat } from '../../utils/utils';
 
 type BasketCardProps = {
   product: CameraCard;
   count: number;
+  setProductForDelite: (product: CameraCard) => void;
 }
 
-function BasketCard({product, count}: BasketCardProps):JSX.Element {
+function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.Element {
   const dispatch = useAppDispatch();
   const {name, previewImgWebp, previewImgWebp2x, previewImg, previewImg2x, vendorCode, type, level, price, id} = product;
 
   const handleCountChange = () => {
     if (!count) {
-      dispatch(setBascetProduct({id, count: 1}));
+      dispatch(setBasketProduct({id, count: 1}));
     }
   };
 
@@ -44,7 +47,7 @@ function BasketCard({product, count}: BasketCardProps):JSX.Element {
             if (count <= 1) {
               return;
             }
-            dispatch(setBascetProduct({id, count: -1}));
+            dispatch(setBasketProduct({id, count: -1}));
           }}
         >
           <svg width={7} height={12} aria-hidden="true">
@@ -56,7 +59,7 @@ function BasketCard({product, count}: BasketCardProps):JSX.Element {
           onChange={(evt) => {
             const value = Number(evt.target.value);
 
-            dispatch(setBascetProduct({id, count: (value - count)}));
+            dispatch(setBasketProduct({id, count: (value - count)}));
           }}
           onBlur={handleCountChange}
           onKeyDown={(evt) => {
@@ -74,7 +77,7 @@ function BasketCard({product, count}: BasketCardProps):JSX.Element {
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
-          onClick={() => dispatch(setBascetProduct({id, count: 1}))}
+          onClick={() => dispatch(setBasketProduct({id, count: 1}))}
         >
           <svg width={7} height={12} aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -82,8 +85,16 @@ function BasketCard({product, count}: BasketCardProps):JSX.Element {
         </button>
       </div>
       <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{getMoneyFormat(count * price)}</div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
-        <svg width="10" height="10" aria-hidden="true">
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Удалить товар"
+        onClick={() => {
+          dispatch(setModalType(ModalType.DeliteFromBasket));
+          setProductForDelite(product);
+        }}
+      >
+        <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>
       </button>

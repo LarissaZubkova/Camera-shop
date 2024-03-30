@@ -165,3 +165,19 @@ export const getAllSearchParams = (params: URLSearchParams) => {
   }
   return allParams;
 };
+
+export function getDscount(coupon: number | null, sum: number) {
+  if (coupon) {
+    return (coupon * sum) / 100;
+  } else {
+    return 0;
+  }
+}
+
+export function getSummary(sum: number, discount: number) {
+  if (discount) {
+    return getMoneyFormat(sum - discount);
+  } else {
+    return getMoneyFormat(sum);
+  }
+}

@@ -10,7 +10,7 @@ function CatalogAddSuccessModal(): JSX.Element {
   return (
     <div className="modal__content">
       <p className="title title--h4">Товар успешно добавлен в корзину</p>
-      <svg className="modal__icon" width="86" height="80" aria-hidden="true">
+      <svg className="modal__icon" width={86} height={80} aria-hidden="true">
         <use xlinkHref="#icon-success"></use>
       </svg>
       <div className="modal__buttons">
@@ -29,7 +29,7 @@ function CatalogAddSuccessModal(): JSX.Element {
           className="btn btn--purplemodal__btn modal__btn--fit-width"
           onClick={() => {
             dispatch(setModalType(ModalType.Default));
-            navigate(AppRoute.Bascet);
+            navigate(AppRoute.Basket);
           }}
         >Перейти в корзину
         </button>

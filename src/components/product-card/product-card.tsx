@@ -6,7 +6,7 @@ import { setModalActiveProduct, setModalType } from '../../store/product-process
 import { getMoneyFormat } from '../../utils/utils';
 import { CameraCard } from '../../types/product';
 import StarsRating from '../stars-rating/stars-rating';
-import { getBascetProducts } from '../../store/bascet-process/bascet-process.selectors';
+import { getBasketProducts } from '../../store/basket-process/basket-process.selectors';
 
 type ProductCardProps = {
   product: CameraCard;
@@ -15,9 +15,9 @@ type ProductCardProps = {
 
 function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const basket = useAppSelector(getBascetProducts);
+  const basket = useAppSelector(getBasketProducts);
   const {previewImg, previewImg2x, name, previewImgWebp, previewImgWebp2x, reviewCount, price, rating, id} = product;
-  const isInBascet = Object.keys(basket).find((item) => Number(item) === id);
+  const isInBasket = Object.keys(basket).find((item) => Number(item) === id);
 
   return (
     <div className={classNames('product-card', {'is-active' : isActive})} data-testid="product-container">
@@ -38,10 +38,10 @@ function ProductCard({product, isActive}: ProductCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        {isInBascet ?
+        {isInBasket ?
           <Link
             className="btn btn--purple-border product-card__btn product-card__btn--in-cart"
-            to={AppRoute.Bascet}
+            to={AppRoute.Basket}
           >
             <svg width="16" height="16" aria-hidden="true">
               <use xlinkHref="#icon-basket"></use>

@@ -30,8 +30,11 @@ export type FilterProcess = {
     filters: Filters;
 }
 
-export type BascetProcess = {
+export type BasketProcess = {
   basketCameras: {
     [key: number]: number;
   };
+  coupon: number | null;
+  couponError: boolean;
+  hasOrderError: boolean;
 }

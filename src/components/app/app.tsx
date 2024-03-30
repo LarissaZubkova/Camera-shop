@@ -13,7 +13,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Catalog} element={<CatalogScreen />} />
         <Route path={`${AppRoute.Product}:id`} element={<ProductScreen />} />
-        <Route path={AppRoute.Bascet} element={<BasketScreen />} />
+        <Route path={AppRoute.Basket} element={<BasketScreen />} />
         <Route path="*" element={<NotFoundScreen />} />
       </Routes>
     </HelmetProvider>

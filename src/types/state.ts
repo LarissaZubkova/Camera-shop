@@ -29,3 +29,12 @@ export type FilterProcess = {
     filteredProducts: CameraCard[];
     filters: Filters;
 }
+
+export type BasketProcess = {
+  basketCameras: {
+    [key: number]: number;
+  };
+  coupon: number | null;
+  couponError: boolean;
+  hasOrderError: boolean;
+}

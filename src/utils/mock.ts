@@ -85,7 +85,13 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
       level: [],
       minPrice: '',
       maxPrice: '',
-    }
+    },
+  },
+  BASKET: {
+    basketCameras: {},
+    coupon: null,
+    couponError: false,
+    hasOrderError: false,
   },
   ...initialState ?? {},
 });

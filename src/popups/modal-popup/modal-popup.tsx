@@ -8,8 +8,16 @@ import { setModalType } from '../../store/product-process/product-process.slice.
 import AddReviewModal from '../add-review-modal/add-review-modal.tsx';
 import CatalogAddModal from '../catalog-add-modal/catalog-add-modal.tsx';
 import ReviewSuccessModal from '../review-success-modal/review-success-modal.tsx';
+import CatalogAddSuccessModal from '../catalog-add-success-modal/catalog-add-success-modal.tsx';
+import DeliteFromBasketModal from '../delite-from-basket-modal/delite-from-basket-modal.tsx';
+import { CameraCard } from '../../types/product.ts';
+import BasketSucessModal from '../basket-success-modal/basket-success-modal.tsx';
 
-function ModalPopup(): JSX.Element {
+type ModalPopupProps = {
+  product?: CameraCard;
+}
+
+function ModalPopup({product}: ModalPopupProps): JSX.Element {
   const modalType = useAppSelector(getModalType);
   const dispatch = useAppDispatch();
 
@@ -42,7 +50,7 @@ function ModalPopup(): JSX.Element {
       tabIndex={-1}
     >
       <div className={classNames('modal is-active',
-        {'modal--narrow' : modalType === ModalType.ReviewSuccessModal})}
+        {'modal--narrow' : modalType === ModalType.ReviewSuccessModal || modalType === ModalType.CatalogAddSuccessModal})}
       data-testid="modal"
       tabIndex={-1}
       >
@@ -51,6 +59,9 @@ function ModalPopup(): JSX.Element {
           {modalType === ModalType.CatalogAddModal && <CatalogAddModal data-testid='catalog-add-modal'/>}
           {modalType === ModalType.AddReviewModal && <AddReviewModal />}
           {modalType === ModalType.ReviewSuccessModal && <ReviewSuccessModal />}
+          {modalType === ModalType.CatalogAddSuccessModal && <CatalogAddSuccessModal />}
+          {modalType === ModalType.DeliteFromBasket && product && <DeliteFromBasketModal product={product} />}
+          {modalType === ModalType.BasketSuccessModal && <BasketSucessModal />}
         </div>
       </div>
     </FocusTrap>

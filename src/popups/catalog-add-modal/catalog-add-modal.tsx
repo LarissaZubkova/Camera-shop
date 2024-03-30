@@ -6,6 +6,7 @@ import { getModalActiveProduct } from '../../store/product-process/product-proce
 import { setModalType } from '../../store/product-process/product-process.slice';
 import { getMoneyFormat } from '../../utils/utils';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { setBasketProduct } from '../../store/basket-process/basket-process.slice';
 
 function CatalogAddModal(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ function CatalogAddModal(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  const {previewImg, previewImgWebp, previewImg2x, previewImgWebp2x, name, vendorCode, type, category, price} = product;
+  const {previewImg, previewImgWebp, previewImg2x, previewImgWebp2x, name, vendorCode, type, category, price, id} = product;
 
   return (
     <div className="modal__content" ref={modalRef} >
@@ -44,7 +45,14 @@ function CatalogAddModal(): JSX.Element {
         </div>
       </div>
       <div className="modal__buttons">
-        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
+        <button
+          className="btn btn--purple modal__btn
+        modal__btn--fit-width" type="button"
+          onClick={() => {
+            dispatch(setModalType(ModalType.CatalogAddSuccessModal));
+            dispatch(setBasketProduct({id, count: 1}));
+          }}
+        >
           <svg width={24} height={16} aria-hidden="true">
             <use xlinkHref="#icon-add-basket"></use>
           </svg>Добавить в корзину

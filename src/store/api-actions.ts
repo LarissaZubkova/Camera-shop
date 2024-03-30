@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CameraCard, Promo } from '../types/product';
+import { CameraCard, CouponData, OrdersData, Promo } from '../types/product';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { APIRoute, ModalType } from '../const';
 import { FormReviewData, Review } from '../types/review';
 import { setModalType } from './product-process/product-process.slice';
+import { clearBasket } from './basket-process/basket-process.slice';
 
 export const fetchProductsAction = createAsyncThunk<CameraCard[], undefined, {
   dispatch: AppDispatch;
@@ -77,3 +78,29 @@ export const fetchSendReviewAction = createAsyncThunk<void, FormReviewData, {
     dispatch(setModalType(ModalType.ReviewSuccessModal));
   }
 );
+
+export const fetchCheckCouponAction = createAsyncThunk<number, CouponData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'basket/coupon',
+  async(coupon, {extra: api}) => {
+    const {data} = await api.post<number>(APIRoute.Coupon, coupon);
+    return data;
+  }
+);
+
+export const fetchOrdersAction = createAsyncThunk<void, OrdersData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'basket/order',
+  async(data, {dispatch, extra: api}) => {
+    await api.post<void>(APIRoute.Orders, data);
+    dispatch(setModalType(ModalType.BasketSuccessModal));
+    dispatch(clearBasket());
+  }
+);
+

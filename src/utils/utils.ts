@@ -15,7 +15,7 @@ export function getCurrentProductsList(products: CameraCard[], page: number) {
 export function getMoneyFormat(data: number) {
   let moneyFormat;
 
-  if (data) {
+  if (data || data === 0) {
     moneyFormat = data.toLocaleString('ru-RU', {style: 'currency', currency: 'RUB', minimumFractionDigits: 0});
   }
 
@@ -165,3 +165,19 @@ export const getAllSearchParams = (params: URLSearchParams) => {
   }
   return allParams;
 };
+
+export function getDscount(coupon: number | null, sum: number) {
+  if (coupon) {
+    return (coupon * sum) / 100;
+  } else {
+    return 0;
+  }
+}
+
+export function getSummary(sum: number, discount: number) {
+  if (discount) {
+    return getMoneyFormat(sum - discount);
+  } else {
+    return getMoneyFormat(sum);
+  }
+}

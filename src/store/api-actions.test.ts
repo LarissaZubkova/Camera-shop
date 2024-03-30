@@ -6,8 +6,9 @@ import { APIRoute } from '../const';
 import { createAPI } from '../services/api';
 import { State } from '../types/state';
 import { AppThunkDispatch, extractActionsTypes, makeFakeProduct, makeFakeProducts, makeFakePromo, makeFakeReview, makeFakeReviews } from '../utils/mock';
-import { fetchProductCardAction, fetchProductsAction, fetchPromoAction, fetchReviewsAction, fetchSendReviewAction, fetchSimilarProductsAction } from './api-actions';
+import { fetchCheckCouponAction, fetchOrdersAction, fetchProductCardAction, fetchProductsAction, fetchPromoAction, fetchReviewsAction, fetchSendReviewAction, fetchSimilarProductsAction } from './api-actions';
 import { setModalType } from './product-process/product-process.slice';
+import { clearBasket } from './basket-process/basket-process.slice';
 
 describe('Async axtions', () => {
   const axios = createAPI();
@@ -212,6 +213,71 @@ describe('Async axtions', () => {
       expect(actions).toEqual([
         fetchSendReviewAction.pending.type,
         fetchSendReviewAction.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchCheckCouponAction', () => {
+    it('should dispatch "fetchCheckCouponAction.pending"  and "fetchCheckCouponAction.fulfilled" when server response 200', async () => {
+      const couponData = {coupon: 'coupon'};
+      mockAxiosAdapter.onPost(APIRoute.Coupon).reply(200);
+
+      await store.dispatch(fetchCheckCouponAction(couponData));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        fetchCheckCouponAction.pending.type,
+        fetchCheckCouponAction.fulfilled.type,
+      ]);
+    });
+
+    it('should dispatch "fetchCheckCouponAction.pending" and "fetchCheckCouponAction.rejected" when server response 400', async () => {
+      const couponData = {coupon: 'coupon'};
+      mockAxiosAdapter.onPost(APIRoute.Coupon).reply(400);
+
+      await store.dispatch(fetchCheckCouponAction(couponData));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        fetchCheckCouponAction.pending.type,
+        fetchCheckCouponAction.rejected.type,
+      ]);
+    });
+  });
+
+  describe('fetchOrdersAction', () => {
+    it('should dispatch "fetchOrdersAction.pending"  and "fetchOrdersAction.fulfilled" when server response 200', async () => {
+      const orderData = {
+        camerasIds: [1],
+        coupon: 'camera-333',
+      };
+      mockAxiosAdapter.onPost(APIRoute.Orders).reply(200);
+
+      await store.dispatch(fetchOrdersAction(orderData));
+
+      const emittedActions = store.getActions();
+      const extractedActionsTypes = extractActionsTypes(emittedActions);
+
+      expect(extractedActionsTypes).toEqual([
+        fetchOrdersAction.pending.type,
+        setModalType.type,
+        clearBasket.type,
+        fetchOrdersAction.fulfilled.type,
+      ]);
+    });
+
+    it('should dispatch "fetchOrdersAction.pending" and "fetchOrdersAction.rejected" when server response 400', async () => {
+      const orderData = {camerasIds: [1], coupon: 'coupon'};
+      mockAxiosAdapter.onPost(APIRoute.Orders).reply(400);
+
+      await store.dispatch(fetchOrdersAction(orderData));
+      const actions = extractActionsTypes(store.getActions());
+
+      expect(actions).toEqual([
+        fetchOrdersAction.pending.type,
+        fetchOrdersAction.rejected.type,
       ]);
     });
   });

@@ -1,3 +1,5 @@
+import { CouponType } from './types/product';
+
 export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_PRODUCTS_COUNT = 9;
@@ -12,6 +14,7 @@ export enum NameSpace {
     Product = 'PRODUCT',
     Review = 'REVIEW',
     Filter = 'FILTER',
+    Basket = 'BASKET',
 }
 
 export enum APIRoute {
@@ -19,11 +22,14 @@ export enum APIRoute {
     Promo = 'promo',
     Reviews = 'cameras/id/reviews',
     Review = 'reviews',
+    Coupon = 'coupons',
+    Orders = 'orders',
 }
 
 export enum AppRoute {
   Catalog = '/',
   Product = '/product/',
+  Basket = '/busket',
 }
 
 export enum ProductTab {
@@ -38,8 +44,11 @@ export enum DateFormat {
 
 export enum ModalType {
   CatalogAddModal = 'CatalogAddModal',
+  CatalogAddSuccessModal = 'CatalogAddSuccessModal',
   AddReviewModal = 'AddReviewModal',
   ReviewSuccessModal = 'ReviewSuccessModal',
+  DeliteFromBasket = 'DeliteFromBasket',
+  BasketSuccessModal = 'BasketSuccessModal',
   Default = '',
 }
 
@@ -111,4 +120,10 @@ export const PRODUCT_FILTER_NAME = {
   zero: 'Нулевой',
   ['non-professional']: 'Любительский',
   professional: 'Профессиональный',
+};
+
+export const COUPONS: CouponType = {
+  15: 'camera-333',
+  25: 'camera-444',
+  35: 'camera-555',
 };

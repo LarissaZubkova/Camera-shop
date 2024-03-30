@@ -21,7 +21,7 @@ describe('Component: Coupon Form', () => {
   });
 
   it('should render correctly', () => {
-    const expectedText = 'Корзина';
+    const expectedText = 'Если у вас есть промокод на скидку, примените его в этом поле';
     const {withStoreComponent} = withStore(<BasketScreen />, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 

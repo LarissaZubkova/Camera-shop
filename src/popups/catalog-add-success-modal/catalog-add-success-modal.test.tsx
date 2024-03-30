@@ -1,15 +1,17 @@
 import { render, screen } from '@testing-library/react';
-import { withHistory } from '../../utils/mock-components';
+import { withHistory, withStore } from '../../utils/mock-components';
 import CatalogAddSuccessModal from './catalog-add-success-modal';
+import { makeFakeStore } from '../../utils/mock';
 
 describe('Component: Catalog Add Success Modal', () => {
+  const fakeStore = makeFakeStore();
   it('should render correctly', () => {
-    const expectedTestId = 'Товар успешно добавлен в корзину';
-
-    const preparedComponent = withHistory(<CatalogAddSuccessModal />);
+    const expectedText = 'Товар успешно добавлен в корзину';
+    const {withStoreComponent} = withStore(<CatalogAddSuccessModal />, fakeStore);
+    const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
 
-    expect(screen.getByTestId(expectedTestId)).toBeInTheDocument();
+    expect(screen.getByText(expectedText)).toBeInTheDocument();
   });
 });

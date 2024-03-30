@@ -29,6 +29,6 @@ describe('Component: Basket Card', () => {
     render(preparedComponent);
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
-    expect(screen.getAllByRole('button')).toBe(3);
+    expect(screen.getAllByRole('button').length).toBe(3);
   });
 });

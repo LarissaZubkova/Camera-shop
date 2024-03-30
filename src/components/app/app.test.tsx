@@ -60,4 +60,15 @@ describe('Application Routing', () => {
     expect(screen.getByText('На главную')).toBeInTheDocument();
   });
 
+  it('should render "BasketScreen" when user navigate to /basket', () => {
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const {withStoreComponent} = withStore(withHistoryComponent, makeFakeStore());
+
+    mockHistory.push(AppRoute.Basket);
+
+    render(withStoreComponent);
+
+    expect(screen.getByText('Если у вас есть промокод на скидку, примените его в этом поле')).toBeInTheDocument();
+  });
+
 });

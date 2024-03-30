@@ -17,7 +17,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
 
   const handleCountChange = () => {
     if (!count) {
-      dispatch(setBasketProduct({id, count: 1}));
+      dispatch(setBasketProduct({id, count: 1, isDelete: false}));
     }
   };
 
@@ -47,7 +47,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
             if (count <= 1) {
               return;
             }
-            dispatch(setBasketProduct({id, count: -1}));
+            dispatch(setBasketProduct({id, count: -1, isDelete: false}));
           }}
         >
           <svg width={7} height={12} aria-hidden="true">
@@ -59,7 +59,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
           onChange={(evt) => {
             const value = Number(evt.target.value);
 
-            dispatch(setBasketProduct({id, count: (value - count)}));
+            dispatch(setBasketProduct({id, count: (value - count), isDelete: false}));
           }}
           onBlur={handleCountChange}
           onKeyDown={(evt) => {
@@ -77,7 +77,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
-          onClick={() => dispatch(setBasketProduct({id, count: 1}))}
+          onClick={() => dispatch(setBasketProduct({id, count: 1, isDelete: false}))}
         >
           <svg width={7} height={12} aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>

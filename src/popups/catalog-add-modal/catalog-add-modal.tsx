@@ -50,7 +50,7 @@ function CatalogAddModal(): JSX.Element {
         modal__btn--fit-width" type="button"
           onClick={() => {
             dispatch(setModalType(ModalType.CatalogAddSuccessModal));
-            dispatch(setBasketProduct({id, count: 1}));
+            dispatch(setBasketProduct({id, count: 1, isDelete: false}));
           }}
         >
           <svg width={24} height={16} aria-hidden="true">

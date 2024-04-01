@@ -90,6 +90,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   BASKET: {
     basketCameras: {},
     coupon: null,
+    couponText: '',
     couponError: false,
     hasOrderError: false,
   },

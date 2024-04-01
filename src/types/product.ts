@@ -28,10 +28,6 @@ export type CouponData = {
   coupon: string;
 }
 
-export type CouponType = {
-  [key: number]: string;
-}
-
 export type OrdersData = {
   camerasIds: number[];
   coupon: string;

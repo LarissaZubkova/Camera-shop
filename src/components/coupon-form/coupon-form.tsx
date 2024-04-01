@@ -1,15 +1,20 @@
-import { COUPONS } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCheckCouponAction } from '../../store/api-actions';
-import { getCoupon, getCouponError } from '../../store/basket-process/basket-process.selectors';
+import { getCoupon, getCouponError, getCouponText } from '../../store/basket-process/basket-process.selectors';
 import classNames from 'classnames';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { setCouponText } from '../../store/basket-process/basket-process.slice';
 
 function CouponForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const coupon = useAppSelector(getCoupon);
   const couponError = useAppSelector(getCouponError);
-  const [promoInput, setPromoInput] = useState<string>(coupon ? COUPONS[coupon] : '');
+  const couponText = useAppSelector(getCouponText);
+  const [promoInput, setPromoInput] = useState<string>(couponText);
+
+  useEffect(() => {
+    dispatch(setCouponText(promoInput));
+  }, [dispatch, promoInput]);
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value;

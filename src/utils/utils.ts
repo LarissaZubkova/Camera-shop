@@ -70,7 +70,7 @@ export function validateReview(value: string) {
 
 export function getFilteredProducts(cameras: CameraCard[], value: string) {
   return cameras.filter((product) => {
-    if (value.length >= 3) {
+    if (value.length >= COUNT_STEP) {
       return product.name.toLowerCase().includes(value.toLocaleLowerCase());
     }
   });
@@ -166,7 +166,7 @@ export const getAllSearchParams = (params: URLSearchParams) => {
   return allParams;
 };
 
-export function getDscount(coupon: number | null, sum: number) {
+export function getDiscount(coupon: number | null, sum: number) {
   if (coupon) {
     return (coupon * sum) / 100;
   } else {

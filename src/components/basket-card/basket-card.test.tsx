@@ -5,7 +5,7 @@ import { ModalType } from '../../const';
 import { makeFakeStore, makeFakeProduct } from '../../utils/mock';
 
 describe('Component: Basket Card', () => {
-  const setProductForDelite = vi.fn();
+  const setProductForDelete = vi.fn();
   const fakeStore = makeFakeStore({
     PRODUCT: {
       products: [],
@@ -23,7 +23,7 @@ describe('Component: Basket Card', () => {
 
   it('should render correctly', () => {
     const expectedText = 'Артикул:';
-    const {withStoreComponent} = withStore(<BasketCard product={makeFakeProduct()} count={5} setProductForDelite={setProductForDelite} />, fakeStore);
+    const {withStoreComponent} = withStore(<BasketCard product={makeFakeProduct()} count={5} setProductForDelete={setProductForDelete} />, fakeStore);
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);

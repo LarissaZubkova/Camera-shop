@@ -8,6 +8,7 @@ const initialState: BasketProcess = {
     [key: number]: number;
   } || {},
   coupon: null,
+  couponText: '',
   couponError: false,
   hasOrderError: false,
 };
@@ -16,8 +17,8 @@ export const basketProcess = createSlice({
   name: NameSpace.Basket,
   initialState,
   reducers: {
-    setBasketProduct: (state, action: PayloadAction<{id: number; count: number; isDelete: boolean}>) => {
-      const {id, count, isDelete} = action.payload;
+    setBasketProduct: (state, action: PayloadAction<{id: number; count: number; isDelete?: boolean}>) => {
+      const {id, count, isDelete = false} = action.payload;
       if ((state.basketCameras[id] + count) > 99) {
         state.basketCameras[id] = 99;
         return;
@@ -36,7 +37,10 @@ export const basketProcess = createSlice({
       state.basketCameras = {};
       state.coupon = null;
       localStorage.setItem('basket', JSON.stringify(state.basketCameras));
-    }
+    },
+    setCouponText: (state, action: PayloadAction<string>) => {
+      state.couponText = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -56,4 +60,4 @@ export const basketProcess = createSlice({
   }
 });
 
-export const { setBasketProduct, clearBasket } = basketProcess.actions;
+export const { setBasketProduct, clearBasket, setCouponText } = basketProcess.actions;

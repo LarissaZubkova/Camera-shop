@@ -35,6 +35,7 @@ export type BasketProcess = {
     [key: number]: number;
   };
   coupon: number | null;
+  couponText: string;
   couponError: boolean;
   hasOrderError: boolean;
 }

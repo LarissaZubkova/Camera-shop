@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { CategoryFilterType, Filter, FilterType, PriceFilter } from '../const';
+import { CategoryFilterType, Filter, FilterType, MAX_PRICE_LENGTH, MIN_PRICE_LENGTH, PriceFilter } from '../const';
 import { useAppDispatch, useAppSelector } from '.';
 import { getFilters } from '../store/filter-process/filter-process.selectors';
 import { getAllSearchParams } from '../utils/utils';
@@ -63,7 +63,7 @@ const useCatalogFilter = (prices: Prices) => {
     const value = evt.target.value;
 
     if (filter === PriceFilter.Price) {
-      if (value.length >= 4 && maxPrice && Number(value) > Number(maxPrice)) {
+      if (value.length >= MIN_PRICE_LENGTH && maxPrice && Number(value) > Number(maxPrice)) {
         dispatch(setFilters({
           ...filters,
           minPrice: maxPrice,
@@ -75,7 +75,7 @@ const useCatalogFilter = (prices: Prices) => {
         }));
       }
     } else {
-      if (value.length >= 6 && Number(value) > Number(prices.maxPrice)) {
+      if (value.length >= MAX_PRICE_LENGTH && Number(value) > Number(prices.maxPrice)) {
         dispatch(setFilters({
           ...filters,
           maxPrice: prices.maxPrice,

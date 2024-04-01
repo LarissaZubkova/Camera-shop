@@ -7,12 +7,12 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import ModalPopup from '../../popups/modal-popup/modal-popup';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getBasketProducts, getCoupon, getOrderErrorStatus } from '../../store/basket-process/basket-process.selectors';
+import { getBasketProducts, getCoupon, getCouponText, getOrderErrorStatus } from '../../store/basket-process/basket-process.selectors';
 import { getModalType, getProducts } from '../../store/product-process/product-process.selectors';
 import { CameraCard } from '../../types/product';
-import { getDscount, getMoneyFormat, getSummary } from '../../utils/utils';
+import { getDiscount, getMoneyFormat, getSummary } from '../../utils/utils';
 import { fetchOrdersAction, fetchProductsAction } from '../../store/api-actions';
-import { COUPONS, ModalType } from '../../const';
+import { ModalType } from '../../const';
 
 function BasketScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,9 +30,9 @@ function BasketScreen(): JSX.Element {
     return total + (quantity * product.price);
   }, 0);
   const coupon = useAppSelector(getCoupon);
-  const couponData = coupon ? COUPONS[coupon] : '';
-  const discount = getDscount(coupon, totalPrice);
-  const [productForDelite, setProductForDelite] = useState<CameraCard | null>(null);
+  const couponData = useAppSelector(getCouponText);
+  const discount = getDiscount(coupon, totalPrice);
+  const [productForDelete, setProductForDelete] = useState<CameraCard | null>(null);
   const modalType = useAppSelector(getModalType);
 
   return (
@@ -53,7 +53,7 @@ function BasketScreen(): JSX.Element {
               <h1 className="title title--h2">Корзина</h1>
               {!currentProducts.length && <p>Корзина пуста</p>}
               <ul className="basket__list">
-                {currentProducts.map((product) => <BasketCard key={product.id} product={product} count={basket[product.id]} setProductForDelite={setProductForDelite} />)}
+                {currentProducts.map((product) => <BasketCard key={product.id} product={product} count={basket[product.id]} setProductForDelete={setProductForDelete} />)}
               </ul>
               <div className="basket__summary">
                 <div className="basket__promo">
@@ -87,7 +87,7 @@ function BasketScreen(): JSX.Element {
             </div>
           </section>
         </div>
-        {modalType === ModalType.DeliteFromBasket && productForDelite && <ModalPopup product={productForDelite} />}
+        {modalType === ModalType.DeleteFromBasket && productForDelete && <ModalPopup product={productForDelete} />}
         {modalType === ModalType.BasketSuccessModal && <ModalPopup />}
       </main>
       <Footer />

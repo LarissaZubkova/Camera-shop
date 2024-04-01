@@ -6,6 +6,7 @@ describe('basket process slice', () => {
     const expectedState = {
       basketCameras: {},
       coupon: null,
+      couponText: '',
       couponError: false,
       hasOrderError: false,
     };
@@ -20,6 +21,7 @@ describe('basket process slice', () => {
     const expectedState = {
       basketCameras: {},
       coupon: null,
+      couponText: '',
       couponError: false,
       hasOrderError: false,
     };

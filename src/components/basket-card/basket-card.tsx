@@ -8,16 +8,16 @@ import { getMoneyFormat } from '../../utils/utils';
 type BasketCardProps = {
   product: CameraCard;
   count: number;
-  setProductForDelite: (product: CameraCard) => void;
+  setProductForDelete: (product: CameraCard) => void;
 }
 
-function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.Element {
+function BasketCard({product, count, setProductForDelete}: BasketCardProps):JSX.Element {
   const dispatch = useAppDispatch();
   const {name, previewImgWebp, previewImgWebp2x, previewImg, previewImg2x, vendorCode, type, level, price, id} = product;
 
   const handleCountChange = () => {
     if (!count) {
-      dispatch(setBasketProduct({id, count: 1, isDelete: false}));
+      dispatch(setBasketProduct({id, count: 1}));
     }
   };
 
@@ -47,7 +47,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
             if (count <= 1) {
               return;
             }
-            dispatch(setBasketProduct({id, count: -1, isDelete: false}));
+            dispatch(setBasketProduct({id, count: -1}));
           }}
         >
           <svg width={7} height={12} aria-hidden="true">
@@ -59,7 +59,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
           onChange={(evt) => {
             const value = Number(evt.target.value);
 
-            dispatch(setBasketProduct({id, count: (value - count), isDelete: false}));
+            dispatch(setBasketProduct({id, count: (value - count)}));
           }}
           onBlur={handleCountChange}
           onKeyDown={(evt) => {
@@ -77,7 +77,7 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
-          onClick={() => dispatch(setBasketProduct({id, count: 1, isDelete: false}))}
+          onClick={() => dispatch(setBasketProduct({id, count: 1}))}
         >
           <svg width={7} height={12} aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -90,8 +90,8 @@ function BasketCard({product, count, setProductForDelite}: BasketCardProps):JSX.
         type="button"
         aria-label="Удалить товар"
         onClick={() => {
-          dispatch(setModalType(ModalType.DeliteFromBasket));
-          setProductForDelite(product);
+          dispatch(setModalType(ModalType.DeleteFromBasket));
+          setProductForDelete(product);
         }}
       >
         <svg width={10} height={10} aria-hidden="true">

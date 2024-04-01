@@ -1,11 +1,12 @@
 import { NameSpace} from '../../const';
-import { getBasketProducts, getCoupon, getCouponError, getOrderErrorStatus } from './basket-process.selectors';
+import { getBasketProducts, getCoupon, getCouponError, getCouponText, getOrderErrorStatus } from './basket-process.selectors';
 
 describe('basket-process selectors', () => {
   const state = {
     [NameSpace.Basket]: {
       basketCameras: {1: 1},
       coupon: 1,
+      couponText: 'camera-333',
       couponError: true,
       hasOrderError: false,
     }
@@ -33,5 +34,11 @@ describe('basket-process selectors', () => {
     const {hasOrderError} = state[NameSpace.Basket];
     const result = getOrderErrorStatus(state);
     expect(result).toEqual(hasOrderError);
+  });
+
+  it('should return couponText from state', () => {
+    const {couponText} = state[NameSpace.Basket];
+    const result = getCouponText(state);
+    expect(result).toEqual(couponText);
   });
 });

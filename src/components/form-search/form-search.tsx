@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import FocusTrap from 'focus-trap-react';
-import { KeyboardEvent, useEffect, useState } from 'react';
+import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
@@ -14,10 +14,27 @@ function FormSearch(): JSX.Element {
   const [searchedProducts, setSearchedProducts] = useState<CameraCard[] | null>(null);
   const products = useAppSelector(getProducts);
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setSearchedProducts(getFilteredProducts(products, searchValue));
   },[products, searchValue]);
+
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  useEffect(() => {
+    if (searchedProducts?.length){
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [searchedProducts]);
 
   return (
     <FocusTrap
@@ -31,6 +48,7 @@ function FormSearch(): JSX.Element {
               <use xlinkHref="#icon-lens"></use>
             </svg>
             <input
+              ref={inputRef}
               className="form-search__input"
               type="text"
               autoComplete="off"
@@ -41,6 +59,7 @@ function FormSearch(): JSX.Element {
           </label>
           <ul
             className="form-search__select-list"
+            onWheel={(evt) => evt.preventDefault()}
             onKeyDown={(evt: KeyboardEvent<HTMLUListElement>) => {
               const target = evt.target as HTMLLIElement;
               if (evt.key === 'ArrowDown' && target.nextElementSibling) {
@@ -81,6 +100,7 @@ function FormSearch(): JSX.Element {
             if (searchValue) {
               setSearchValue('');
             }
+            focusInput();
           }}
         >
           <svg width={10} height={10} aria-hidden="true">
